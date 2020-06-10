@@ -1,2 +1,5 @@
-# Config Repo
-A repository to hold configuration files I need across multiple systems
+# JFitzy's Dotfiles and config files
+
+Mainly storing dotfiles for my Pop!_OS installation.  
+Also contains some Window's config files, fonts, icons,  
+and various other files I need across systems.

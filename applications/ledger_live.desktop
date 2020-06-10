@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Ledger Live
+GenericName=Ledger Live
+Exec=/opt/ledger/ledger-live-desktop.AppImage
+Icon=
+Terminal=False

@@ -1,0 +1,13 @@
+# Aliases moved here
+alias l="ls -alh"
+alias ll="ls -al"
+alias ls="ls --color=auto"
+#alias speak="fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1) | lolcat"
+alias install="sudo apt install -y"
+alias update="sudo apt update && sudo apt list --upgradable"
+alias upgrade="sudo apt upgrade -y"
+alias full-upgrade="sudo apt full-upgrade -y"
+alias purge="sudo apt purge --auto-remove -y"
+alias apt-cleanup="sudo apt autoremove -y and sudo apt autoclean -y"
+alias ppath="echo $PATH"
+alias wget="wget --hsts-file ~/.cache/wget_history"

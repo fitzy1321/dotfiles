@@ -3,3 +3,7 @@
 # Please adapt and uncomment the following lines:
 	name = Joe Fitzgibbons
 	email = jfitzy1321@protonmail.com
+[diff]
+	colorMoved = zebra
+[fetch]
+	prune = true

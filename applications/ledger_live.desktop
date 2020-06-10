@@ -2,6 +2,6 @@
 Type=Application
 Name=Ledger Live
 GenericName=Ledger Live
-Exec=/opt/ledger/ledger-live-desktop.AppImage
+Exec=/opt/ledger/ledger-live-desktop.AppImage --no-sandbox
 Icon=
 Terminal=False

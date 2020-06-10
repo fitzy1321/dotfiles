@@ -40,10 +40,10 @@ if status --is-interactive
     abbr --add gl 'git pull'
     abbr --add gp 'git push'
     abbr --add gpsu 'git push --set-upstream origin (git branch --show-current)'
+    abbr --add gpsum 'git push --set-upstream origin master'
     abbr --add gsl 'git status --long'
     abbr --add gss 'git status -s'
     abbr --add gst 'git status'
-    abbr --add gsum 'git push --set-upstream origin master'
     
     abbr --add l 'ls -lah'
     abbr --add ppath 'echo $PATH'
@@ -55,3 +55,4 @@ if status --is-interactive
     #####  Start Starship for Fish  #####
     starship init fish | source
 end
+

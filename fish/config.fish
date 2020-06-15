@@ -4,19 +4,9 @@
 set fish_greeting ""
 
 if status --is-interactive
-    
     #####  Check Dotfiles var exists  #####
     set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME "$HOME/.config"
     set -q DOTFILES; or set -x DOTFILES "$XDG_CONFIG_HOME/dotfiles"
-
-    #####  Simple Functions  #####
-    function goto_dotfiles 
-        if not test -d $DOTFILES
-    	    git clone https://github.com/JFitzy1321/dotfiles.git $DOTFILES
-        end
-    
-        cd $DOTFILES
-    end
 
     ##### Call .profile  #####
     source ~/.profile;clear;
@@ -25,7 +15,6 @@ if status --is-interactive
     abbr --add apt-clean 'sudo apt autoremove && sudo apt autoclean'
     abbr --add apt-install 'sudo apt install -y'
     abbr --add dupgrade 'deno upgrade'
-    abbr --add dotfiles 'goto_dotfiles'
     abbr --add finstall 'sudo flatpak install flahub'
     abbr --add fupdate 'flatpak update'
 

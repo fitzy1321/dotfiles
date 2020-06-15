@@ -21,14 +21,7 @@ fi
 export EDITOR
 
 # Set Browser
-if [ "$(brave-browser --version 2> /dev/null)" ]; then
-    BROWSER="brave-browser"
-elif [ "$(google-chrome --version 2> /dev/null)" ]; then
-    BROWSER="google-chrome"
-else
-    BROWSER="firefox"
-fi
-export BROWSER
+export BROWSER="firefox"
 
 # Setting XDG variables for my user
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"

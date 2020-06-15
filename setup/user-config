@@ -93,6 +93,14 @@ fi
 printsl "Creating symlink for config.fish"
 ln -s -f "$DOTFILES/fish/config.fish" "$FISH_PATH/config.fish"
 
+printsl "Creating symlinks for fish functions"
+[ ! -d "$FISH_PATH/functions" ] && mkdir "$FISH_PATH/functions"
+for file in "$DOTFILES/fish/functions"/*
+do
+    ln -sf "$file" "$FISH_PATH/functions"/.
+done
+
+
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
 

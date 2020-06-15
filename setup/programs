@@ -28,7 +28,12 @@ printsl "Reseting font cache"
 sudo fc-cache -f -v
 
 printsl "Installing flatpaks"
-flatpak install flathub com.getpostman.Postman com.axosoft.GitKraken com.spotify.Client com.slack.Slack
+flatpak install flathub \
+	com.getpostman.Postman \
+	com.axosoft.GitKraken \
+	com.spotify.Client \
+	com.slack.Slack \
+	org.gnome.Lollypop
 
 #####  Remove unneed apps  ######
 printsl "Apt cleanup"

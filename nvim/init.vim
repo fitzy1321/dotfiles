@@ -1,4 +1,4 @@
-" Jfitzy's NVIM config file
+" Jfitzy's NeoVim config file
 
 " Don't care about backwards compatibility
 set nocompatible

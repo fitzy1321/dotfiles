@@ -17,12 +17,13 @@ if status --is-interactive
     abbr --add dupgrade 'deno upgrade'
     abbr --add finstall 'sudo flatpak install flahub'
     abbr --add fupdate 'flatpak update'
-
+    
+    abbr --add ga 'git add'
     abbr --add gaa 'git add -A'
     abbr --add gb 'git branch'
     abbr --add gba 'git branch -a'
     abbr --add gbl 'git branch -l'
-    abbr --add gcam 'git commit -a -m'
+    abbr --add gcam 'git commit -a -m "'
     abbr --add gcb 'git checkout -b'
     abbr --add gcm 'git commit -m'
     abbr --add gd 'git diff'

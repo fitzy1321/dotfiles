@@ -4,16 +4,14 @@
 set fish_greeting ""
 
 if status --is-interactive
+    ##### Call .profile  #####
+    source ~/.profile;clear;
+
     #####  Check Dotfiles var exists  #####
     set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME "$HOME/.config"
     set -q DOTFILES; or set -x DOTFILES "$XDG_CONFIG_HOME/dotfiles"
 
-    ##### Call .profile  #####
-    source ~/.profile;clear;
-
     #####  Set Abbreviations  ######
-    abbr --add apt-clean 'sudo apt autoremove && sudo apt autoclean'
-    abbr --add apt-install 'sudo apt install -y'
     abbr --add dupgrade 'deno upgrade'
     abbr --add finstall 'sudo flatpak install flahub'
     abbr --add fupdate 'flatpak update'
@@ -23,7 +21,7 @@ if status --is-interactive
     abbr --add gb 'git branch'
     abbr --add gba 'git branch -a'
     abbr --add gbl 'git branch -l'
-    abbr --add gcam 'git commit -a -m "'
+    abbr --add gcam 'git commit -a -m'
     abbr --add gcb 'git checkout -b'
     abbr --add gcm 'git commit -m'
     abbr --add gd 'git diff'

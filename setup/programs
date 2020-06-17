@@ -16,12 +16,12 @@ sudo apt update && sudo apt full-upgrade -y
 
 printsl "Installing apt packages"
 sudo apt install -y \
-    alacritty apt-transport-https cheese cmake code fish \
-    gdb gnome-music gnome-tweaks google-chrome-stable gparted \
-    htop make neovim python3.8 python3-pip shellcheck \
-    shotwell sqlite3 sqlitebrowser tensorman tree \
-    ttf-mscorefonts-installer ubuntu-restricted-extras \
-    virtualbox virtualbox-dkms
+    alacritty apt-transport-https build-essential cheese \
+    cmake code fish gdb gnome-music gnome-tweaks \
+    google-chrome-stable gparted htop make neovim \
+    python3.8 python3-pip shellcheck shotwell sqlite3 \
+    sqlitebrowser tensorman tree ttf-mscorefonts-installer \
+    ubuntu-restricted-extras virtualbox virtualbox-dkms
 
 #####  Reset Font Cache  ######
 printsl "Reseting font cache"

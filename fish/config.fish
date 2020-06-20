@@ -36,6 +36,7 @@ if status --is-interactive
     abbr --add l 'ls -lah'
     abbr --add ppath 'echo $PATH'
     abbr --add purge 'sudo apt purge --auto-remove -y'
+    abbr --add src-nvim 'source ~/.config/nvim/init.vim'
     abbr --add rupdate 'rustup update'
     abbr --add update 'sudo apt update && apt list --upgradable'
     abbr --add upgrade 'sudo apt upgrade -y'

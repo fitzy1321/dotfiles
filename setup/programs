@@ -43,10 +43,11 @@ sudo apt autoremove
 
 #####  Python setup  #####
 printsl "Setting up pip and pipenv"
-# update pip first
 python3.8 -m pip install -U pip
-# install pipenv
 python3.8 -m pip install -U pipenv
+
+printsl "Installing Jupyter Lab"
+python3.8 -m pip install -U jupyterlab
 
 #####  Install Dotnet Core 3.1  #####
 printsl "Installing Dotnet Core 3.1"

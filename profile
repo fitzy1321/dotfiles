@@ -11,22 +11,22 @@
 # Set Editor
 # Check if nvim is installed by calling --version
 # 2> /dev/null will redirect stderr to the null device
-if [ "$(nvim --version 2> /dev/null)" ]; then
-    EDITOR="nvim"
-elif [ "$(vim --version 2> /dev/null)" ]; then
-    EDITOR="vim"
-else
-    EDITOR="nano"
-fi
-export EDITOR
+# if [ "$(nvim --version 2> /dev/null)" ]; then
+#    EDITOR="nvim"
+# elif [ "$(vim --version 2> /dev/null)" ]; then
+#    EDITOR="vim"
+# else
+#    EDITOR="nano"
+# fi
+export EDITOR="nvim"
 
 # Set Browser
 export BROWSER="firefox"
 
 # Setting XDG variables for my user
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
 
 # Aliases used across shells
 # not include 'l' alias, because i want to use fish abbr for it
@@ -35,10 +35,10 @@ alias wget="wget --hsts-file $XDG_CACHE_HOME/wget_history"
 alias vim='neovim'
 
 # Setup zsh to point to .config
-if [ "$(zsh --version 2> /dev/null)" ]; then
-    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-    [ ! -d "$ZDOTDIR" ] && mkdir "$ZDOTDIR"
-fi
+# if [ "$(zsh --version 2> /dev/null)" ]; then
+#    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+#    [ ! -d "$ZDOTDIR" ] && mkdir "$ZDOTDIR"
+# fi
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then

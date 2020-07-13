@@ -63,6 +63,10 @@ printsl "Installing Node JS v12.x"
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install -y nodejs
 
+##### Install "Diff So Fancy" #####
+printsl "Installing 'diff-so-fancy' via npm"
+sudo npm install -g diff-so-fancy
+
 #####  Install deno  #####
 printsl "Installing Deno via curl"
 curl -fsSL https://deno.land/x/install/install.sh | sh

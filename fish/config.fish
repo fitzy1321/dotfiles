@@ -34,6 +34,10 @@ if status --is-interactive
     abbr --add gst 'git status'
     
     abbr --add l 'ls -lah'
+    abbr --add mongo-restart 'sudo systemctl restart mongodb.service'
+    abbr --add mongo-start 'sudo systemctl start mongodb.service'
+    abbr --add mongo-status 'systemctl status mongodb.service'
+    abbr --add mongo-stop 'sudo systemctl stop mongodb.service'
     abbr --add ppath 'echo $PATH'
     abbr --add purge 'sudo apt purge --auto-remove -y'
     abbr --add rupdate 'rustup update'

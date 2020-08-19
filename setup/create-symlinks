@@ -79,9 +79,9 @@ cp /etc/bash.bashrc "$TMP/etc.bash.bashrc"
 printsl "Appending /etc/bash.bashrc"
 sudo cp -f "$DOTFILES/bash/etc.bash.bashrc" /etc/bash.bashrc
 
-##### Misc #####
-printsl "Symlink for tmux"
-ln -s "$DOTFILES/tmux.conf" "$HOME/.tmux.conf"
+# ##### Misc #####
+# printsl "Symlink for tmux"
+# ln -s "$DOTFILES/tmux.conf" "$HOME/.tmux.conf"
 
 ##### Fish and Starship Setup  #####
 FISH_PATH="$XDG_CONFIG_HOME/fish"

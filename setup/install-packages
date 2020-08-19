@@ -32,14 +32,13 @@ flatpak install flathub \
 	com.getpostman.Postman \
 	com.axosoft.GitKraken \
 	com.spotify.Client \
-	com.slack.Slack \
-	org.gnome.Lollypop
+	com.slack.Slack
 
 #####  Remove unneed apps  ######
 printsl "Apt cleanup"
 sudo apt purge --auto-remove -y geary
 # clean up
-sudo apt autoremove 
+sudo apt autoremove
 
 #####  Python setup  #####
 printsl "Setting up pip and pipenv"

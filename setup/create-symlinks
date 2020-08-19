@@ -39,8 +39,8 @@ tar -xf "$DOTFILES/icons/Zafiro-Icons-Blue.tar.gz" -C "$SHARE/icons"
 #####  Symlink to Git Config  #####
 printsl "Creating symlink for git"
 [ ! -d "$XDG_CONFIG_HOME/git" ] && mkdir "$XDG_CONFIG_HOME/git"
-ln -s -f "$DOTFILES/git-config/config" "$XDG_CONFIG_HOME/git/."
-ln -s -f "$DOTFILES/git-config/aliasrc" "$XDG_CONFIG_HOME/git/."
+ln -s -f "$DOTFILES/git/config" "$XDG_CONFIG_HOME/git/."
+ln -s -f "$DOTFILES/git/aliasrc" "$XDG_CONFIG_HOME/git/."
 
 #####  Symlink From Scripts folder to bin  #####
 printsl "Creating symlink for custom scripts"
@@ -58,7 +58,7 @@ printsl "Moving .profile to $TMP"
 mv "$HOME/.profile" "$TMP/"
 
 printsl "Creating symlink for .profile"
-ln -s -f "$DOTFILES/.profile" "$HOME/.profile"
+ln -s -f "$DOTFILES/profile" "$HOME/.profile"
 
 #####  Bash Setup  #####
 # First, move original to tmp
@@ -96,6 +96,7 @@ fi
 
 printsl "Creating symlink for config.fish"
 ln -s -f "$DOTFILES/fish/config.fish" "$FISH_PATH/config.fish"
+ln -s -f "$DOTFILES/fish/fish_variables" "$FISH_PATH/fish_variables"
 
 printsl "Creating symlinks for fish functions"
 [ ! -d "$FISH_PATH/functions" ] && mkdir "$FISH_PATH/functions"
@@ -124,3 +125,4 @@ printsl "Creating symlink for alacritty.yaml"
 ALACRITTY_PATH="$XDG_CONFIG_HOME/alacritty"
 [ ! -d "$ALACRITTY_PATH" ] && mkdir "$ALACRITTY_PATH"
 ln -s "$DOTFILES/alacritty.yml" "$ALACRITTY_PATH/alacritty.yml"
+

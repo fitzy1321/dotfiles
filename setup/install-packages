@@ -29,10 +29,11 @@ sudo fc-cache -f -v
 
 printsl "Installing flatpaks"
 flatpak install flathub \
-	com.getpostman.Postman \
-	com.axosoft.GitKraken \
-	com.spotify.Client \
-	com.slack.Slack
+	postman \
+	gitKraken \
+    spotifyt \
+	slack \
+    zoom
 
 #####  Remove unneed apps  ######
 printsl "Apt cleanup"

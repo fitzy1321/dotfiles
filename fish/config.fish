@@ -12,6 +12,7 @@ if status --is-interactive
     set -q DOTFILES; or set -x DOTFILES "$XDG_CONFIG_HOME/dotfiles"
 
     #####  Set Abbreviations  ######
+    abbr --add autoremove 'sudo apt autoremove'
     abbr --add dupgrade 'deno upgrade'
     abbr --add finstall 'sudo flatpak install flahub'
     abbr --add fupdate 'flatpak update'

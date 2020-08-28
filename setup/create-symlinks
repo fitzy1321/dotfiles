@@ -9,6 +9,7 @@ function printsl() {
 #####  Setup  #####
 printsl "JFitzy's Pop!_OS setup script!!"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 DOTFILES="$XDG_CONFIG_HOME/dotfiles"
 TMP="$HOME/tmp"
 # create tmp folder in case something goes wrong
@@ -18,15 +19,19 @@ mkdir "$TMP"
 printsl "Deteling $HOME/Public"
 rm -rf "$HOME/Public"
 
+##### Download Git Repos #####
 # If repo not in DOTFILES dir, reclone repo to that dir
 if [ ! -d "$DOTFILES" ]; then
     printsl "Dotfiles repository not located at $DOTFILES, fixing that now"
     cd "$XDG_CONFIG_HOME" && git clone https://github.com/JFitzy1321/dotfiles.git
 fi
 
+
+SOURCE_DIR="$HOME/Source"
+[ ! -d "$SOURCE_DIR" ] && mkdir "$SOURCE_DIR" 
+
 #####  Moving Icons to appropriate folder
 printsl "Setting up icons and themes folders."
-SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 
 # make icons and theme folders
 [ ! -d "$SHARE/icons" ] && mkdir "$SHARE/icons/"
@@ -40,7 +45,7 @@ tar -xf "$DOTFILES/icons/Zafiro-Icons-Blue.tar.gz" -C "$SHARE/icons"
 printsl "Creating symlink for git"
 [ ! -d "$XDG_CONFIG_HOME/git" ] && mkdir "$XDG_CONFIG_HOME/git"
 ln -s -f "$DOTFILES/git/config" "$XDG_CONFIG_HOME/git/."
-ln -s -f "$DOTFILES/git/aliasrc" "$XDG_CONFIG_HOME/git/."
+# ln -s -f "$DOTFILES/git/aliasrc" "$XDG_CONFIG_HOME/git/."
 
 #####  Symlink From Scripts folder to bin  #####
 printsl "Creating symlink for custom scripts"

@@ -1,0 +1,18 @@
+
+[directory]
+truncation_length = 4
+truncate_to_repo = false
+
+[git_branch]
+style = "bold green"
+
+#[memory_usage]
+#disabled = false
+#show_percentage = true
+#show_swap = true
+#threshold = -1
+#symbol = "memory "
+
+[time]
+disabled = true
+use_12hr = true

@@ -102,7 +102,7 @@ ln -s -f "$DOTFILES/fish/fish_variables" "$FISH_PATH/."
 
 printsl "Creating symlinks for fish functions"
 [ ! -d "$FISH_PATH/functions" ] && mkdir "$FISH_PATH/functions"
-for file in "$DOTFILES/fish/functions/*"
+for file in "$DOTFILES/fish/functions"/*
 do
     ln -sf "$file" "$FISH_PATH/functions/."
 done

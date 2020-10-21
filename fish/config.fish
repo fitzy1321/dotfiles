@@ -13,7 +13,7 @@ if status --is-interactive
 
     #####  Set Abbreviations  ######
     abbr --add autoremove 'sudo apt autoremove'
-    abbr --add dupgrade 'deno upgrade'
+#    abbr --add dupgrade 'deno upgrade'
     abbr --add finstall 'sudo flatpak install flahub'
     abbr --add fupdate 'flatpak update'
     

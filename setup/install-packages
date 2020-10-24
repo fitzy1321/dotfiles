@@ -21,7 +21,7 @@ sudo apt install -y \
     gir1.2-gtkclutter-1.0 google-chrome-stable gnome-2048 \
     gparted htop libdvd-pkg lollypop make mongodb neofetch neovim \
     preload python3.8 python3-pip python3-dev shellcheck \
-    sqlite3 sqlitebrowser tensorman tree ttf-mscorefonts-installer \
+    sqlite3 sqlitebrowser symlinks tensorman tree ttf-mscorefonts-installer \
     ubuntu-restricted-extras virtualbox virtualbox-dkms
 
 #####  Installing Flatpaks #####

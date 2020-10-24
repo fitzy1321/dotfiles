@@ -17,22 +17,20 @@ sudo apt update && sudo apt full-upgrade -y
 printsl "Installing apt packages"
 sudo apt install -y \
     alacritty apt-transport-https build-essential cheese \
-    cmake code deepin-icon-theme fish gdb gnome-tweaks \
+    cmake code curl deepin-icon-theme easytag fish gdb gnome-tweaks \
     gir1.2-gtkclutter-1.0 google-chrome-stable gnome-2048 \
-    gparted htop libdvd-pkg make mongodb neofetch neovim \
+    gparted htop libdvd-pkg lollypop make mongodb neofetch neovim \
     preload python3.8 python3-pip python3-dev shellcheck \
     sqlite3 sqlitebrowser tensorman tree ttf-mscorefonts-installer \
     ubuntu-restricted-extras virtualbox virtualbox-dkms
 
 #####  Installing Flatpaks #####
-
 printsl "Installing flatpaks"
 flatpak install flathub \
 	postman \
 	gitKraken \
     spotify \
 	slack \
-    discord \
     zoom
 
 #####  Remove unneed apps  ######
@@ -42,12 +40,22 @@ sudo apt purge --auto-remove -y geary
 sudo apt autoremove
 
 #####  Python setup  #####
-printsl "Setting up pip and pipenv"
+printsl "Installing Python 3.9, Setting up pip and pipenv"
+
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.9
+python3.9 -m pip install -U pip
+python3.9 -m pip install -U pipenv
+
 python3.8 -m pip install -U pip
 python3.8 -m pip install -U pipenv
 
-printsl "Installing Jupyter Lab"
-python3.8 -m pip install -U jupyterlab
+#####  Install Brave Browser  #####
+curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update
+sudo apt install brave-browser
 
 #####  Install Dotnet Core 3.1  #####
 printsl "Installing Dotnet Core 3.1"

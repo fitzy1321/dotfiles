@@ -23,6 +23,9 @@ draw_bold_text_with_bright_colors: true
 
 background_opacity: 0.8
 
+selection:
+  save_to_clipboard: true
+
 cursor:
   style: Beam
   thickness: 0.3

@@ -32,7 +32,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # not include 'l' alias, because i want to use fish abbr for it
 alias ls='ls --color=auto'
 alias wget="wget --hsts-file $XDG_CACHE_HOME/wget_history"
-alias vim='neovim'
+alias vim='nvim'
 
 # Setup zsh to point to .config
 # if [ "$(zsh --version 2> /dev/null)" ]; then

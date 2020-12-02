@@ -57,19 +57,19 @@ echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable ma
 sudo apt update
 sudo apt install brave-browser
 
-#####  Install Dotnet Core 3.1  #####
-printsl "Installing Dotnet Core 3.1"
-wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-sudo apt update
-sudo apt install dotnet-sdk-3.1
-printsl "Installing EF Core CLI Tools" && dotnet tool install --global dotnet-ef
-rm packages-microsoft-prod.dev
+# #####  Install Dotnet Core 3.1  #####
+# printsl "Installing Dotnet Core 3.1"
+# wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+# sudo dpkg -i packages-microsoft-prod.deb
+# sudo apt update
+# sudo apt install dotnet-sdk-3.1
+# printsl "Installing EF Core CLI Tools" && dotnet tool install --global dotnet-ef
+# rm packages-microsoft-prod.dev
 
-#####  Install Node v12.x  #####
-printsl "Installing Node JS v12.x"
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt install -y nodejs
+# #####  Install Node v12.x  #####
+# printsl "Installing Node JS v12.x"
+# curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+# sudo apt install -y nodejs
 
 ##### Install "Diff So Fancy" #####
 printsl "Installing 'diff-so-fancy' via npm"

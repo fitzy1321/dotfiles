@@ -39,8 +39,9 @@ def main(args=None):
     gh_creds = get_gh_creds()
 
 if __name__ == '__main__':
-    # cli = argparse.ArgumentParser(prog="Automated SSH Key Gen and Github Sync", description='Create an ssh key and sync it to your github account');
-    # cli.add_argument("--something")
-    # args = cli.parse_args()
+    cli = argparse.ArgumentParser(prog="Automated SSH Key Gen and Github Sync", description='Create an ssh key and sync it to your github account');
+    cli.add_argument("--email", default=None, type=str)
+    args = cli.parse_args()
+    print(args.email)
     # main(args)
-    main()
+    # main()

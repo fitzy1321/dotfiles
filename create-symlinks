@@ -79,7 +79,7 @@ printsl "Creating a copy of /etc/bash.bashrc in $TMP"
 cp /etc/bash.bashrc "$TMP/etc.bash.bashrc"
 
 printsl "Appending /etc/bash.bashrc"
-sudo cp -f "$DOTFILES/bash/etc.bash.bashrc" /etc/bash.bashrc
+sudo cp -f "$BASH_PATH/etc.bash.bashrc" /etc/bash.bashrc
 
 # ##### Misc #####
 # printsl "Symlink for tmux"

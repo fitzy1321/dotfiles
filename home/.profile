@@ -43,8 +43,8 @@ alias vim='nvim'
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
 	# include .bashrc if it exists (as a file or symlink)
-    if [[ -f "$XDG_CONFIG_HOME/bash/bashrc" || -L "$XDG_CONFIG_HOME/bash/bashrc" ]]; then
-	. "$XDG_CONFIG_HOME/bash/bashrc"
+    if [[ -f "$XDG_CONFIG_HOME/bash.bashrc" || -L "$XDG_CONFIG_HOME/bash.bashrc" ]]; then
+	. "$XDG_CONFIG_HOME/bash.bashrc"
     fi
 fi
 

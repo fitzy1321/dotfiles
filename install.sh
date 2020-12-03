@@ -66,10 +66,10 @@ sudo apt install brave-browser
 # printsl "Installing EF Core CLI Tools" && dotnet tool install --global dotnet-ef
 # rm packages-microsoft-prod.dev
 
-# #####  Install Node v12.x  #####
-# printsl "Installing Node JS v12.x"
-# curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-# sudo apt install -y nodejs
+#####  Install Node v12.x  #####
+printsl "Installing Node JS v14.x"
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt install -y nodejs
 
 ##### Install "Diff So Fancy" #####
 printsl "Installing 'diff-so-fancy' via npm"

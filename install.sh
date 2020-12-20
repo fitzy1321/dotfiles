@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#
-# ============================================================
+
+###############################################################################
 # JFitzy1321's Linux Install script
 # 
 # First section:    Install packages via apt and flatpak
@@ -10,8 +10,7 @@
 # I'm currently using Pop!_OS and apt to install packages.
 # This should be compatiable with any Ubuntu Based Distro.
 #
-# ============================================================
-
+###############################################################################
 
 # "e" will make script exit if something fails
 # "x" will print out every command and its result
@@ -93,24 +92,25 @@ bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
 
-
 ###############################################################################
+#                                                                             #
 #####################################  Section 2  #############################
+#                                                                             #
 ###############################################################################
 
 #####  Setup  #####
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 DOTFILES="$HOME/.dotfiles"
-ALACRITTY_PATH="$XDG_CONFIG_HOME/alacritty"
+FISH_PATH="$XDG_CONFIG_HOME/fish"
 TMP="$HOME/tmp"
+
 # create tmp folder in case something goes wrong
 mkdir "$TMP"
 
 function link {
     ln -sf $1 $2
 }
-
 
 ##### Download Git Repos #####
 # If repo not in DOTFILES dir, reclone repo to that dir
@@ -119,17 +119,15 @@ if [ ! -d "$DOTFILES" ]; then
     git clone https://github.com/JFitzy1321/dotfiles.git "$DOTFILES"
 fi
 
-mkdir -p "$HOME/Source"
-
 #####  Moving Icons to appropriate folder
 printsl "Setting up icons and themes folders."
 
-# make icons and theme folders
+# make folders
+mkdir -p "$HOME/Source"
 mkdir -p "$SHARE/icons/"
 mkdir -p "$SHARE/themes"
 mkdir "$XDG_CONFIG_HOME/git"
 mkdir "$XDG_CONFIG_HOME/nvim"
-mkdir "$ALACRITTY_PATH"
 
 # extract icons
 printsl "Extracting Icon themes to $SHARE/icons"
@@ -137,7 +135,7 @@ tar -xf "$DOTFILES/icons/Zafiro-Icons-Blue.tar.gz" -C "$SHARE/icons"
 
 #####  Creating symlinks to various file  #####
 printsl "Creating symlink for alacritty.yaml"
-ln -s "$DOTFILES/config/alacritty.yml" "$ALACRITTY_PATH/.alacritty.yml"
+link "$DOTFILES/config/alacritty.yml" "$XDG_CONFIG_HOME/."
 
 printsl "Creating symlink for git"
 link "$DOTFILES/config/git/config" "$XDG_CONFIG_HOME/git/."
@@ -156,7 +154,7 @@ printsl "Moving .profile to $TMP"
 mv "$HOME/.profile" "$TMP/"
 
 printsl "Creating symlink for .profile"
-link "$DOTFILES/config/profile" "$HOME/.profile"
+link "$DOTFILES/.profile" "$HOME/."
 
 #####  Bash Setup  #####
 # First, move original to tmp
@@ -167,8 +165,8 @@ printsl "Moving $HOME/.bashrc to $TMP"
 BASH_PATH="$XDG_CONFIG_HOME/bash"
 printsl "Creating symlinks for bashrc to $XDG_CONFIG_HOME/bashrc"
 [ ! -d "$BASH_PATH" ] && mkdir "$BASH_PATH"
-link "$DOTFILES/bash/bashrc" "$BASH_PATH/bashrc"
-link "$DOTFILES/aliasrc" "$XDG_CONFIG_HOME/aliasrc"
+link "$DOTFILES/config/bash/bashrc" "$BASH_PATH/bashrc"
+link "$DOTFILES/config/bash/aliasrc" "$BASH_PATH/aliasrc"
 
 # Third, replace old /etc/bash.bashrc
 printsl "Creating a copy of /etc/bash.bashrc in $TMP"
@@ -177,34 +175,30 @@ cp /etc/bash.bashrc "$TMP/etc.bash.bashrc"
 printsl "Appending /etc/bash.bashrc"
 sudo cp -f "$BASH_PATH/etc.bash.bashrc" /etc/bash.bashrc
 
-##### Fish and Starship Setup  #####
-FISH_PATH="$XDG_CONFIG_HOME/fish"
-
 # Move existing file to tmp folder
 if [ -f "$FISH_PATH/config.fish" ]; then
     printsl "Moving $FISH_PATH/config.fish to $TMP"
-    mv "$FISH_PATH/config.fish" "$TMP"
+    mv "$FISH_PATH/config.fish" "$TMP/."
 elif [ ! -d "$FISH_PATH" ]; then
     mkdir "$FISH_PATH"
 fi
 
 printsl "Creating symlink for config.fish"
-link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
-link "$DOTFILES/fish/fish_variables" "$FISH_PATH/."
+link "$DOTFILES/configfish/config.fish" "$FISH_PATH/."
+link "$DOTFILES/config/fish/fish_variables" "$FISH_PATH/."
 
 printsl "Creating symlinks for fish functions"
 [ ! -d "$FISH_PATH/functions" ] && mkdir "$FISH_PATH/functions"
-for file in "$DOTFILES/fish/functions"/*
+for file in "$DOTFILES/config/fish/functions"/*
 do
     link "$file" "$FISH_PATH/functions/."
 done
-
-
 
 # Creating symlink for starship.toml
 printsl "Creating symlink for starship.toml"
 ln -s "$DOTFILES/config/starship.toml" "$XDG_CONFIG_HOME/."
 
+#####  Make fish the default shell  #####
 printsl "Setting fish as default shell"
 chsh -s "$(which fish)"
 

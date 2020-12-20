@@ -101,7 +101,7 @@ mkdir "$TMP"
 # If repo not in DOTFILES dir, reclone repo to that dir
 if [ ! -d "$DOTFILES" ]; then
     printsl "Dotfiles repository not located at $DOTFILES, fixing that now"
-    cd "$XDG_CONFIG_HOME" && git clone https://github.com/JFitzy1321/dotfiles.git
+    git clone https://github.com/JFitzy1321/dotfiles.git "$DOTFILES"
 fi
 
 [ ! -d "$HOME/Source" ] && mkdir "$HOME/Source"

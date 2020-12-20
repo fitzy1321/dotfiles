@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
+#
+# ============================================================
+# JFitzy1321's Linux Install script
+# 
+# First section:    Install packages via apt and flatpak
+#                   Script currently assumes flatpak is installed,
+#                   I should fix this later
+#
+# Second Section:   Add configuration files to xdg locations
+#
+# I'm currently using Pop!_OS and apt to install packages.
+# This should be compatiable with any Ubuntu Based Distro.
+#
+# ============================================================
+
 
 # "e" will make script exit if something fails
 # "x" will print out every command and its result
@@ -10,7 +25,23 @@ function printsl {
     sleep 0.5
 }
 
-##### Update system && Instal Packages  #####
+#####  Check if flatpak is installed
+if ! flatpak --version; then
+    printsl "Flatpak is not installed, installing now"
+    apt install flatpak
+
+    printsl "Adding flathub"
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    printsl "Do you want to reboot now? y / n: "
+
+    read answer
+    if [ "$answer" == "y" ]; then sudo shutdown -r now ; fi
+
+    exit
+fi
+
+#####  Update system && Instal Packages  #####
 printsl "Updating system"
 sudo apt update && sudo apt full-upgrade -y
 
@@ -26,12 +57,7 @@ sudo apt install -y \
 
 #####  Installing Flatpaks #####
 printsl "Installing flatpaks"
-flatpak install flathub \
-	postman \
-	gitKraken \
-    spotify \
-	slack \
-    zoom
+flatpak install flathub postman gitKraken spotify slack zoom
 
 #####  Remove unneed apps  ######
 printsl "Apt cleanup"
@@ -89,14 +115,12 @@ bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
 
 
 #####  Setup  #####
-printsl "JFitzy's Pop!_OS setup script!!"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 DOTFILES="$XDG_CONFIG_HOME/dotfiles"
 TMP="$HOME/tmp"
 # create tmp folder in case something goes wrong
 mkdir "$TMP"
-
 
 ##### Download Git Repos #####
 # If repo not in DOTFILES dir, reclone repo to that dir
@@ -105,9 +129,7 @@ if [ ! -d "$DOTFILES" ]; then
     cd "$XDG_CONFIG_HOME" && git clone https://github.com/JFitzy1321/dotfiles.git
 fi
 
-
-SOURCE_DIR="$HOME/Source"
-[ ! -d "$SOURCE_DIR" ] && mkdir "$SOURCE_DIR"
+[ ! -d "$HOME/Source" ] && mkdir "$HOME/Source"
 
 #####  Moving Icons to appropriate folder
 printsl "Setting up icons and themes folders."

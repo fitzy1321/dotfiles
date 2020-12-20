@@ -101,7 +101,7 @@ curl -fsSL https://starship.rs/install.sh | bash
 #####  Setup  #####
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
-DOTFILES="$XDG_CONFIG_HOME/dotfiles"
+DOTFILES="$HOME/.dotfiles"
 ALACRITTY_PATH="$XDG_CONFIG_HOME/alacritty"
 TMP="$HOME/tmp"
 # create tmp folder in case something goes wrong

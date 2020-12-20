@@ -36,6 +36,9 @@ if ! flatpak --version; then
     if [ "$answer" == "y" ]; then sudo shutdown -r now ; fi
 fi
 
+# Need these tp install ppas and setup scripts
+sudo apt install apt-transport-https curl software-properties-common
+
 ######  Adding ppas  #####
 printsl "Adding deadsnakes ppa"
 sudo add-apt-repository ppa:deadsnakes/ppa
@@ -53,10 +56,10 @@ sudo apt update && sudo apt upgrade -y
 
 printsl "Installing apt packages"
 sudo apt install -y \
-    alacritty apt-transport-https bridge-utils brave-browser \
+    alacritty bridge-utils brave-browser \
     build-essential cheese cmake code curl deepin-icon-theme easytag \
     fish gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
-    gnome-2048 gparted htop libdvd-pkg libvirt-bin lollypop make mongodb \
+    gnome-2048 gparted htop libdvd-pkg lollypop make mongodb \
     neofetch neovim nodejs preload python3.8 python3.9 python3-pip \
     python3-dev qemu-kvm shellcheck sqlite3 sqlitebrowser symlinks tensorman \
     tree ttf-mscorefonts-installer ubuntu-restricted-extras virt-manager

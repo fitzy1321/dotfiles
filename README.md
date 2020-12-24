@@ -8,4 +8,4 @@ and various other files I need across systems.
 
 Run the following command:
 
-`curl -o- https://raw.githubusercontent.com/JFitzy1321/dotfiles/main/install.sh | sudo -E bash`
+`curl -o- https://raw.githubusercontent.com/JFitzy1321/dotfiles/main/install.sh | sudo -E bash -`

@@ -25,3 +25,5 @@
 	whitespace = red reverse
 [pull]
 	ff = only
+[init]
+	templatedir = ~/.config/git/templates

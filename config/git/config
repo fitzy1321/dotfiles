@@ -27,3 +27,4 @@
 	ff = only
 [init]
 	templatedir = ~/.config/git/templates
+

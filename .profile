@@ -57,13 +57,18 @@ fi
 # set rust/cargo in path if cargo directory exists
 [ -d "$HOME/.cargo/bin" ] && PATH="$HOME/.cargo/bin:$PATH"
 
-# set deno path if exists
-if [ -d "$HOME/.local/deno" ]; then
-    PATH="$HOME/.local/deno/bin:$PATH"
-    export DENO_DIR="$HOME/.local/deno"
-elif [ -d "$HOME/.deno" ]; then
-    PATH="$HOME/.deno/bin:$PATH"
-    export DENO_DIR="$HOME/.deno"
-fi
+# add go to path, if exists
+[ -d /usr/local/go ] && PATH=$PATH:/usr/local/go/bin
+
+
+# # set deno path if exists
+# if [ -d "$HOME/.local/deno" ]; then
+#     PATH="$HOME/.local/deno/bin:$PATH"
+#     DENO_DIR="$HOME/.local/deno"
+# elif [ -d "$HOME/.deno" ]; then
+#     PATH="$HOME/.deno/bin:$PATH"
+#     DENO_DIR="$HOME/.deno"
+# fi
+
 
 export PATH

@@ -5,7 +5,6 @@ truncate_to_repo = false
 [git_branch]
 style = "bold green"
 symbol = " "
-always_show_remote = true
 
 [rust]
 symbol = " "
@@ -16,7 +15,4 @@ pyenv_version_name = true
 scan_for_pyfiles = true
 python_binaries = ["python3.9", "python3.8", "python3"] 
 disabled = false
-
-[time]
-use_12hr = true
 

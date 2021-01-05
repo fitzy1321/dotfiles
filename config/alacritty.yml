@@ -5,7 +5,7 @@ window:
     y: 5
 
 font:
-  size: 14.0
+  size: 15
   normal:
     family: UbuntuMono Nerd Font
     style: Regular
@@ -21,7 +21,7 @@ font:
 
 draw_bold_text_with_bright_colors: true
 
-background_opacity: 0.8
+background_opacity: 0.89
 
 selection:
   save_to_clipboard: true

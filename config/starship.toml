@@ -4,6 +4,8 @@ truncate_to_repo = false
 
 [git_branch]
 style = "bold green"
+symbol = " "
+always_show_remote = true
 
 [rust]
 symbol = " "

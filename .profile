@@ -61,14 +61,14 @@ fi
 [ -d /usr/local/go ] && PATH=$PATH:/usr/local/go/bin
 
 
-# # set deno path if exists
-# if [ -d "$HOME/.local/deno" ]; then
-#     PATH="$HOME/.local/deno/bin:$PATH"
-#     DENO_DIR="$HOME/.local/deno"
-# elif [ -d "$HOME/.deno" ]; then
-#     PATH="$HOME/.deno/bin:$PATH"
-#     DENO_DIR="$HOME/.deno"
-# fi
+# set deno path if exists
+if [ -d "$HOME/.local/deno" ]; then
+    PATH="$HOME/.local/deno/bin:$PATH"
+    DENO_DIR="$HOME/.local/deno"
+elif [ -d "$HOME/.deno" ]; then
+    PATH="$HOME/.deno/bin:$PATH"
+    DENO_DIR="$HOME/.deno"
+fi
 
 
 export PATH

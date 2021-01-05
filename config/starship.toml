@@ -5,13 +5,6 @@ truncate_to_repo = false
 [git_branch]
 style = "bold green"
 
-#[memory_usage]
-#disabled = false
-#show_percentage = true
-#show_swap = true
-#threshold = -1
-#symbol = "memory "
-
 [rust]
 symbol = " "
 
@@ -23,7 +16,5 @@ python_binaries = ["python3.9", "python3.8", "python3"]
 disabled = false
 
 [time]
-disabled = true
 use_12hr = true
-
 

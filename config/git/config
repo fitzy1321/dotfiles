@@ -1,8 +1,8 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-	name = Joe Fitzgibbons
-	email = jfitzy1321@protonmail.com
+	name = langnostic
+	email = jfitzy1321@pm.me
 [diff]
 	colorMoved = zebra
 [fetch]

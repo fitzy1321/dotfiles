@@ -36,18 +36,20 @@ if ! flatpak --version; then
     if [ "$answer" == "y" ]; then sudo shutdown -r now ; fi
 fi
 
-# Need these tp install ppas and setup scripts
+# Need these to install ppas and setup scripts
 sudo apt install apt-transport-https curl software-properties-common
 
 ######  Adding ppas  #####
-printsl "Adding deadsnakes ppa"
-sudo add-apt-repository ppa:deadsnakes/ppa
+
+## there's a problem with this ppa
+#printsl "Adding deadsnakes ppa"
+#sudo add-apt-repository ppa:deadsnakes/ppa -y
 
 printsl "Adding brave ppa"
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
-printsl "Curling from nodesource"
+printsl "Adding nodesource ppa"
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 
 #####  Update system && Install Packages  #####
@@ -59,7 +61,7 @@ sudo apt install -y \
     alacritty bridge-utils brave-browser \
     build-essential cheese cmake code curl deepin-icon-theme easytag \
     fish gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
-    gnome-2048 gparted htop libdvd-pkg lollypop make mongodb \
+    gnome-2048 gparted libdvd-pkg lollypop make mongodb \
     neofetch neovim nodejs preload python3.8 python3.9 python3-pip \
     python3-dev qemu-kvm shellcheck sqlite3 sqlitebrowser symlinks tensorman \
     tree ttf-mscorefonts-installer ubuntu-restricted-extras virt-manager
@@ -68,7 +70,7 @@ sudo adduser "$(whoami)" libvirtd
 
 #####  Installing Flatpaks #####
 printsl "Installing flatpaks"
-flatpak install flathub gitKraken postman slack spotify zoom
+flatpak install flathub discord gitKraken postman slack spotify zoom
 
 #####  Remove unneed apps  ######
 printsl "Apt cleanup"
@@ -96,6 +98,10 @@ bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
 #####  Install Starship Prompt  #####
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
+
+#####  Install Deno  #####
+printsl "Installing Deno"
+curl -fsSL https://deno.land/x/install/install.sh | sh
 
 ###############################################################################
 #                                                                             #

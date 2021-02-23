@@ -70,7 +70,14 @@ sudo adduser "$(whoami)" libvirtd
 
 #####  Installing Flatpaks #####
 printsl "Installing flatpaks"
-flatpak install flathub discord gitKraken postman slack spotify zoom
+flatpak install flathub \
+    com.discordapp.Discord \
+    com.axosoft.GitKraken \
+    com.getpostman.Postman \
+    com.slack.Slack \
+    com.spotify.Client \
+    org.processing.processingide \
+    us.zoom.Zoom
 
 #####  Remove unneed apps  ######
 printsl "Apt cleanup"

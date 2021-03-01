@@ -61,12 +61,16 @@ sudo apt install -y \
     alacritty bridge-utils brave-browser \
     build-essential cheese cmake code curl deepin-icon-theme easytag \
     fish gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
-    gnome-2048 gparted libdvd-pkg lollypop make mongodb \
+    gnome-2048 gparted gufw libdvd-pkg lollypop make mongodb \
     neofetch neovim nodejs preload python3.8 python3.9 python3-pip \
     python3-dev qemu-kvm shellcheck sqlite3 sqlitebrowser symlinks tensorman \
-    tree ttf-mscorefonts-installer ubuntu-restricted-extras virt-manager
+    tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager
 
 sudo adduser "$(whoami)" libvirtd
+
+####   Enable firewall  #####
+printsl "Enabling firewall"
+sudo ufw enable
 
 #####  Installing Flatpaks #####
 printsl "Installing flatpaks"

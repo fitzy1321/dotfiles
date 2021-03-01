@@ -4,8 +4,9 @@
 set fish_greeting ""
 
 if status --is-interactive
+   
     ##### Call .profile  #####
-    source ~/.profile;clear;
+    # source ~/.profile;clear; ## removing this for now
 
     #####  Check Dotfiles var exists  #####
     set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME "$HOME/.config"
@@ -17,7 +18,7 @@ if status --is-interactive
 
     #####  Set Abbreviations  ######
     abbr --add autoremove 'sudo apt autoremove'
-#    abbr --add dupgrade 'deno upgrade'
+    abbr --add dupgrade 'deno upgrade'
     abbr --add finstall 'sudo flatpak install flahub'
     abbr --add fupdate 'flatpak update'
     
@@ -51,6 +52,19 @@ if status --is-interactive
     abbr --add update 'sudo apt update && apt list --upgradable'
     abbr --add upgrade 'sudo apt upgrade -y'
 
+    ####    Setup Deno in Path  #####
+    if test -d $HOME/.local/deno
+        set -U fish_user_paths $HOME/.local/deno $fish_user_paths
+        set -x DENO_DIR $HOME/.local/deno
+    else if test -d $HOME/.deno
+        set -U fish_user_paths $HOME/.deno $fish_user_paths
+        set -x DENO_DIR $HOME/.deno
+        
+    end
+    
+    #####   Add cargo to fish path, if it exists    #####
+    test -d $HOME/.cargo/bin && set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
+    
     #####  Start Starship for Fish  #####
     starship init fish | source
 end

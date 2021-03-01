@@ -58,8 +58,7 @@ fi
 [ -d "$HOME/.cargo/bin" ] && PATH="$HOME/.cargo/bin:$PATH"
 
 # add go to path, if exists
-[ -d /usr/local/go ] && PATH=$PATH:/usr/local/go/bin
-
+[ -d /usr/local/go ] && PATH=/usr/local/go/bin:$PATH
 
 # set deno path if exists
 if [ -d "$HOME/.local/deno" ]; then

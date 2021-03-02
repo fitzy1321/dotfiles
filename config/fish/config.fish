@@ -63,7 +63,9 @@ if status --is-interactive
     end
     
     #####   Add cargo to fish path, if it exists    #####
-    test -d $HOME/.cargo/bin && set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
+    if test -d $HOME/.cargo/bin 
+        et -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
+    end
     
     #####  Start Starship for Fish  #####
     starship init fish | source

@@ -6,7 +6,6 @@ truncate_to_repo = false
 style = "bold green"
 symbol = " "
 
-
 [git_status]
 # ahead = "↑ ${count}"
 # behind = "↓ ${count}"
@@ -21,6 +20,7 @@ symbol = " "
 
 [golang]
 symbol = " "
+
 [rust]
 symbol = " "
 
@@ -29,5 +29,4 @@ symbol = "  "
 pyenv_version_name = true
 scan_for_pyfiles = true
 python_binaries = ["python3.9", "python3.8", "python3"] 
-disabled = false
 

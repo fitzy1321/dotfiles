@@ -52,7 +52,7 @@ end
     
 #####   Add cargo to fish path, if it exists    #####
 if test -d $HOME/.cargo/bin 
-    fish_add_path $HOME/.cargo/bin $fish_user_paths
+    fish_add_path $HOME/.cargo/bin
 end
     
 #####  Start Starship for Fish  #####

@@ -12,9 +12,16 @@ alias vim='nvim'
 alias ll='ls -lah'
 
 #####  Set Abbreviations  ######
+abbr --add d 'docker'
+abbr --add dps 'docker ps'
+abbr --add dc 'docker-compose'
+abbr --add dcb 'docker-compose build'
+abbr --add dcu 'docker-compose up'
+abbr --add dcdr 'docker-compose down --remove-orphans'
 abbr --add dupgrade 'deno upgrade'
 abbr --add finstall 'sudo flatpak install flahub'
 abbr --add fupdate 'flatpak update'
+abbr --add ppath 'echo $PATH'
 abbr --add rupdate 'rustup update'
 abbr --add update 'sudo apt update && apt list --upgradable'
 abbr --add upgrade 'sudo apt upgrade -y'
@@ -38,8 +45,6 @@ abbr --add gpum 'git push -u origin main'
 abbr --add gsl 'git status --long'
 abbr --add gss 'git status -s'
 abbr --add gst 'git status'
-    
-abbr --add ppath 'echo $PATH'
 
 ####    Setup Deno in Path  #####
 if test -d $HOME/.local/deno
@@ -54,7 +59,12 @@ end
 if test -d $HOME/.cargo/bin 
     fish_add_path $HOME/.cargo/bin
 end
-    
+
+#####  macOS Specific thangs  #####
+if test (uname) = "Darwin"
+    alias updatedb="sudo /usr/libexec/locate.updatedb"
+end
+
 #####  Start Starship for Fish  #####
 starship init fish | source
 

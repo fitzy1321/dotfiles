@@ -8,16 +8,18 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# Setting XDG variables for my user
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
 
 # Aliases used across shells
 # not include 'l' alias, because i want to use fish abbr for it
 alias ls='ls --color=auto'
 alias wget="wget --hsts-file $XDG_CACHE_HOME/wget_history"
 alias vim='nvim'
+export EDITOR=vim
+
+# Setting XDG variables for my user
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -33,3 +35,4 @@ fi
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
+source "$HOME/.cargo/env"

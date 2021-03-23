@@ -48,15 +48,15 @@ abbr --add gst 'git status'
 
 ####    Setup Deno in Path  #####
 if test -d $HOME/.local/deno
-    fish_add_path $HOME/.local/deno
-    set -x DENO_DIR $HOME/.local/deno
+    set -x DENO_INSTALL $HOME/.local/deno
+    fish_add_path $HOME/.local/deno/bin
 else if test -d $HOME/.deno
-    fish_add_path $HOME/.deno
-    set -x DENO_DIR $HOME/.deno    
+    set -x DENO_INSTALL $HOME/.deno    
+    fish_add_path $HOME/.deno/bin
 end
     
 #####   Add cargo to fish path, if it exists    #####
-if test -d $HOME/.cargo/bin 
+if test -d $HOME/.cargo 
     fish_add_path $HOME/.cargo/bin
 end
 

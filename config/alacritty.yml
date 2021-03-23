@@ -5,7 +5,7 @@ window:
     y: 5
 
 font:
-  size: 15
+  size: 14
   normal:
     family: UbuntuMono Nerd Font
     style: Regular

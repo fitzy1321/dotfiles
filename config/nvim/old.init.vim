@@ -1,13 +1,5 @@
 " Jfitzys NeoVim config file
-" Author: Joe Fitzgibbons
-
-
-" Plugins: https://breuer.dev/blog/top-neovim-plugins.html
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-
-
-
+"
 " set leader key
 " let g:mapleader = "\<Space>"
 

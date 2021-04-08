@@ -4,8 +4,11 @@
 set fish_greeting ""
 
 #####  Setup Common Paths  #####
-set FISH_PATH $XDG_CONFIG_HOME/fish
-set NVIM_PATH $XDG_CONFIG_HOME/nvim
+set MYFISHCONFIG $XDG_CONFIG_HOME/fish/config.fish
+
+if ! set -q MYVIMRC
+    set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+end
 
 if ! set -q SRC_PATH
     set -x SRC_PATH $HOME/Source
@@ -29,8 +32,8 @@ abbr --add dcu 'docker-compose up'
 abbr --add dcdr 'docker-compose down --remove-orphans'
 
 # Edit Common Configs
-abbr --add edit_fish 'vim $FISH_PATH/config.fish'
-abbr --add edit_nvim 'vim $NVIM_PATH/init.vim'
+abbr --add edit_fish 'vim $MYFISHCONFIG'
+abbr --add edit_nvim 'vim $MYVIMRC'
 
 # Updates and Upgrades
 abbr --add dupgrade 'deno upgrade'
@@ -43,7 +46,7 @@ abbr --add upgrade 'sudo apt upgrade -y'
 abbr --add dotfiles 'cd $DOTFILES'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
 abbr --add ppath 'echo $PATH'
-abbr --add reset_fish 'source $FISH_PATH/config.fish'
+abbr --add reset_fish 'source $MYFISHCONFIG'
 
 # Git abbr's
 abbr --add ga 'git add'
@@ -69,10 +72,10 @@ abbr --add gst 'git status'
 #####  Add Deno to Path  #####
 if test -d $HOME/.local/deno
     set -x DENO_INSTALL $HOME/.local/deno
-    fish_add_path $HOME/.local/deno/bin
+    fish_add_path $DENO_INSTALL/bin
 else if test -d $HOME/.deno
     set -x DENO_INSTALL $HOME/.deno    
-    fish_add_path $HOME/.deno/bin
+    fish_add_path $DENO_INSTALL/bin
 end
     
 #####  Add Cargo to Path  #####

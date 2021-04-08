@@ -21,6 +21,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
+# Remove Python History file with this pythonrc config
+export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
 	# include .bashrc if it exists (as a file or symlink)

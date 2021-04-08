@@ -11,15 +11,17 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export BASH_PATH="$XDG_CONFIG_HOME/bash"
+export LESSHISTFILE=-
+export HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # Remove Python History file with this pythonrc config
-export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 
 # Aliases used across shells
 # not include 'l' alias, because i want to use fish abbr for it
-alias ls='ls --color=auto'
+alias ls="ls --color=auto"
 alias wget="wget --hsts-file $XDG_CACHE_HOME/wget_history"
-alias vim='nvim'
+alias vim="nvim"
 export EDITOR=vim
 
 # if running bash

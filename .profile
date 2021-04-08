@@ -7,7 +7,13 @@
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export BASH_PATH="$XDG_CONFIG_HOME/bash"
 
+# Remove Python History file with this pythonrc config
+export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc
 
 # Aliases used across shells
 # not include 'l' alias, because i want to use fish abbr for it
@@ -16,19 +22,11 @@ alias wget="wget --hsts-file $XDG_CACHE_HOME/wget_history"
 alias vim='nvim'
 export EDITOR=vim
 
-# Setting XDG variables for my user
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-
-# Remove Python History file with this pythonrc config
-export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc
-
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
 	# include .bashrc if it exists (as a file or symlink)
-    if [[ -f "$XDG_CONFIG_HOME/bash.bashrc" || -L "$XDG_CONFIG_HOME/bash.bashrc" ]]; then
-	. "$XDG_CONFIG_HOME/bash.bashrc"
+    if [[ -f "$BASH_PATH/bashrc" || -L "$BASH_PATH/bashrc" ]]; then
+	. "$BASH_PATH/bashrc"
     fi
 fi
 

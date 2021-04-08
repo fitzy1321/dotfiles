@@ -16,6 +16,7 @@ call plug#end()
 
 syntax enable
 set number
+set rnu
 
 " Toggle Relative Numbers
 function! ToggleNumbers()
@@ -26,11 +27,12 @@ function! ToggleNumbers()
     endif
 endfunc
 
-call ToggleNumbers()
-
 let mapleader = ","
 
 " reset init.vim by typing ",sc"
 nnoremap <leader>sc :source $MYVIMRC<CR>
 nnoremap <leader>tn :call ToggleNumbers()<CR>
+
+" auto source when writing to $MYVIMRC
+au! BufWritePost $MYVIMRC source %
 

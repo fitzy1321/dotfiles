@@ -59,7 +59,7 @@ sudo apt update && sudo apt upgrade -y
 printsl "Installing apt packages"
 sudo apt install -y \
     alacritty bridge-utils brave-browser \
-    build-essential cheese cmake code curl deepin-icon-theme easytag \
+    build-essential cheese cmake code deepin-icon-theme easytag \
     fish gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
     gnome-2048 gparted gufw libdvd-pkg lollypop make mongodb \
     neofetch neovim nodejs preload python3.8 python3.9 python3-pip \
@@ -123,7 +123,7 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 #####  Setup  #####
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
-DOTFILES="$HOME/.dotfiles"
+DOTFILES="$HOME/Source/dotfiles"
 FISH_PATH="$XDG_CONFIG_HOME/fish"
 TMP="$HOME/tmp"
 
@@ -148,7 +148,6 @@ printsl "Setting up icons and themes folders."
 mkdir -p "$HOME/Source"
 mkdir -p "$SHARE/icons/"
 mkdir -p "$SHARE/themes"
-mkdir "$XDG_CONFIG_HOME/git"
 mkdir "$XDG_CONFIG_HOME/nvim"
 
 # extract icons
@@ -157,10 +156,10 @@ tar -xf "$DOTFILES/icons/Zafiro-Icons-Blue.tar.gz" -C "$SHARE/icons"
 
 #####  Creating symlinks to various file  #####
 printsl "Creating symlink for alacritty.yaml"
-link "$DOTFILES/config/alacritty.yml" "$XDG_CONFIG_HOME/."
+link "$DOTFILES/alacritty.yml" "$XDG_CONFIG_HOME/."
 
 printsl "Creating symlink for git"
-link "$DOTFILES/config/git/config" "$XDG_CONFIG_HOME/git/."
+link "$DOTFILES/git" "$XDG_CONFIG_HOME"
 
 #####  Symlink From Scripts folder to bin  #####
 printsl "Creating symlink for custom scripts"
@@ -168,7 +167,7 @@ printsl "Creating symlink for custom scripts"
 link "$DOTFILES/scripts" "$HOME/bin"
 
 printsl "Creating symlink for nvim init.vim"
-link "$DOTFILES/config/nvim/init.vim" "$XDG_CONFIG_HOME/nvim/."
+link "$DOTFILES/nvim/init.vim" "$XDG_CONFIG_HOME/nvim/."
 
 #####  Profile setup  #####
 # move .profile and create symlink
@@ -187,8 +186,8 @@ printsl "Moving $HOME/.bashrc to $TMP"
 BASH_PATH="$XDG_CONFIG_HOME/bash"
 printsl "Creating symlinks for bashrc to $XDG_CONFIG_HOME/bashrc"
 [ ! -d "$BASH_PATH" ] && mkdir "$BASH_PATH"
-link "$DOTFILES/config/bash/bashrc" "$BASH_PATH/bashrc"
-link "$DOTFILES/config/bash/aliasrc" "$BASH_PATH/aliasrc"
+link "$DOTFILES/bash/bashrc" "$BASH_PATH/bashrc"
+link "$DOTFILES/bash/aliasrc" "$BASH_PATH/aliasrc"
 
 # Third, replace old /etc/bash.bashrc
 printsl "Creating a copy of /etc/bash.bashrc in $TMP"
@@ -206,25 +205,20 @@ elif [ ! -d "$FISH_PATH" ]; then
 fi
 
 printsl "Creating symlink for config.fish"
-link "$DOTFILES/configfish/config.fish" "$FISH_PATH/."
-link "$DOTFILES/config/fish/fish_variables" "$FISH_PATH/."
+link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
 
 printsl "Creating symlinks for fish functions"
 [ ! -d "$FISH_PATH/functions" ] && mkdir "$FISH_PATH/functions"
-for file in "$DOTFILES/config/fish/functions"/*
+for file in "$DOTFILES/fish/functions"/*
 do
     link "$file" "$FISH_PATH/functions/."
 done
 
 # Creating symlink for starship.toml
 printsl "Creating symlink for starship.toml"
-ln -s "$DOTFILES/config/starship.toml" "$XDG_CONFIG_HOME/."
+ln -s "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
 
 #####  Make fish the default shell  #####
 printsl "Setting fish as default shell"
 chsh -s "$(which fish)"
-
-#####  Setup Fish for use in other user's terminals
-sudo chmod 775 ~/.config/fish
-sudo chmod 666 ~/.config/fish/fish_variables
 

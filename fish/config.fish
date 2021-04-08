@@ -35,7 +35,7 @@ abbr --add upgrade 'sudo apt upgrade -y'
 
 # Misc
 abbr --add dotfiles 'cd $DOTFILES'
-abbr --add install_vimplugs 'neovim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
+abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
 abbr --add ppath 'echo $PATH'
 abbr --add reset_fish 'source $FISH_PATH/config.fish'
 

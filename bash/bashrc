@@ -101,7 +101,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 ### Custom Aliases ###
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+[ -f "$BASH_PATH/aliasrc" ] && source "$BASH_PATH/aliasrc"
 [ -f "$HOME/.config/git/aliasrc" ] && source "$HOME/.config/git/aliasrc"
 alias l="ls -lah"
 

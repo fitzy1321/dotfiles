@@ -174,7 +174,7 @@ printsl "Moving .profile to $TMP"
 mv "$HOME/.profile" "$TMP/"
 
 printsl "Creating symlink for .profile"
-link "$DOTFILES/.profile" "$HOME/."
+link "$DOTFILES/profile" "$HOME/.profile"
 
 #####  Bash Setup  #####
 # First, move original to tmp

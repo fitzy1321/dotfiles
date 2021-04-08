@@ -34,6 +34,7 @@ abbr --add dcdr 'docker-compose down --remove-orphans'
 # Edit Common Configs
 abbr --add edit_fish 'vim $MYFISHCONFIG'
 abbr --add edit_nvim 'vim $MYVIMRC'
+abbr --add edit_profile 'vim $HOME/.profile'
 
 # Updates and Upgrades
 abbr --add dupgrade 'deno upgrade'

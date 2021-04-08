@@ -15,19 +15,22 @@ Plug 'neoclide/coc.nvim', {'branch': 'release' }
 call plug#end()
 
 syntax enable
+set number
 
 " Toggle Relative Numbers
-function! NumberToggle()
+function! ToggleNumbers()
     if(&relativenumber == 1)
         set nornu
-	set number
     else
         set rnu
     endif
 endfunc
 
+call ToggleNumbers()
+
 let mapleader = ","
 
 " reset init.vim by typing ",sc"
 nnoremap <leader>sc :source $MYVIMRC<CR>
-nnoremap <leader>rn :call NumberToggle()<CR>
+nnoremap <leader>tn :call ToggleNumbers()<CR>
+

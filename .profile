@@ -11,6 +11,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export BASH_PATH="$XDG_CONFIG_HOME/bash"
+export SRC_PATH="$HOME/Source"
+export DOTFILES="$SRC_PATH/dotfiles"
 export LESSHISTFILE=-
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
 

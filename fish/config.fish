@@ -4,10 +4,16 @@
 set fish_greeting ""
 
 #####  Setup Common Paths  #####
-set SOURCE_DIR $HOME/Source
-set DOTFILES $SOURCE_DIR/dotfiles
 set FISH_PATH $XDG_CONFIG_HOME/fish
 set NVIM_PATH $XDG_CONFIG_HOME/nvim
+
+if ! set -q SRC_PATH
+    set -x SRC_PATH $HOME/Source
+end
+
+if ! set -q DOTFILES
+    set -x DOTFILES $SRC_PATH/dotfiles
+end
 
 #####  Aliases  #####
 alias vim='nvim'

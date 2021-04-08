@@ -3,9 +3,9 @@
 #####  Remove fish greeting  #####
 set fish_greeting ""
 
-    #####  Check Dotfiles var exists  #####
-    #set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME "$HOME/.config"
-    #set -q DOTFILES; or set -x DOTFILES "$XDG_CONFIG_HOME/dotfiles"
+#####  Setup Dotfiles stuff  #####
+set SOURCE_DIR $HOME/Source
+set DOTFILES $SOURCE_DIR/dotfiles
 
 #####  Aliases  #####
 alias vim='nvim'
@@ -18,6 +18,7 @@ abbr --add dc 'docker-compose'
 abbr --add dcb 'docker-compose build'
 abbr --add dcu 'docker-compose up'
 abbr --add dcdr 'docker-compose down --remove-orphans'
+abbr --add dotfiles 'cd $DOTFILES'
 abbr --add dupgrade 'deno upgrade'
 abbr --add finstall 'sudo flatpak install flahub'
 abbr --add fupdate 'flatpak update'

@@ -7,13 +7,27 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" run :PlugInstall in neovim
-call plug#begin('~/.config/vim/plugged')
+" run :PlugInstall
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release' }
 
 call plug#end()
 
 syntax enable
-set number
 
+" Toggle Relative Numbers
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set nornu
+	set number
+    else
+        set rnu
+    endif
+endfunc
+
+let mapleader = ","
+
+" reset init.vim by typing ",sc"
+nnoremap <leader>sc :source $MYVIMRC<CR>
+nnoremap <leader>rn :call NumberToggle()<CR>

@@ -58,12 +58,12 @@ sudo apt update && sudo apt upgrade -y
 
 printsl "Installing apt packages"
 sudo apt install -y \
-    alacritty bridge-utils brave-browser \
-    build-essential cheese cmake code deepin-icon-theme easytag \
-    fish gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
-    gnome-2048 gparted gufw libdvd-pkg lollypop make mongodb \
-    neofetch neovim nodejs preload python3.8 python3.9 python3-pip \
-    python3-dev qemu-kvm shellcheck sqlite3 sqlitebrowser symlinks tensorman \
+    alacritty bridge-utils brave-browser build-essential \
+    cheese cmake code deepin-icon-theme easytag fish \
+    gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
+    gparted gufw lollypop make neofetch neovim nodejs preload \
+    python3.8 python3.9 python3-pip python3-dev qemu-kvm \
+    shellcheck sqlite3 sqlitebrowser symlinks tensorman \
     tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager
 
 sudo adduser "$(whoami)" libvirtd
@@ -123,7 +123,9 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 #####  Setup  #####
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
-DOTFILES="$HOME/Source/dotfiles"
+SOURCE_DIR="$HOME/Source"
+NVIM_DIR="$XDG_CONFIG_HOME/nvim"
+DOTFILES="$SOURCE_DIR/dotfiles"
 FISH_PATH="$XDG_CONFIG_HOME/fish"
 TMP="$HOME/tmp"
 
@@ -134,21 +136,18 @@ function link {
     ln -sf $1 $2
 }
 
+# make folders
+mkdir -p "$SOURCE_DIR"
+mkdir -p "$SHARE/icons/"
+mkdir -p "$SHARE/themes"
+mkdir -p "$NVIM_DIR"
+
 ##### Download Git Repos #####
 # If repo not in DOTFILES dir, reclone repo to that dir
 if [ ! -d "$DOTFILES" ]; then
     printsl "Dotfiles repository not located at $DOTFILES, fixing that now"
     git clone https://github.com/JFitzy1321/dotfiles.git "$DOTFILES"
 fi
-
-#####  Moving Icons to appropriate folder
-printsl "Setting up icons and themes folders."
-
-# make folders
-mkdir -p "$HOME/Source"
-mkdir -p "$SHARE/icons/"
-mkdir -p "$SHARE/themes"
-mkdir "$XDG_CONFIG_HOME/nvim"
 
 # extract icons
 printsl "Extracting Icon themes to $SHARE/icons"
@@ -167,7 +166,7 @@ printsl "Creating symlink for custom scripts"
 link "$DOTFILES/scripts" "$HOME/bin"
 
 printsl "Creating symlink for nvim init.vim"
-link "$DOTFILES/nvim/init.vim" "$XDG_CONFIG_HOME/nvim/."
+link "$DOTFILES/nvim/init.vim" "$NVIM_DIR/."
 
 #####  Profile setup  #####
 # move .profile and create symlink

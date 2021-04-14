@@ -1,12 +1,8 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
-
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
+# Langnostic's .profile
+#
+# Reminder: This file is not read by bash, if ~/.bash_profile or ~/.bash_login exists.
+#
+# Setup various shell variables used across environments
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -17,11 +13,12 @@ export LESSHISTFILE=-
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
 
 # Remove Python History file with this pythonrc config
-export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/pythonrc"
 
 # Aliases used across shells
 # not include 'l' alias, because i want to use fish abbr for it
 alias ls="ls --color=auto"
+alias ll="ls -lah"
 alias wget="wget --hsts-file $XDG_CACHE_HOME/wget_history"
 alias vim="nvim"
 export EDITOR=vim
@@ -35,10 +32,11 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
+# set user's bin in PATH, if it exists
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-
-# set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+
+# set go path, if it exists
+[ -d "/usr/local/go" ] && PATH="$PATH:/usr/local/go/bin"
 
 source "$HOME/.cargo/env"

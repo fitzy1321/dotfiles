@@ -18,10 +18,6 @@ if ! set -q DOTFILES
     set -x DOTFILES $SRC_PATH/dotfiles
 end
 
-#####  Aliases  #####
-alias vim='nvim'
-alias ll='ls -lah'
-
 #####  Set Abbreviations  ######
 # Docker
 abbr --add d 'docker'

@@ -18,8 +18,28 @@ if ! set -q DOTFILES
     set -x DOTFILES $SRC_PATH/dotfiles
 end
 
+#####  Add Deno to Path  #####
+if test -d $HOME/.local/deno
+    set -x DENO_INSTALL $HOME/.local/deno
+    fish_add_path $DENO_INSTALL/bin
+else if test -d $HOME/.deno
+    set -x DENO_INSTALL $HOME/.deno    
+    fish_add_path $DENO_INSTALL/bin
+end
+    
+#####  Add Cargo to Path  #####
+if test -d $HOME/.cargo 
+    fish_add_path $HOME/.cargo/bin
+end
+
+#####  macOS Specific thangs  #####
+if test (uname) = "Darwin"
+    alias updatedb="sudo /usr/libexec/locate.updatedb"
+end
+
 #####  Aliases  #####
 alias ll='ls -lah'
+alias vim='nvim'
 
 #####  Set Abbreviations  ######
 # Docker
@@ -68,25 +88,6 @@ abbr --add gpum 'git push -u origin main'
 abbr --add gsl 'git status --long'
 abbr --add gss 'git status -s'
 abbr --add gst 'git status'
-
-#####  Add Deno to Path  #####
-if test -d $HOME/.local/deno
-    set -x DENO_INSTALL $HOME/.local/deno
-    fish_add_path $DENO_INSTALL/bin
-else if test -d $HOME/.deno
-    set -x DENO_INSTALL $HOME/.deno    
-    fish_add_path $DENO_INSTALL/bin
-end
-    
-#####  Add Cargo to Path  #####
-if test -d $HOME/.cargo 
-    fish_add_path $HOME/.cargo/bin
-end
-
-#####  macOS Specific thangs  #####
-if test (uname) = "Darwin"
-    alias updatedb="sudo /usr/libexec/locate.updatedb"
-end
 
 #####  Starship Prompt setup  #####
 starship init fish | source

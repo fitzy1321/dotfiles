@@ -1,6 +1,4 @@
-# This is Git's per-user configuration file.
 [user]
-# Please adapt and uncomment the following lines:
 	name = langnostic
 	email = langnostic1@pm.me
 [diff]
@@ -26,5 +24,5 @@
 [pull]
 	ff = only
 [init]
-	templatedir = ~/.config/git/templates
-
+	#templatedir = ~/.config/git/templates
+	defaultBranch = main

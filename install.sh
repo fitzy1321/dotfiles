@@ -45,6 +45,9 @@ sudo apt install apt-transport-https curl software-properties-common
 #printsl "Adding deadsnakes ppa"
 #sudo add-apt-repository ppa:deadsnakes/ppa -y
 
+printsl "Add Git Core PPA for latest stable upstream of Git"
+add-apt-repository ppa:git-core/ppa
+
 printsl "Adding brave ppa"
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list

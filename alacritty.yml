@@ -32,6 +32,3 @@ cursor:
 
 live_config_reload: true
 
-mouse:
-  url:
-    launcher: firefox

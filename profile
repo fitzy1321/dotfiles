@@ -20,8 +20,7 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/pythonrc"
 alias ls="ls --color=auto"
 alias ll="ls -lah"
 alias wget="wget --hsts-file $XDG_CACHE_HOME/wget_history"
-alias vim="nvim"
-export EDITOR=vim
+export EDITOR=nvim
 export MYVIMRC="$XDG_CONFIG_HOME/nvim/init.vim"
 
 # if running bash

@@ -26,7 +26,4 @@ symbol = " "
 
 [python]
 symbol = "  "
-pyenv_version_name = true
-scan_for_pyfiles = true
-python_binaries = ["python3.9", "python3.8", "python3"] 
 

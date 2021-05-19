@@ -39,7 +39,6 @@ end
 
 #####  Aliases  #####
 alias ll='ls -lah'
-alias vim='nvim'
 
 #####  Set Abbreviations  ######
 # Docker
@@ -51,9 +50,9 @@ abbr --add dcu 'docker-compose up'
 abbr --add dcdr 'docker-compose down --remove-orphans'
 
 # Edit Common Configs
-abbr --add edit_fish 'vim $MYFISHCONFIG'
-abbr --add edit_nvim 'vim $MYVIMRC'
-abbr --add edit_profile 'vim $HOME/.profile'
+abbr --add edit_fish 'nvim $MYFISHCONFIG'
+abbr --add edit_nvim 'nvim $MYVIMRC'
+abbr --add edit_profile 'nvim $HOME/.profile'
 
 # Updates and Upgrades
 abbr --add dupgrade 'deno upgrade'

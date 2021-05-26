@@ -173,7 +173,7 @@ printsl "Moving .profile to $TMP"
 mv "$HOME/.profile" "$TMP/"
 
 printsl "Creating symlink for .profile"
-link "$DOTFILES/profile" "$HOME/.profile"
+link "$DOTFILES/.profile" "$HOME/.profile"
 
 #####  Bash Setup  #####
 # First, move original to tmp
@@ -183,7 +183,7 @@ printsl "Moving $HOME/.bashrc to $TMP"
 
 # Second, make symlink to new bashrc location
 printsl "Creating symlinks for .bashrc"
-link "$DOTFILES/bashrc" "$HOME/.bashrc"
+link "$DOTFILES/.bashrc" "$HOME/.bashrc"
 
 # Move existing file to tmp folder
 if [ -f "$FISH_PATH/config.fish" ]; then

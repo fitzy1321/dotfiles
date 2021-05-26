@@ -105,10 +105,6 @@ sudo npm install -g diff-so-fancy
 printsl "Installing Rust"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-#####  Install Kite  #####
-printsl "Installing kite"
-bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
-
 #####  Install Starship Prompt  #####
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
@@ -166,7 +162,7 @@ link "$DOTFILES/git" "$XDG_CONFIG_HOME"
 #####  Symlink From Scripts folder to bin  #####
 printsl "Creating symlink for custom scripts"
 [ -d "$HOME/bin" ] && mv "$HOME/bin/" "$HOME/tmp/"
-link "$DOTFILES/scripts" "$HOME/bin"
+link "$DOTFILES/bin" "$HOME/bin"
 
 printsl "Creating symlink for nvim init.vim"
 link "$DOTFILES/nvim/init.vim" "$NVIM_DIR/."
@@ -183,20 +179,11 @@ link "$DOTFILES/profile" "$HOME/.profile"
 # First, move original to tmp
 printsl "Moving $HOME/.bashrc to $TMP"
 [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/"
+[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP"
 
 # Second, make symlink to new bashrc location
-BASH_PATH="$XDG_CONFIG_HOME/bash"
-printsl "Creating symlinks for bashrc to $XDG_CONFIG_HOME/bashrc"
-[ ! -d "$BASH_PATH" ] && mkdir "$BASH_PATH"
-link "$DOTFILES/bash/bashrc" "$BASH_PATH/bashrc"
-link "$DOTFILES/bash/aliasrc" "$BASH_PATH/aliasrc"
-
-# Third, replace old /etc/bash.bashrc
-printsl "Creating a copy of /etc/bash.bashrc in $TMP"
-cp /etc/bash.bashrc "$TMP/etc.bash.bashrc"
-
-printsl "Appending /etc/bash.bashrc"
-sudo cp -f "$BASH_PATH/etc.bash.bashrc" /etc/bash.bashrc
+printsl "Creating symlinks for .bashrc"
+link "$DOTFILES/bashrc" "$HOME/.bashrc"
 
 # Move existing file to tmp folder
 if [ -f "$FISH_PATH/config.fish" ]; then

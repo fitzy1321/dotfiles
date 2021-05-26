@@ -5,10 +5,6 @@
 # Setup various shell variables used across environments
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export BASH_PATH="$XDG_CONFIG_HOME/bash"
-export SRC_PATH="$HOME/Source"
-export DOTFILES="$SRC_PATH/dotfiles"
 export LESSHISTFILE=-
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
 
@@ -26,8 +22,8 @@ export MYVIMRC="$XDG_CONFIG_HOME/nvim/init.vim"
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
 	# include .bashrc if it exists (as a file or symlink)
-    if [[ -f "$BASH_PATH/bashrc" || -L "$BASH_PATH/bashrc" ]]; then
-	. "$BASH_PATH/bashrc"
+    if [[ -f "$HOME/.bashrc" || -L "$HOME/.bashrc" ]]; then
+	. "$HOME/.bashrc"
     fi
 fi
 
@@ -38,4 +34,3 @@ fi
 # set go path, if it exists
 [ -d "/usr/local/go" ] && PATH="$PATH:/usr/local/go/bin"
 
-source "$HOME/.cargo/env"

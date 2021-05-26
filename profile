@@ -27,10 +27,17 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set user's bin in PATH, if it exists
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+# Set deno path
+[ -d "$HOME/.local/deno" ] && PATH="$HOME/.local/deno/bin:$PATH"
+[ -d "$HOME/.deno" ] && PATH="$HOME/.deno/bin:$PATH"
 
 # set go path, if it exists
-[ -d "/usr/local/go" ] && PATH="$PATH:/usr/local/go/bin"
+[ -d "/usr/local/go" ] && PATH="/usr/local/go/bin:$PATH"
+
+# set cargo path
+[ -d "$HOME/.cargo" ] && PATH="$HOME/.cargo/bin:$PATH"
+
+# set user's bin in PATH, if it exists
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 

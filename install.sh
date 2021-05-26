@@ -196,13 +196,6 @@ fi
 printsl "Creating symlink for config.fish"
 link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
 
-printsl "Creating symlinks for fish functions"
-[ ! -d "$FISH_PATH/functions" ] && mkdir "$FISH_PATH/functions"
-for file in "$DOTFILES/fish/functions"/*
-do
-    link "$file" "$FISH_PATH/functions/."
-done
-
 # Creating symlink for starship.toml
 printsl "Creating symlink for starship.toml"
 ln -s "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."

@@ -33,6 +33,7 @@ set expandtab
 set smarttab 
 set autoindent 
 set smartindent
+set mouse=a
 
 " Toggle Relative Numbers
 function! ToggleNumbers()

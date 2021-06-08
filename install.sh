@@ -109,10 +109,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
 
-#####  Install Deno  #####
-printsl "Installing Deno"
-curl -fsSL https://deno.land/x/install/install.sh | sh
-
 ###############################################################################
 #                                                                             #
 #####################################  Section 2  #############################

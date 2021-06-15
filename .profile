@@ -28,11 +28,11 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # Set deno path
-[ -d "$HOME/.local/deno" ] && PATH="$HOME/.local/deno/bin:$PATH"
-[ -d "$HOME/.deno" ] && PATH="$HOME/.deno/bin:$PATH"
+# [ -d "$HOME/.local/deno" ] && PATH="$HOME/.local/deno/bin:$PATH"
+# [ -d "$HOME/.deno" ] && PATH="$HOME/.deno/bin:$PATH"
 
 # set go path, if it exists
-[ -d "/usr/local/go" ] && PATH="/usr/local/go/bin:$PATH"
+# [ -d "/usr/local/go" ] && PATH="/usr/local/go/bin:$PATH"
 
 # set cargo path
 [ -d "$HOME/.cargo" ] && PATH="$HOME/.cargo/bin:$PATH"

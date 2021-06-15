@@ -45,7 +45,6 @@ abbr --add edit_nvim 'nvim $MYVIMRC'
 abbr --add edit_profile 'nvim $HOME/.profile'
 
 # Updates and Upgrades
-abbr --add dupgrade 'deno upgrade'
 abbr --add fupdate 'flatpak update'
 abbr --add rupdate 'rustup update'
 abbr --add update 'sudo apt update && apt list --upgradable'

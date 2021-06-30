@@ -55,6 +55,7 @@ abbr --add dotfiles 'cd $DOTFILES'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
 abbr --add ppath 'echo $PATH'
 abbr --add reset_fish 'source $MYFISHCONFIG'
+abbr --add rust_book_code 'cd $SRC_PATH/rust/book-code && code . && rustup doc --book'
 
 # Git abbr's
 abbr --add ga 'git add'

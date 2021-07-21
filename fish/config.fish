@@ -1,13 +1,13 @@
 #!/usr/bin/env fish
 
-# Protip: use fish_add_path to edit the PATH variable in this config file
+# Pro-tip: use fish_add_path to edit the PATH variable in this config file
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # etc: fish_add_path $HOME/.cargo/bin
 
-#####  Remove fish greeting  #####
+# Remove fish greeting
 set fish_greeting ""
 
-#####  Setup Common Paths  #####
+# Setup Common Paths
 set MYFISHCONFIG $XDG_CONFIG_HOME/fish/config.fish
 
 if ! set -q MYVIMRC
@@ -22,15 +22,16 @@ if ! set -q DOTFILES
     set -x DOTFILES $SRC_PATH/dotfiles
 end
 
-#####  macOS Specific thangs  #####
+# macOS Specific thangs
 if test (uname) = "Darwin"
     alias updatedb="sudo /usr/libexec/locate.updatedb"
 end
 
-#####  Aliases  #####
+# Aliases
 alias ll='ls -lah'
 
-#####  Set Abbreviations  ######
+# Set Abbreviations
+
 # Docker
 abbr --add d 'docker'
 abbr --add dps 'docker ps'
@@ -78,6 +79,9 @@ abbr --add gsl 'git status --long'
 abbr --add gss 'git status -s'
 abbr --add gst 'git status'
 
-#####  Starship Prompt setup  #####
+# Pipenv magic 
+eval (pipenv --completion)
+
+# Starship Prompt Setup
 starship init fish | source
 

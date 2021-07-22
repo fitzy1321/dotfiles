@@ -4,9 +4,9 @@
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 " Autoload vim-plug
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-endif
+"if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+"endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
@@ -28,12 +28,10 @@ syntax enable
 set number
 set rnu
 set nowrap
-set encoding=utf-8
 set expandtab 
 set smarttab 
 set autoindent 
 set smartindent
-set mouse=a
 
 " Toggle Relative Numbers
 function! ToggleNumbers()
@@ -51,5 +49,5 @@ nnoremap <leader>sc :source $MYVIMRC<CR>
 nnoremap <leader>tn :call ToggleNumbers()<CR>
 
 " Auto Source when writing to config file
-au! BufWritePost $MYVIMRC source %
+"au! BufWritePost $MYVIMRC source %
 

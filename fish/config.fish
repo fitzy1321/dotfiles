@@ -5,7 +5,7 @@
 # etc: fish_add_path $HOME/.cargo/bin
 
 # Remove fish greeting
-set fish_greeting ""
+set -g fish_greeting
 
 # Setup Common Paths
 set MYFISHCONFIG $XDG_CONFIG_HOME/fish/config.fish
@@ -29,15 +29,12 @@ end
 
 # Aliases
 alias ll='ls -lah'
-
+alias mongo='mongosh'
 # Set Abbreviations
 
 # Docker
 abbr --add d 'docker'
-abbr --add dps 'docker ps'
 abbr --add dc 'docker-compose'
-abbr --add dcb 'docker-compose build'
-abbr --add dcu 'docker-compose up'
 abbr --add dcdr 'docker-compose down --remove-orphans'
 
 # Edit Common Configs
@@ -53,8 +50,10 @@ abbr --add upgrade 'sudo apt upgrade -y'
 
 # Misc
 abbr --add dotfiles 'cd $DOTFILES'
+abbr --add flatpak_unused 'flatpak uninstall --unused'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
 abbr --add ppath 'echo $PATH'
+abbr --add py3 'python3.9'
 abbr --add reset_fish 'source $MYFISHCONFIG'
 abbr --add rust_book_code 'cd $SRC_PATH/rust/book-code && code . && rustup doc --book'
 
@@ -62,13 +61,10 @@ abbr --add rust_book_code 'cd $SRC_PATH/rust/book-code && code . && rustup doc -
 abbr --add ga 'git add'
 abbr --add gaa 'git add -A'
 abbr --add gb 'git branch'
-abbr --add gba 'git branch -a'
-abbr --add gbl 'git branch -l'
-abbr --add gbm 'git branch -M'
 abbr --add gcam 'git commit -a -m'
 abbr --add gcb 'git checkout -b'
+abbr --add gch 'git checkout'
 abbr --add gcm 'git commit -m'
-abbr --add gco 'git checkout'
 abbr --add gd 'git diff'
 abbr --add gds 'git diff --staged'
 abbr --add gl 'git pull'
@@ -78,9 +74,6 @@ abbr --add gpum 'git push -u origin main'
 abbr --add gsl 'git status --long'
 abbr --add gss 'git status -s'
 abbr --add gst 'git status'
-
-# Pipenv magic 
-eval (pipenv --completion)
 
 # Starship Prompt Setup
 starship init fish | source

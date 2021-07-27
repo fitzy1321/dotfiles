@@ -2,7 +2,7 @@
 
 ###############################################################################
 # JFitzy1321's Linux Install script
-# 
+#
 # First section:    Install packages via apt and flatpak
 #
 # Second Section:   Add config files to xdg locations
@@ -41,11 +41,10 @@ sudo apt install apt-transport-https curl software-properties-common
 
 ######  Adding ppas  #####
 
-## there's a problem with this ppa
-#printsl "Adding deadsnakes ppa"
-#sudo add-apt-repository ppa:deadsnakes/ppa -y
+printsl "Adding Fish PPA for lastest version of fish shell."
+add-apt-repository ppa:fish-shell/release-3
 
-printsl "Add Git Core PPA for latest stable upstream of Git"
+printsl "Adding Git Core PPA for latest stable upstream of Git."
 add-apt-repository ppa:git-core/ppa
 
 printsl "Adding brave ppa"
@@ -62,12 +61,13 @@ sudo apt update && sudo apt upgrade -y
 printsl "Installing apt packages"
 sudo apt install -y \
     alacritty bridge-utils brave-browser build-essential \
-    cheese cmake code deepin-icon-theme easytag fish \
-    gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
-    gparted gufw lollypop make neofetch neovim nodejs preload \
+    cheese cmake code deepin-icon-theme discord easytag fish \
+    gdb gnome-tweaks google-chrome-stable gparted gufw \
+    lollypop make neofetch neovim nodejs preload \
     python3.8 python3.9 python3-pip python3-dev qemu-kvm \
-    shellcheck sqlite3 sqlitebrowser symlinks tensorman \
-    tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager
+    shellcheck sqlite3 sqlitebrowser symlinks tensorman thunderbird \
+    tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager \
+    virutalbox
 
 sudo adduser "$(whoami)" libvirtd
 
@@ -78,11 +78,13 @@ sudo ufw enable
 #####  Installing Flatpaks #####
 printsl "Installing flatpaks"
 flatpak install flathub \
-    com.discordapp.Discord \
     com.axosoft.GitKraken \
+    com.bitwarden.desktop \
     com.getpostman.Postman \
     com.slack.Slack \
     com.spotify.Client \
+    net.cozic.joplin_desktop \
+    org.kde.haruna \
     org.processing.processingide \
     us.zoom.Zoom
 
@@ -92,10 +94,8 @@ sudo apt purge --auto-remove -y geary
 
 #####  Python setup  #####
 printsl "Setting up pip and pipenv"
-python3.8 -m pip install -U pip
-python3.8 -m pip install -U pipenv
-python3.9 -m pip install -U pip
-python3.9 -m pip install -U pipenv
+python3.8 -m pip install -U pip pipenv pylint black
+python3.9 -m pip install -U pip pipenv pylint black
 
 ##### Install "Diff So Fancy" #####
 printsl "Installing 'diff-so-fancy' via npm"
@@ -199,4 +199,3 @@ ln -s "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
 #####  Make fish the default shell  #####
 printsl "Setting fish as default shell"
 chsh -s "$(which fish)"
-

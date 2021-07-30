@@ -2,7 +2,7 @@
 
 ###############################################################################
 # JFitzy1321's Linux Install script
-# 
+#
 # First section:    Install packages via apt and flatpak
 #
 # Second Section:   Add config files to xdg locations
@@ -41,11 +41,10 @@ sudo apt install apt-transport-https curl software-properties-common
 
 ######  Adding ppas  #####
 
-## there's a problem with this ppa
-#printsl "Adding deadsnakes ppa"
-#sudo add-apt-repository ppa:deadsnakes/ppa -y
+printsl "Adding Fish PPA for lastest version of fish shell."
+add-apt-repository ppa:fish-shell/release-3
 
-printsl "Add Git Core PPA for latest stable upstream of Git"
+printsl "Adding Git Core PPA for latest stable upstream of Git."
 add-apt-repository ppa:git-core/ppa
 
 printsl "Adding brave ppa"
@@ -62,12 +61,13 @@ sudo apt update && sudo apt upgrade -y
 printsl "Installing apt packages"
 sudo apt install -y \
     alacritty bridge-utils brave-browser build-essential \
-    cheese cmake code deepin-icon-theme easytag fish \
-    gdb gnome-tweaks gir1.2-gtkclutter-1.0 google-chrome-stable \
-    gparted gufw lollypop make neofetch neovim nodejs preload \
+    cheese cmake code deepin-icon-theme discord easytag fish \
+    gdb gnome-tweaks google-chrome-stable gparted gufw \
+    lollypop make neofetch neovim nodejs preload \
     python3.8 python3.9 python3-pip python3-dev qemu-kvm \
-    shellcheck sqlite3 sqlitebrowser symlinks tensorman \
-    tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager
+    shellcheck sqlite3 sqlitebrowser symlinks tensorman thunderbird \
+    tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager \
+    virutalbox
 
 sudo adduser "$(whoami)" libvirtd
 
@@ -78,11 +78,13 @@ sudo ufw enable
 #####  Installing Flatpaks #####
 printsl "Installing flatpaks"
 flatpak install flathub \
-    com.discordapp.Discord \
     com.axosoft.GitKraken \
+    com.bitwarden.desktop \
     com.getpostman.Postman \
     com.slack.Slack \
     com.spotify.Client \
+    net.cozic.joplin_desktop \
+    org.kde.haruna \
     org.processing.processingide \
     us.zoom.Zoom
 
@@ -92,10 +94,8 @@ sudo apt purge --auto-remove -y geary
 
 #####  Python setup  #####
 printsl "Setting up pip and pipenv"
-python3.8 -m pip install -U pip
-python3.8 -m pip install -U pipenv
-python3.9 -m pip install -U pip
-python3.9 -m pip install -U pipenv
+python3.8 -m pip install -U pip pipenv pylint black
+python3.9 -m pip install -U pip pipenv pylint black
 
 ##### Install "Diff So Fancy" #####
 printsl "Installing 'diff-so-fancy' via npm"
@@ -105,17 +105,9 @@ sudo npm install -g diff-so-fancy
 printsl "Installing Rust"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-#####  Install Kite  #####
-printsl "Installing kite"
-bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
-
 #####  Install Starship Prompt  #####
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
-
-#####  Install Deno  #####
-printsl "Installing Deno"
-curl -fsSL https://deno.land/x/install/install.sh | sh
 
 ###############################################################################
 #                                                                             #
@@ -166,7 +158,7 @@ link "$DOTFILES/git" "$XDG_CONFIG_HOME"
 #####  Symlink From Scripts folder to bin  #####
 printsl "Creating symlink for custom scripts"
 [ -d "$HOME/bin" ] && mv "$HOME/bin/" "$HOME/tmp/"
-link "$DOTFILES/scripts" "$HOME/bin"
+link "$DOTFILES/bin" "$HOME/bin"
 
 printsl "Creating symlink for nvim init.vim"
 link "$DOTFILES/nvim/init.vim" "$NVIM_DIR/."
@@ -177,26 +169,17 @@ printsl "Moving .profile to $TMP"
 mv "$HOME/.profile" "$TMP/"
 
 printsl "Creating symlink for .profile"
-link "$DOTFILES/profile" "$HOME/.profile"
+link "$DOTFILES/.profile" "$HOME/.profile"
 
 #####  Bash Setup  #####
 # First, move original to tmp
 printsl "Moving $HOME/.bashrc to $TMP"
 [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/"
+[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP"
 
 # Second, make symlink to new bashrc location
-BASH_PATH="$XDG_CONFIG_HOME/bash"
-printsl "Creating symlinks for bashrc to $XDG_CONFIG_HOME/bashrc"
-[ ! -d "$BASH_PATH" ] && mkdir "$BASH_PATH"
-link "$DOTFILES/bash/bashrc" "$BASH_PATH/bashrc"
-link "$DOTFILES/bash/aliasrc" "$BASH_PATH/aliasrc"
-
-# Third, replace old /etc/bash.bashrc
-printsl "Creating a copy of /etc/bash.bashrc in $TMP"
-cp /etc/bash.bashrc "$TMP/etc.bash.bashrc"
-
-printsl "Appending /etc/bash.bashrc"
-sudo cp -f "$BASH_PATH/etc.bash.bashrc" /etc/bash.bashrc
+printsl "Creating symlinks for .bashrc"
+link "$DOTFILES/.bashrc" "$HOME/.bashrc"
 
 # Move existing file to tmp folder
 if [ -f "$FISH_PATH/config.fish" ]; then
@@ -209,13 +192,6 @@ fi
 printsl "Creating symlink for config.fish"
 link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
 
-printsl "Creating symlinks for fish functions"
-[ ! -d "$FISH_PATH/functions" ] && mkdir "$FISH_PATH/functions"
-for file in "$DOTFILES/fish/functions"/*
-do
-    link "$file" "$FISH_PATH/functions/."
-done
-
 # Creating symlink for starship.toml
 printsl "Creating symlink for starship.toml"
 ln -s "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
@@ -223,4 +199,3 @@ ln -s "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
 #####  Make fish the default shell  #####
 printsl "Setting fish as default shell"
 chsh -s "$(which fish)"
-

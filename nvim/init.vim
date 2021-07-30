@@ -1,22 +1,37 @@
 " Langnostic's Neovim Config
 
+" run this command to install vim-plug
+" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 " Autoload vim-plug
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+"if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+"endif
 
-" run :PlugInstall
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.config/nvim/autoload/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release' }
+" Plug 'https://github.com/neoclide/coc.nvim' " Autocompletion plugin
+Plug 'https://github.com/sheerun/vim-polyglot' " Language Packs, indenting, syntax highlighting, etc.
 
+" Plugin Commands
+" :PlugStatus
+" :PlugInstall
+" :PlugUpdate  - Update Plugins
+" :PlugDiff  - see difference after update
+" :PlugClean  - remove any plugins no longer defined below
+" :PlugUpgrade  - upgrade vim-plug it:self
 call plug#end()
 
+" General Settings
+syntax on
 syntax enable
 set number
 set rnu
+set nowrap
+set expandtab 
+set smarttab 
+set autoindent 
+set smartindent
 
 " Toggle Relative Numbers
 function! ToggleNumbers()
@@ -33,6 +48,6 @@ let mapleader = ","
 nnoremap <leader>sc :source $MYVIMRC<CR>
 nnoremap <leader>tn :call ToggleNumbers()<CR>
 
-" auto source when writing to $MYVIMRC
-au! BufWritePost $MYVIMRC source %
+" Auto Source when writing to config file
+"au! BufWritePost $MYVIMRC source %
 

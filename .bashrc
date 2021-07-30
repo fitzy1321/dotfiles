@@ -103,7 +103,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 ### Custom Aliases ###
 [ -f "$BASH_PATH/aliasrc" ] && source "$BASH_PATH/aliasrc"
 [ -f "$HOME/.config/git/aliasrc" ] && source "$HOME/.config/git/aliasrc"
-alias l="ls -lah"
+alias ll="ls -lah"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -115,3 +115,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Pipenv magic completion
+eval "$(pipenv --completion)"
+

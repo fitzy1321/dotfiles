@@ -38,5 +38,12 @@ alias ll="ls -lah"
 alias src="source ~/.bashrc && echo 'Re-sourcing bashrc file'"
 alias tree="/c/Windows/System32/tree"
 
+# python3.7 alias
+alias python37="/c/Users/joe.fitzgibbons/AppData/Local/Programs/Python/Python37/python.exe"
 
-
+# How to install starship on Windows Git Bash:
+# mkdir -p ~/bin/starship && cd ~/bin
+# curl -fsSL https://starship.rs/install.sh > ./install.sh
+# ./install.sh --bin-dir /c/Users/<username>/bin/starship/ --platform pc-windows-msvc
+export PATH=$PATH:"$HOME/bin/starship"
+eval "$(starship init bash)"

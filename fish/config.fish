@@ -75,6 +75,12 @@ abbr --add gsl 'git status --long'
 abbr --add gss 'git status -s'
 abbr --add gst 'git status'
 
+set -Ux PYENV_ROOT $HOME/.pyenv
+fish_add_path $PYENV_ROOT/bin
+
+status is-interactive; and pyenv init --path | source
+pyenv init - | source
+
 # Starship Prompt Setup
 starship init fish | source
 

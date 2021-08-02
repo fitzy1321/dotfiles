@@ -18,6 +18,6 @@ function pipenv_default
   # update pip and setuptools
   pipenv run python -m pip install -U pip setuptools
   # install pylint and black, my goto linter and formatter
-  pipenv install --dev pylint pytest coverage
+  pipenv install --dev pylint pytest pytest-mock pytest-cov coverage
   pipenv install --dev black --pre
 end

@@ -8,13 +8,16 @@ function pipenv_default
   argparse p/python -- $argv
 
   if set -q _flag_python
+    echo Creating pipenv with Python version $argv[1]
     pipenv --python $argv[1]
   else
+    echo Creating pipenv with latest stable 3.9
     pipenv --python 3.9
   end
   
-  # update pip in new venv
-  pipenv run python -m pip install -U pip
+  # update pip and setuptools
+  pipenv run python -m pip install -U pip setuptools
   # install pylint and black, my goto linter and formatter
-  pipenv install --dev pylint black --pre
+  pipenv install --dev pylint pytest coverage
+  pipenv install --dev black --pre
 end

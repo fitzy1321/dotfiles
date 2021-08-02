@@ -151,9 +151,10 @@ fi
 
 # Creating symlinks to various file
 printsl "Creating symlinks for dotfiles."
-link "$DOTFILES/alacritty.yml" "$XDG_CONFIG_HOME/." # alacritty
-link "$DOTFILES/git" "$XDG_CONFIG_HOME" # git dir
-link "$DOTFILES/bin" "$HOME" # bin folder
+
+link "$DOTFILES/alacritty.yml" "$XDG_CONFIG_HOME/."
+link "$DOTFILES/git" "$XDG_CONFIG_HOME"
+link "$DOTFILES/bin" "$HOME"
 link "$DOTFILES/nvim/init.vim" "$NVIM_DIR/."
 
 mv "$HOME/.profile" "$HOME/.old_profile"
@@ -163,4 +164,5 @@ link "$DOTFILES/.profile" "$HOME/.profile"
 link "$DOTFILES/.bashrc" "$HOME/.bashrc"
 link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
 link "$DOTFILES/fish/functions" "$FISH_PATH"
-ln -s "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
+link "$DOTFILES/fish/completions" "$FISH_PATH"
+link "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."

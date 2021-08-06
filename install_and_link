@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Langnostic's Linux Install script
+# Fitzypop's Linux Install script
 #
 # First section:    Install various packages via apt, flatpak,
 #                   and install scripts

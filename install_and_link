@@ -54,7 +54,7 @@ sudo apt-get install -y \
     alacritty bridge-utils brave-browser build-essential \
     cheese cmake code deepin-icon-theme discord easytag fish \
     gdb gnome-tweaks google-chrome-stable gparted gufw \
-    llvm lollypop make neofetch neovim nodejs preload \
+    llvm locate lollypop make neofetch neovim nodejs preload \
     python3.8 python3.9 python3-pip python3-dev qemu-kvm \
     shellcheck sqlite3 sqlitebrowser symlinks tensorman thunderbird \
     tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager \
@@ -166,3 +166,7 @@ link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
 link "$DOTFILES/fish/functions" "$FISH_PATH"
 link "$DOTFILES/fish/completions" "$FISH_PATH"
 link "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
+link "$DOTFILES/pyproject" "$XDG_CONFIG_HOME/."
+
+sudo updatedb
+

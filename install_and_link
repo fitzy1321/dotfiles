@@ -110,6 +110,10 @@ sudo npm install -g diff-so-fancy yarn
 printsl "Installing Rust"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+# Install delta via cargo
+printsl "Installing delta"
+/home/joe/.cargo/bin/cargo install git-delta
+
 # Install Starship Prompt
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash

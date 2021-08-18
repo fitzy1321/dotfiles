@@ -1,27 +1,55 @@
 [user]
 	name = fitzypop
 	email = fitzypop@pm.me
-[diff]
-	colorMoved = zebra
 [fetch]
 	prune = true
-[core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
-[color]
-	ui = true
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
 [pull]
 	ff = only
 [init]
 	defaultBranch = main
+
+## delta config
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+[interactive]
+	diffFilter = delta --color-only
+#  diffFilter = delta --color-only --fetures=interactive
+[delta]
+#	navigate = true
+	line-numbers = true
+#	feature = decorations
+# [delta "interactive"]
+#    keep-plus-minus-markers = false
+# [delta "decorations"]
+#   commit-decoration-style = blue ol
+#   commit-style = raw
+#   file-style = omit
+#   hunk-header-decoration-style = blue box
+# 	hunk-header-file-style = red
+#   hunk-header-line-number-style = "#067a00"
+# 	hunk-header-style = file line-number syntax
+
+
+## diff-so-fancy config
+# [diff]
+	# colorMoved = zebra
+# [core]
+	# pager = diff-so-fancy | less --tabs=4 -RFX
+# [color]
+	# ui = true
+# [color "diff-highlight"]
+	# oldNormal = red bold
+	# oldHighlight = red bold 52
+	# newNormal = green bold
+	# newHighlight = green bold 22
+# [color "diff"]
+	# meta = 11
+	# frag = magenta bold
+	# commit = yellow bold
+	# old = red bold
+	# new = green bold
+	# whitespace = red reverse
+

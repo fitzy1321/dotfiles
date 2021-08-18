@@ -51,19 +51,14 @@ sudo apt-get update && sudo apt upgrade -y
 
 printsl "Installing apt packages"
 sudo apt-get install -y \
-    alacritty bridge-utils brave-browser build-essential \
-    cheese cmake code deepin-icon-theme discord easytag fish \
-    gdb gnome-tweaks google-chrome-stable gparted gufw \
-    llvm locate lollypop make neofetch neovim nodejs preload \
-    python3.8 python3.9 python3-pip python3-dev qemu-kvm \
+    alacritty brave-browser build-essential \
+    cheese code deepin-icon-theme discord easytag fish \
+    gdb gnome-tweaks google-chrome-stable gparted gufw htop \
+    llvm locate lollypop make neofetch neovim nodejs \
+    python3.8 python3.9 python3-pip python3-dev python3-venv qemu-kvm \
     shellcheck sqlite3 sqlitebrowser symlinks tensorman thunderbird \
     tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager \
     virutalbox wget
-
-printsl "Installing Python build deps, for pyenv."
-sudo apt-get install libssl-dev zlib1g-dev \
-libbz2-dev libreadline-dev libsqlite3-dev \
-libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
 sudo adduser "$(whoami)" libvirtd
 
@@ -88,10 +83,24 @@ flatpak install flathub \
 printsl "Apt cleanup"
 sudo apt purge --auto-remove -y geary
 
-# Basic python packages
+# Python setup
+printsl "Installing Python build deps, for pyenv."
+sudo apt-get install -y \ 
+    libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
+    scrot python3-tk pyenv
+
 printsl "Setting up pip and pipenv"
-python3.8 -m pip install -U pip pipenv pylint black
-python3.9 -m pip install -U pip pipenv pylint black
+python3.8 -m pip install -U pip flake8 black pytest pytest-mock coverage pytest-cov pytest-sugar
+python3.9 -m pip install -U pip pipx pyautogui jupyterlab pandas \
+    flake8 black pytest pytest-mock coverage pytext-cov pytest-sugar
+
+# Pyenv
+printsl "Installing Pyenv."
+curl https://pyenv.run | bash
+
+printsl "Install Poetry"
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
 
 # Install "Diff So Fancy" and Yarn
 printsl "Installing 'diff-so-fancy' via npm, and yarn"
@@ -104,10 +113,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Install Starship Prompt
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
-
-# Pyenv
-printsl "Installing Pyenv."
-curl https://pyenv.run | bash
 
 # Make fish the default shell
 printsl "Setting fish as default shell"

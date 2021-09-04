@@ -8,7 +8,8 @@
 [init]
 	defaultBranch = main
 
-## delta config
+# delta config
+# To Install: cargo install git-delta
 [pager]
 	diff = delta
 	log = delta
@@ -23,6 +24,7 @@
 
 
 ## diff-so-fancy config
+## To Install: npm i -g diff-so-fancy
 # [diff]
 	# colorMoved = zebra
 # [core]

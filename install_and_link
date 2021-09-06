@@ -86,7 +86,7 @@ sudo apt purge --auto-remove -y geary
 
 # Python setup
 printsl "Installing Python build deps, for pyenv."
-sudo apt-get install -y \ 
+sudo apt-get install -y \
     libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
     scrot python3-tk pyenv
@@ -130,12 +130,12 @@ chsh -s "$(which fish)"
 ###############################################################################
 
 #####  Setup  #####
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+CONFIG="${CONFIG:-$HOME/.config}"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 SOURCE_DIR="$HOME/Source"
-NVIM_DIR="$XDG_CONFIG_HOME/nvim"
+NVIM_DIR="$CONFIG/nvim"
 DOTFILES="$SOURCE_DIR/dotfiles"
-FISH_PATH="$XDG_CONFIG_HOME/fish"
+FISH_PATH="$CONFIG/fish"
 TMP="$HOME/tmp"
 
 # create tmp folder in case something goes wrong
@@ -162,8 +162,8 @@ fi
 # Creating symlinks to various file
 printsl "Creating symlinks for dotfiles."
 
-link "$DOTFILES/alacritty.yml" "$XDG_CONFIG_HOME/."
-link "$DOTFILES/git" "$XDG_CONFIG_HOME"
+link "$DOTFILES/alacritty.yml" "$CONFIG/."
+link "$DOTFILES/git" "$CONFIG"
 link "$DOTFILES/bin" "$HOME"
 link "$DOTFILES/nvim/init.vim" "$NVIM_DIR/."
 
@@ -173,10 +173,17 @@ link "$DOTFILES/.profile" "$HOME/.profile"
 [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.old_bash_profile"
 link "$DOTFILES/.bashrc" "$HOME/.bashrc"
 link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
+link "$DOTFILES/fish/abbrevs.fish" "$FISH_PATHS/."
 link "$DOTFILES/fish/functions" "$FISH_PATH"
 link "$DOTFILES/fish/completions" "$FISH_PATH"
-link "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
-link "$DOTFILES/pyproject" "$XDG_CONFIG_HOME/."
+link "$DOTFILES/starship.toml" "$CONFIG/."
+link "$DOTFILES/pyproject" "$CONFIG/."
+link "$DOTFILES/pythonrc" "$CONFIG/python/."
 
-sudo updatedb
-
+# Update locate db
+OS_NAME=$(uname)
+if [ "$UNAME" == "Linux" ]; then
+    sudo updatedb
+elif [ "$UNAME" == "Darwin"]; then
+    sudo /usr/libexec/locate.updatedb
+fi

@@ -5,7 +5,7 @@ window:
     y: 5
 
 font:
-  size: 14
+  size: 12
   normal:
     family: UbuntuMono Nerd Font
     style: Regular
@@ -27,8 +27,9 @@ selection:
   save_to_clipboard: true
 
 cursor:
-  style: Beam
+  style:
+    shape: Beam
+    blinking: on
   thickness: 0.3
 
 live_config_reload: true
-

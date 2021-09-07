@@ -1,5 +1,5 @@
 " Set compatibility to Vim only.
-set nocompatible
+" set nocompatible
 
 " Turn on line numbers
 set number
@@ -10,3 +10,6 @@ syntax on
 " Display options
 set showmode
 " set showcmd
+
+" enable mouse use and scroll
+:set mouse=a

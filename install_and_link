@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# JFitzy1321's Linux Install script
+# Fitzypop's Linux Install script
 #
-# First section:    Install packages via apt and flatpak
+# First section:    Install various packages via apt, flatpak,
+#                   and install scripts
 #
-# Second Section:   Add config files to xdg locations
+# Second Section:   Create symlinks for dotfiles
 #
 # I'm currently using Pop!_OS and apt to install packages.
-# This should be compatiable with any Ubuntu Based Distro.
+# This should be compatiable with any Ubuntu Based Distro,
+# but I will be assuming Pop!_OS default setup.
 #
 ###############################################################################
 
@@ -22,24 +24,13 @@ function printsl {
     sleep 0.5
 }
 
-#####  Check if flatpak is installed
-if ! flatpak --version; then
-    printsl "Flatpak is not installed, installing now"
-    apt install flatpak
-
-    printsl "Adding flathub"
-    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-    printsl "Do you want to reboot now? y / n: "
-
-    read answer
-    if [ "$answer" == "y" ]; then sudo shutdown -r now ; fi
-fi
 
 # Need these to install ppas and setup scripts
+printsl "Installing prerequesites before installing PPAs."
+sudo apt update
 sudo apt install apt-transport-https curl software-properties-common
 
-######  Adding ppas  #####
+# Adding PPAs for fish, git, brave, and node
 
 printsl "Adding Fish PPA for lastest version of fish shell."
 add-apt-repository ppa:fish-shell/release-3
@@ -54,28 +45,29 @@ echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable ma
 printsl "Adding nodesource ppa"
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 
-#####  Update system && Install Packages  #####
+# Update system && Install Packages
 printsl "Updating System"
-sudo apt update && sudo apt upgrade -y
+sudo apt-get update && sudo apt upgrade -y
 
 printsl "Installing apt packages"
-sudo apt install -y \
-    alacritty bridge-utils brave-browser build-essential \
-    cheese cmake code deepin-icon-theme discord easytag fish \
-    gdb gnome-tweaks google-chrome-stable gparted gufw \
-    lollypop make neofetch neovim nodejs preload \
-    python3.8 python3.9 python3-pip python3-dev qemu-kvm \
+sudo apt-get install -y \
+    alacritty brave-browser build-essential \
+    cheese code deepin-icon-theme discord easytag fish \
+    gdb gnome-tweaks google-chrome-stable gparted gufw htop \
+    llvm locate lollypop make neofetch neovim nodejs \
+    python3.8 python3.9 python3-pip python3-dev python3-venv qemu-kvm \
     shellcheck sqlite3 sqlitebrowser symlinks tensorman thunderbird \
     tree ttf-mscorefonts-installer ubuntu-restricted-extras ufw virt-manager \
-    virutalbox
+    virutalbox wget \
+    pcscd # for yubikey app
 
 sudo adduser "$(whoami)" libvirtd
 
-####   Enable firewall  #####
+# Enable Firewall
 printsl "Enabling firewall"
 sudo ufw enable
 
-#####  Installing Flatpaks #####
+# Installing Flatpaks
 printsl "Installing flatpaks"
 flatpak install flathub \
     com.axosoft.GitKraken \
@@ -88,40 +80,62 @@ flatpak install flathub \
     org.processing.processingide \
     us.zoom.Zoom
 
-#####  Remove unneed apps  ######
+# Remove geary, don't like it
 printsl "Apt cleanup"
 sudo apt purge --auto-remove -y geary
 
-#####  Python setup  #####
+# Python setup
+printsl "Installing Python build deps, for pyenv."
+sudo apt-get install -y \
+    libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
+    scrot python3-tk pyenv
+
 printsl "Setting up pip and pipenv"
-python3.8 -m pip install -U pip pipenv pylint black
-python3.9 -m pip install -U pip pipenv pylint black
+python3.8 -m pip install -U pip flake8 black pytest pytest-mock coverage pytest-cov pytest-sugar
+python3.9 -m pip install -U pip pipx pyautogui jupyterlab pandas \
+    flake8 black pytest pytest-mock coverage pytext-cov pytest-sugar
 
-##### Install "Diff So Fancy" #####
-printsl "Installing 'diff-so-fancy' via npm"
-sudo npm install -g diff-so-fancy
+# Pyenv
+printsl "Installing Pyenv."
+curl https://pyenv.run | bash
 
-#####  Install Rust  #####
+printsl "Install Poetry"
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
+
+# Install "Diff So Fancy" and Yarn
+printsl "Installing 'diff-so-fancy' via npm, and yarn"
+sudo npm install -g diff-so-fancy yarn
+
+# Install Rust
 printsl "Installing Rust"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-#####  Install Starship Prompt  #####
+# Install delta via cargo
+printsl "Installing delta"
+/home/joe/.cargo/bin/cargo install git-delta
+
+# Install Starship Prompt
 printsl "Installing 'Starship' for fish"
 curl -fsSL https://starship.rs/install.sh | bash
 
+# Make fish the default shell
+printsl "Setting fish as default shell"
+chsh -s "$(which fish)"
+
 ###############################################################################
 #                                                                             #
-#####################################  Section 2  #############################
+############## Section 2 - Create symlinks for dotfiles  ######################
 #                                                                             #
 ###############################################################################
 
 #####  Setup  #####
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+CONFIG="${CONFIG:-$HOME/.config}"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 SOURCE_DIR="$HOME/Source"
-NVIM_DIR="$XDG_CONFIG_HOME/nvim"
+NVIM_DIR="$CONFIG/nvim"
 DOTFILES="$SOURCE_DIR/dotfiles"
-FISH_PATH="$XDG_CONFIG_HOME/fish"
+FISH_PATH="$CONFIG/fish"
 TMP="$HOME/tmp"
 
 # create tmp folder in case something goes wrong
@@ -136,66 +150,40 @@ mkdir -p "$SOURCE_DIR"
 mkdir -p "$SHARE/icons/"
 mkdir -p "$SHARE/themes"
 mkdir -p "$NVIM_DIR"
+mkdir -p "$FISH_PATH"
 
-##### Download Git Repos #####
+# Download Git Repos
 # If repo not in DOTFILES dir, reclone repo to that dir
 if [ ! -d "$DOTFILES" ]; then
     printsl "Dotfiles repository not located at $DOTFILES, fixing that now"
     git clone https://github.com/JFitzy1321/dotfiles.git "$DOTFILES"
 fi
 
-# extract icons
-printsl "Extracting Icon themes to $SHARE/icons"
-tar -xf "$DOTFILES/icons/Zafiro-Icons-Blue.tar.gz" -C "$SHARE/icons"
+# Creating symlinks to various file
+printsl "Creating symlinks for dotfiles."
 
-#####  Creating symlinks to various file  #####
-printsl "Creating symlink for alacritty.yaml"
-link "$DOTFILES/alacritty.yml" "$XDG_CONFIG_HOME/."
-
-printsl "Creating symlink for git"
-link "$DOTFILES/git" "$XDG_CONFIG_HOME"
-
-#####  Symlink From Scripts folder to bin  #####
-printsl "Creating symlink for custom scripts"
-[ -d "$HOME/bin" ] && mv "$HOME/bin/" "$HOME/tmp/"
-link "$DOTFILES/bin" "$HOME/bin"
-
-printsl "Creating symlink for nvim init.vim"
+link "$DOTFILES/alacritty.yml" "$CONFIG/."
+link "$DOTFILES/git" "$CONFIG"
+link "$DOTFILES/bin" "$HOME"
 link "$DOTFILES/nvim/init.vim" "$NVIM_DIR/."
 
-#####  Profile setup  #####
-# move .profile and create symlink
-printsl "Moving .profile to $TMP"
-mv "$HOME/.profile" "$TMP/"
-
-printsl "Creating symlink for .profile"
+mv "$HOME/.profile" "$HOME/.old_profile"
 link "$DOTFILES/.profile" "$HOME/.profile"
-
-#####  Bash Setup  #####
-# First, move original to tmp
-printsl "Moving $HOME/.bashrc to $TMP"
-[ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/"
-[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP"
-
-# Second, make symlink to new bashrc location
-printsl "Creating symlinks for .bashrc"
+[ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.old_bashrc"
+[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.old_bash_profile"
 link "$DOTFILES/.bashrc" "$HOME/.bashrc"
-
-# Move existing file to tmp folder
-if [ -f "$FISH_PATH/config.fish" ]; then
-    printsl "Moving $FISH_PATH/config.fish to $TMP"
-    mv "$FISH_PATH/config.fish" "$TMP/."
-elif [ ! -d "$FISH_PATH" ]; then
-    mkdir "$FISH_PATH"
-fi
-
-printsl "Creating symlink for config.fish"
 link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
+link "$DOTFILES/fish/abbrevs.fish" "$FISH_PATHS/."
+link "$DOTFILES/fish/functions" "$FISH_PATH"
+link "$DOTFILES/fish/completions" "$FISH_PATH"
+link "$DOTFILES/starship.toml" "$CONFIG/."
+link "$DOTFILES/pyproject" "$CONFIG/."
+link "$DOTFILES/pythonrc" "$CONFIG/python/."
 
-# Creating symlink for starship.toml
-printsl "Creating symlink for starship.toml"
-ln -s "$DOTFILES/starship.toml" "$XDG_CONFIG_HOME/."
-
-#####  Make fish the default shell  #####
-printsl "Setting fish as default shell"
-chsh -s "$(which fish)"
+# Update locate db
+OS_NAME=$(uname)
+if [ "$UNAME" == "Linux" ]; then
+    sudo updatedb
+elif [ "$UNAME" == "Darwin"]; then
+    sudo /usr/libexec/locate.updatedb
+fi

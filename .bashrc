@@ -117,5 +117,5 @@ if ! shopt -oq posix; then
 fi
 
 # Pipenv magic completion
-eval "$(pipenv --completion)"
+# eval "$(pipenv --completion)"
 

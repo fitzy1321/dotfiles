@@ -130,12 +130,12 @@ chsh -s "$(which fish)"
 ###############################################################################
 
 #####  Setup  #####
-CONFIG="${CONFIG:-$HOME/.config}"
+CONFIG="$HOME/.config"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 SOURCE_DIR="$HOME/Source"
+DOTFILES_DIR="$SOURCE_DIR/dotfiles"
+FISH_DIR="$CONFIG/fish"
 NVIM_DIR="$CONFIG/nvim"
-DOTFILES="$SOURCE_DIR/dotfiles"
-FISH_PATH="$CONFIG/fish"
 TMP="$HOME/tmp"
 
 # create tmp folder in case something goes wrong
@@ -149,36 +149,37 @@ function link {
 mkdir -p "$SOURCE_DIR"
 mkdir -p "$SHARE/icons/"
 mkdir -p "$SHARE/themes"
+mkdir -p "$FISH_DIR"
 mkdir -p "$NVIM_DIR"
-mkdir -p "$FISH_PATH"
 
 # Download Git Repos
 # If repo not in DOTFILES dir, reclone repo to that dir
-if [ ! -d "$DOTFILES" ]; then
-    printsl "Dotfiles repository not located at $DOTFILES, fixing that now"
-    git clone https://github.com/JFitzy1321/dotfiles.git "$DOTFILES"
+if [ ! -d "$DOTFILES_DIR" ]; then
+    printsl "Dotfiles repository not located at $DOTFILES_DIR, fixing that now"
+    git clone https://github.com/JFitzy1321/dotfiles.git "$DOTFILES_DIR"
 fi
 
 # Creating symlinks to various file
 printsl "Creating symlinks for dotfiles."
+link "$DOTFILES_DIR/git" "$CONFIG/."
+link "$DOTFILES_DIR/bin" "$HOME/."
+link "$DOTFILES_DIR/pyproject" "$CONFIG/."
+link "$DOTFILES_DIR/python" "$CONFIG/."
 
-link "$DOTFILES/alacritty.yml" "$CONFIG/."
-link "$DOTFILES/git" "$CONFIG"
-link "$DOTFILES/bin" "$HOME"
-link "$DOTFILES/nvim/init.vim" "$NVIM_DIR/."
+mv "$HOME/.profile" "$TMP/.profile"
+link "$DOTFILES_DIR/.profile" "$HOME/.profile"
 
-mv "$HOME/.profile" "$HOME/.old_profile"
-link "$DOTFILES/.profile" "$HOME/.profile"
-[ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.old_bashrc"
-[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.old_bash_profile"
-link "$DOTFILES/.bashrc" "$HOME/.bashrc"
-link "$DOTFILES/fish/config.fish" "$FISH_PATH/."
-link "$DOTFILES/fish/abbrevs.fish" "$FISH_PATHS/."
-link "$DOTFILES/fish/functions" "$FISH_PATH"
-link "$DOTFILES/fish/completions" "$FISH_PATH"
-link "$DOTFILES/starship.toml" "$CONFIG/."
-link "$DOTFILES/pyproject" "$CONFIG/."
-link "$DOTFILES/pythonrc" "$CONFIG/python/."
+[ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/.bashrc"
+[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP/.bash_profile"
+
+link "$DOTFILES_DIR/alacritty.yml" "$CONFIG/."
+link "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
+link "$DOTFILES_DIR/fish/config.fish" "$FISH_DIR/."
+link "$DOTFILES_DIR/fish/abbrevs.fish" "$FISH_DIR/."
+link "$DOTFILES_DIR/fish/functions" "$FISH_DIR"
+link "$DOTFILES_DIR/fish/completions" "$FISH_DIR"
+link "$DOTFILES_DIR/starship.toml" "$CONFIG/."
+link "$DOTFILES_DIR/nvim/init.vim" "$NVIM_DIR/."
 
 # Update locate db
 OS_NAME=$(uname)

@@ -29,7 +29,7 @@ if test (uname) = "Darwin"
 end
 
 # Aliases
-alias ll='ls -lah'
+alias ll='ls -lhAF'
 alias mongo='mongosh'
 
 # Set Abbreviations

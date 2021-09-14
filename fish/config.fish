@@ -7,10 +7,10 @@ set -g fish_greeting
 
 if status is-interactive
     # Setup Common Paths
-    set FISH_PATH $XDG_CONFIG_HOME/fish
+    set FISH_PATH $HOME/.config/fish
 
     if ! set -q MYVIMRC
-        set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+        set -x MYVIMRC $HOME/.config/nvim/init.vim
     end
 
     if ! set -q SRC_PATH
@@ -26,6 +26,9 @@ if status is-interactive
     # macOS Specific thangs
     if test (uname) = "Darwin"
         alias updatedb="sudo /usr/libexec/locate.updatedb"
+        if test $TERM_PROGRAM = iTerm.app
+            test -e $FISH_PATH/iterm2_shell_integration.fish; and source $FISH_PATH/iterm2_shell_integration.fish
+        end
     end
 
     # Aliases
@@ -33,7 +36,7 @@ if status is-interactive
     alias mongo='mongosh'
 
     # Set Abbreviations
-    if test -f $FISH_PATH/abbrevs.fish
+    if test -e $FISH_PATH/abbrevs.fish
         source $FISH_PATH/abbrevs.fish
     end
 

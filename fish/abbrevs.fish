@@ -5,16 +5,11 @@ abbr --add d 'docker'
 abbr --add dc 'docker-compose'
 abbr --add dcdr 'docker-compose down --remove-orphans'
 
-# Edit Common Configs
-abbr --add edit_fish 'nvim $MYFISHCONFIG'
-abbr --add edit_nvim 'nvim $MYVIMRC'
-abbr --add edit_profile 'nvim $HOME/.profile'
-
 # Updates and Upgrades
+abbr --add aupdate 'sudo apt update && apt list --upgradable'
+abbr --add aupgrade 'sudo apt upgrade -y'
 abbr --add fupdate 'flatpak update'
 abbr --add rupdate 'rustup update'
-abbr --add update 'sudo apt update && apt list --upgradable'
-abbr --add upgrade 'sudo apt upgrade -y'
 
 # Misc
 abbr --add dotfiles 'cd $DOTFILES'

@@ -39,7 +39,13 @@ if status is-interactive
     if test -e $FISH_PATH/abbrevs.fish
         source $FISH_PATH/abbrevs.fish
     end
+    
+    # add cargo to path
+    if test -d $HOME/.cargo
+        fish_add_path $HOME/.cargo/bin
+    end
 
+    # pyenv setup
     set -Ux PYENV_ROOT $HOME/.pyenv
     fish_add_path $PYENV_ROOT/bin
 

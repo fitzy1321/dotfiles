@@ -28,9 +28,9 @@ syntax enable
 set number
 set rnu
 set nowrap
-set expandtab 
-set smarttab 
-set autoindent 
+set expandtab
+set smarttab
+set autoindent
 set smartindent
 
 " Toggle Relative Numbers
@@ -50,4 +50,3 @@ nnoremap <leader>tn :call ToggleNumbers()<CR>
 
 " Auto Source when writing to config file
 "au! BufWritePost $MYVIMRC source %
-

@@ -39,7 +39,12 @@ if status is-interactive
     if test -e $FISH_PATH/abbrevs.fish
         source $FISH_PATH/abbrevs.fish
     end
-    
+
+    # add local bin to path
+    if test -d $HOME/.local/bin
+        fish_add_path $HOME/.local/bin
+    end
+
     # add cargo to path
     if test -d $HOME/.cargo
         fish_add_path $HOME/.cargo/bin

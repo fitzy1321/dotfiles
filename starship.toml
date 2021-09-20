@@ -1,5 +1,5 @@
 [directory]
-truncation_length = 4
+truncation_length = 6
 truncate_to_repo = false
 
 [git_branch]

@@ -69,13 +69,9 @@ sudo ufw enable
 printsl "Installing flatpaks"
 flatpak install flathub \
     com.axosoft.GitKraken \
-    com.bitwarden.desktop \
-    com.getpostman.Postman \
-    com.slack.Slack \
     com.spotify.Client \
     net.cozic.joplin_desktop \
     org.kde.haruna \
-    org.processing.processingide \
     us.zoom.Zoom
 
 # Remove geary, don't like it

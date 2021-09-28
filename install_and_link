@@ -101,11 +101,8 @@ printsl "Installing Pyenv."
 curl https://pyenv.run | bash
 
 printsl "Install Poetry"
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-
-# Install "Diff So Fancy" and Yarn
-printsl "Installing 'diff-so-fancy' via npm, and yarn"
-sudo npm install -g diff-so-fancy yarn
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py >> $HOME/.cache/get-poetry.py
+python3 $HOME/.cache/get-poetry.py
 
 # Install Rust
 printsl "Installing Rust"
@@ -113,7 +110,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Install delta via cargo
 printsl "Installing delta"
-/home/joe/.cargo/bin/cargo install git-delta
+$HOME/.cargo/bin/cargo install git-delta
 
 # Install Starship Prompt
 printsl "Installing 'Starship' for fish"
@@ -136,7 +133,7 @@ SOURCE_DIR="$HOME/Source"
 DOTFILES_DIR="$SOURCE_DIR/dotfiles"
 FISH_DIR="$CONFIG/fish"
 NVIM_DIR="$CONFIG/nvim"
-TMP="$HOME/tmp"
+TMP="/tmp"
 
 # create tmp folder in case something goes wrong
 mkdir "$TMP"

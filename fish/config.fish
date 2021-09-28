@@ -32,7 +32,7 @@ if status is-interactive
     end
 
     # Aliases
-    alias ll='ls -lhAF'
+    # alias ll='ls -lhAF'
     alias mongo='mongosh'
 
     # Set Abbreviations
@@ -59,5 +59,8 @@ if status is-interactive
 
     # Starship Prompt Setup
     starship init fish | source
+
+    # direnv hook
+    direnv hook fish | source
 end
 

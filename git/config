@@ -1,6 +1,6 @@
 [user]
 	name = joefitzy
-	email = joseph.fitzgibbons@spycloud.com
+	email = 90652069+joefitzy@users.noreply.github.com
 [fetch]
 	prune = true
 [pull]
@@ -44,3 +44,8 @@
 	# new = green bold
 	# whitespace = red reverse
 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

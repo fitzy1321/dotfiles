@@ -29,7 +29,7 @@ if status is-interactive
     end
 
     # Aliases
-    alias ll='ls -lhAF'
+    #alias ll='ls -lhAF'
     alias mongo='mongosh'
 
     # Set Abbreviations

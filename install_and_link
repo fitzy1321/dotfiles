@@ -68,6 +68,7 @@ sudo ufw enable
 # Installing Flatpaks
 printsl "Installing flatpaks"
 flatpak install flathub \
+    slack \
     com.axosoft.GitKraken \
     com.spotify.Client \
     net.cozic.joplin_desktop \
@@ -94,9 +95,9 @@ python3.9 -m pip install -U pip pipx pyautogui jupyterlab pandas \
 printsl "Installing Pyenv."
 curl https://pyenv.run | bash
 
-printsl "Install Poetry"
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py >> $HOME/.cache/get-poetry.py
-python3 $HOME/.cache/get-poetry.py
+printsl "Install Poetry. Installation script will be saved in $HOME/.cache/ directory."
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py >> $HOME/.cache/install-poetry.py
+python3 $HOME/.cache/install-poetry.py
 
 # Install Rust
 printsl "Installing Rust"

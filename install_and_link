@@ -68,7 +68,7 @@ sudo ufw enable
 # Installing Flatpaks
 printsl "Installing flatpaks"
 flatpak install flathub \
-    slack \
+    com.slack.Slack \
     com.axosoft.GitKraken \
     com.spotify.Client \
     net.cozic.joplin_desktop \

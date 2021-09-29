@@ -37,6 +37,18 @@ if status is-interactive
         source $FISH_PATH/abbrevs.fish
     end
 
+    if test -d $HOME/.cargo
+        fish_add_path $HOME/.cargo/bin
+    end
+
+    if test -d $HOME/.local/bin
+        fish_add_path $HOME/.local/bin
+    end
+
+    if test -d $HOME/.deta
+        fish_add_path $HOME/.deta/bin/
+    end
+
     set -Ux PYENV_ROOT $HOME/.pyenv
     fish_add_path $PYENV_ROOT/bin
 

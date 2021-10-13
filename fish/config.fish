@@ -37,25 +37,15 @@ if status is-interactive
 
     # Set Abbreviations
     if test -e $FISH_PATH/abbrevs.fish
+        or test -f $FISH_PATHS/abbrevs.fish
         source $FISH_PATH/abbrevs.fish
     end
 
-    # add local bin to path
-    if test -d $HOME/.local/bin
-        fish_add_path $HOME/.local/bin
+    # Set paths
+    if test -e $FISH_PATH/paths.fish
+        or test -f $FISH_PATHS/paths.fish
+        source $FISH_PATH/paths.fish
     end
-
-    # add cargo to path
-    if test -d $HOME/.cargo
-        fish_add_path $HOME/.cargo/bin
-    end
-
-    # pyenv setup
-    set -Ux PYENV_ROOT $HOME/.pyenv
-    fish_add_path $PYENV_ROOT/bin
-
-    status is-interactive; and pyenv init --path | source
-    pyenv init - | source
 
     # Starship Prompt Setup
     starship init fish | source
@@ -63,4 +53,3 @@ if status is-interactive
     # direnv hook
     direnv hook fish | source
 end
-

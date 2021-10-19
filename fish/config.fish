@@ -47,6 +47,12 @@ if status is-interactive
         source $FISH_PATH/paths.fish
     end
 
+    # Set pyenv
+    if test -e $FISH_PATH/pyenv_setup.fish
+        or test -f $FISH_PATHS/pyenv_setup.fish
+        source $FISH_PATH/pyenv_setup.fish
+    end
+
     # Starship Prompt Setup
     starship init fish | source
 

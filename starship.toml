@@ -25,5 +25,5 @@ symbol = " "
 symbol = " "
 
 [python]
-symbol = "  "
+symbol = " "
 format = 'with [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'

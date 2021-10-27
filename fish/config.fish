@@ -7,7 +7,7 @@ set -g fish_greeting
 
 if status is-interactive
     # Setup Common Paths
-    set FISH_PATH $XDG_CONFIG_HOME/fish
+    set FISH_PATH $HOME/.config/fish
 
     if ! set -q MYVIMRC
         set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
@@ -26,10 +26,16 @@ if status is-interactive
     # macOS Specific thangs
     if test (uname) = "Darwin"
         alias updatedb="sudo /usr/libexec/locate.updatedb"
+        if test -e /opt/homebrew/bin
+            fish_add_path /opt/homebrew/bin
+        end
+        if test -e $HOME/Library/Python/3.9/bin
+            fish_add_path $HOME/Library/Python/3.9/bin
+        end
     end
 
     # Aliases
-    #alias ll='ls -lhAF'
+    # alias ll='ls -lhAF'
     alias mongo='mongosh'
 
     # Set Abbreviations
@@ -40,15 +46,13 @@ if status is-interactive
     # Set pyenv
 
     # Set PATH
-    if test -f $FISH_PATH/paths.fish
+    if test -e $FISH_PATH/paths.fish
         source $FISH_PATH/paths.fish
     end
 
-    if test -f $FISH_PATH/pyenv.fish
+    if test -e $FISH_PATH/pyenv.fish
         source $FISH_PATH/pyenv.fish
     end
-
-
 
     # Starship Prompt Setup
     starship init fish | source

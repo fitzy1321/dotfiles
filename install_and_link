@@ -56,9 +56,9 @@ sudo apt-get update && sudo apt upgrade -y
 
 printsl "Installing apt packages"
 sudo apt-get install -y \
-    alacritty brave-browser build-essential cheese code deepin-icon-theme \
+    alacritty brave-browser build-essential cheese cmake code deepin-icon-theme \
     discord easytag fish gdb gh gnome-tweaks google-chrome-stable gparted gufw \
-    htop llvm locate lollypop make neofetch neovim nodejs python3-pip \
+    htop libssl-dev llvm locate lollypop make neofetch neovim nodejs python3-pip \
     python3-dev python3-tk python3-venv qemu-kvm shellcheck sqlite3 sqlitebrowser \
     symlinks tensorman thunderbird tree ttf-mscorefonts-installer \
     ubuntu-restricted-extras ufw virt-manager wget \

@@ -1,7 +1,7 @@
 " Langnostic's Neovim Config
 
-" run this command to install vim-plug
-" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" Goto vim-plug github page and download
+" https://github.com/junegunn/vim-plug
 
 " Autoload vim-plug
 "if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -32,6 +32,7 @@ set expandtab
 set smarttab 
 set autoindent 
 set smartindent
+set clipboard=unnamed
 
 " Toggle Relative Numbers
 function! ToggleNumbers()

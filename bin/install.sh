@@ -1,8 +1,11 @@
 install() {
-    mkdir -p "$HOME/bin"
-    ln -sf "$ODTFILES/bin/fontcache" "$HOME/bin/."
-    ln -sf "$DOTFILES/bin/get-gnome-themes.sh" "$HOME/bin/."
-    ln -sf "$DOTFILES/bin/touchx" "$HOME/bin/."
+    curr="$DOTFILES/bin"
+    dest="$Home/bin"
+    mkdir -p "$dest"
+
+    ln -sf "$curr/fontcache" "$dest/."
+    ln -sf "$curr/get-gnome-themes.sh" "$dest/."
+    ln -sf "$curr/touchx" "$dest/."
 }
 
 install

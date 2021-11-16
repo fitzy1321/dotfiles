@@ -10,14 +10,15 @@ nvm_for_fish_install() {
 }
 
 install() {
-    FISH_PATH = "${FISH_PATH:-$HOME/.config/fish}"
-    mkdir -p "$FISH_PATH"
+    curr = "$DOTFILES/fish"
+    dest = "${FISH_PATH:-$HOME/.config/fish}"
+    mkdir -p "$dest"
 
-    ln -sf "$DOTFILES/fish/config.fish" "$FISH_PATH/."
-    ln -sf "$DOTFILES/fish/abbrevs.fish" "$FISH_PATH/."
-    ln -sf "$DOTFILES/fish/setup_tools.fish" "$FISH_PATH/."
-    ln -sf "$DOTFILES/fish/completions" "$FISH_PATH/."
-    ln -sf "$DOTFILES/fish/functions/nvm.fish" "$FISH_PATH/functions/."
+    ln -sf "$curr/config.fish" "$dest/."
+    ln -sf "$curr/abbrevs.fish" "$dest/."
+    ln -sf "$curr/setup_tools.fish" "$dest/."
+    ln -sf "$curr/completions" "$dest/."
+    ln -sf "$curr/functions/nvm.fish" "$dest/functions/."
 
     nvm_for_fish_install
 }

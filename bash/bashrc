@@ -103,8 +103,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 ### Custom Aliases ###
 alias ls="ls --color=auto"
 alias ll="ls -lhAF"
-alias apt-update="sudo apt update && apt list --upgradable"
-alias apt-upgrade="sudo apt upgrade"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -116,7 +114,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# Pipenv magic completion
-# eval "$(pipenv --completion)"
-

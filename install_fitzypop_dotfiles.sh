@@ -146,8 +146,7 @@ macos_install() {
 
 crossplatform_section() {
     printsl "Setting up pip and pipenv"
-    python3.8 -m pip install -U pip flake8 black pytest pytest-mock coverage pytest-cov pytest-sugar
-    python3.9 -m pip install -U pip pipx ensurepath pyautogui jupyterlab pandas \
+    python3 -m pip install -U pip pipx ensurepath pyautogui jupyterlab pandas \
         flake8 black pytest pytest-mock coverage pytext-cov pytest-sugar
 
 
@@ -159,15 +158,6 @@ crossplatform_section() {
     printsl "Installing Rust"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-    [ -f "$HOME/.profile" ] && mv "$HOME/.profile" "$TMP/.profile"
-    [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/."
-    [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP/."
-
-    ln -sf "$DOTFILES_DIR/.profile" "$HOME/."
-    ln -sf "$DOTFILES_DIR/alacritty.yml" "$CONFIG/."
-    ln -sf "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
-    ln -sf "$DOTFILES_DIR/starship.toml" "$CONFIG/."
-
     # Update locate db
     if [ "$PLATFORM" == "Darwin"]; then
         sudo /usr/libexec/locate.updatedb
@@ -177,12 +167,10 @@ crossplatform_section() {
 }
 
 install_subscripts() {
-    source "$DOTFILES/bin/install.sh"
-    source "$DOTFILES/fish/install.sh"
-    source "$DOTFILES/git/install.sh"
-    source "$DOTFILES/nvim/install.sh"
-    source "$DOTFILES/pypoetry/install.sh"
-    source "$DOTFILES/python/install.sh"
+    for filename in $(find . -name "install.sh")
+    do
+        source "$filename"
+    done
 }
 
 main() {

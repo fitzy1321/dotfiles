@@ -24,45 +24,44 @@ function printsl {
     sleep 0.5
 }
 
+function apt_install_and_update {
+    # Need these to install ppas and setup scripts
+    printsl "Installing prerequesites before installing PPAs."
+    sudo apt update
+    sudo apt install apt-transport-https curl software-properties-common
 
-# Need these to install ppas and setup scripts
-printsl "Installing prerequesites before installing PPAs."
-sudo apt update
-sudo apt install apt-transport-https curl software-properties-common
+    # Adding PPAs for fish, git, brave, node, and gh cli
 
-# Adding PPAs for fish, git, brave, node, and gh cli
+    printsl "Adding Fish PPA for lastest version of fish shell."
+    add-apt-repository ppa:fish-shell/release-3
 
-printsl "Adding Fish PPA for lastest version of fish shell."
-add-apt-repository ppa:fish-shell/release-3
+    printsl "Adding Git Core PPA for latest stable upstream of Git."
+    add-apt-repository ppa:git-core/ppa
 
-printsl "Adding Git Core PPA for latest stable upstream of Git."
-add-apt-repository ppa:git-core/ppa
+    printsl "Adding brave ppa"
+    curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+    echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
-printsl "Adding brave ppa"
-curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
-printsl "Adding nodesource ppa"
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-
-printsl "Adding Github Cli PPA"
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    printsl "Adding Github Cli PPA"
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
 
-# Update system && Install Packages
-printsl "Updating System"
-sudo apt-get update && sudo apt upgrade -y
+    # Update system && Install Packages
+    printsl "Updating System"
+    sudo apt-get update && sudo apt upgrade -y
 
-printsl "Installing apt packages"
-sudo apt-get install -y \
-    alacritty brave-browser build-essential cheese cmake code deepin-icon-theme \
-    discord easytag fish gdb gh gnome-tweaks google-chrome-stable gparted gufw \
-    htop libssl-dev llvm locate lollypop make neofetch neovim nodejs python3-pip \
-    python3-dev python3-tk python3-venv qemu-kvm shellcheck sqlite3 sqlitebrowser \
-    symlinks tensorman thunderbird tree ttf-mscorefonts-installer \
-    ubuntu-restricted-extras ufw virt-manager wget \
-    pcscd # for yubikey app
+    printsl "Installing apt packages"
+    sudo apt-get install -y \
+        alacritty brave-browser build-essential cheese cmake code deepin-icon-theme \
+        discord easytag fish gdb gh gnome-tweaks google-chrome-stable gparted gufw \
+        htop libssl-dev llvm locate lollypop make neofetch neovim nodejs python3-pip \
+        python3-dev python3-tk python3-venv qemu-kvm shellcheck sqlite3 sqlitebrowser \
+        symlinks tensorman thunderbird tree ttf-mscorefonts-installer \
+        ubuntu-restricted-extras ufw virt-manager wget \
+        pcscd # for yubikey app
+
+}
 
 sudo adduser "$(whoami)" libvirtd
 
@@ -127,13 +126,15 @@ chsh -s "$(which fish)"
 ###############################################################################
 
 #####  Setup  #####
-CONFIG="$HOME/.config"
-SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
-SOURCE_DIR="$HOME/Source"
-DOTFILES_DIR="$SOURCE_DIR/dotfiles"
-FISH_DIR="$CONFIG/fish"
-NVIM_DIR="$CONFIG/nvim"
-TMP="/tmp"
+function setup_vars {
+    CONFIG="$HOME/.config"
+    SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
+    SOURCE_DIR="$HOME/Source"
+    DOTFILES_DIR="$SOURCE_DIR/dotfiles"
+    FISH_DIR="$CONFIG/fish"
+    NVIM_DIR="$CONFIG/nvim"
+    TMP="/tmp"
+}
 
 # create tmp folder in case something goes wrong
 mkdir "$TMP"

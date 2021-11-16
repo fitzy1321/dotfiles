@@ -18,20 +18,38 @@
 # "x" will print out every command and its result
 # set -x #e
 
-function printsl {
+#####################
+# Setup Environment / Vars
+#####################
+SOURCE_DIR = $HOME/Source
+CONFIG="$HOME/.config"
+[ -d "$SOURCE_DIR" ] && DOTFILES = "$SOURCE_DIR/fitzypop_dotfiles" || DOTFILES = "$CONFIG/fitzypop_dotfiles"
+SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
+TMP="/tmp"
+
+if [ `which apt` ]; then
+    PLATFORM="Linux"
+else
+    PLATFORM="Darwin"
+fi
+
+# Git Clone dotfiles repo, if not already present
+[ ! - d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
+cd "$DOTFILES"
+
+printsl() {
     echo "" # newline
     echo "$1"
     sleep 0.5
 }
 
-function apt_install_and_update {
+linux_install() {
     # Need these to install ppas and setup scripts
     printsl "Installing prerequesites before installing PPAs."
     sudo apt update
     sudo apt install apt-transport-https curl software-properties-common
 
     # Adding PPAs for fish, git, brave, node, and gh cli
-
     printsl "Adding Fish PPA for lastest version of fish shell."
     add-apt-repository ppa:fish-shell/release-3
 
@@ -46,143 +64,134 @@ function apt_install_and_update {
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
-
     # Update system && Install Packages
     printsl "Updating System"
     sudo apt-get update && sudo apt upgrade -y
 
     printsl "Installing apt packages"
+    cat apt.list | xargs sudo apt-get -y install
+
+    # Remove geary, don't like it
+    printsl "Apt cleanup"
+    sudo apt purge --auto-remove -y geary
+
+    # Enable Firewall
+    printsl "Enabling firewall"
+    sudo ufw enable
+
+    sudo adduser "$(whoami)" libvirtd
+
+    # Python setup
+    printsl "Installing Python build deps, for pyenv."
     sudo apt-get install -y \
-        alacritty brave-browser build-essential cheese cmake code deepin-icon-theme \
-        discord easytag fish gdb gh gnome-tweaks google-chrome-stable gparted gufw \
-        htop libssl-dev llvm locate lollypop make neofetch neovim nodejs python3-pip \
-        python3-dev python3-tk python3-venv qemu-kvm shellcheck sqlite3 sqlitebrowser \
-        symlinks tensorman thunderbird tree ttf-mscorefonts-installer \
-        ubuntu-restricted-extras ufw virt-manager wget \
-        pcscd # for yubikey app
-
-}
-
-sudo adduser "$(whoami)" libvirtd
-
-# Enable Firewall
-printsl "Enabling firewall"
-sudo ufw enable
-
-# Installing Flatpaks
-printsl "Installing flatpaks"
-flatpak install flathub \
-    com.slack.Slack \
-    com.axosoft.GitKraken \
-    com.spotify.Client \
-    net.cozic.joplin_desktop \
-    org.kde.haruna \
-    us.zoom.Zoom
-
-# Remove geary, don't like it
-printsl "Apt cleanup"
-sudo apt purge --auto-remove -y geary
-
-# Python setup
-printsl "Installing Python build deps, for pyenv."
-sudo apt-get install -y \
     libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
-    scrot python3-tk pyenv
+    python3-pip python3-dev python3-tk python3-venv pyenv scrot
 
-printsl "Setting up pip and pipenv"
-python3.8 -m pip install -U pip flake8 black pytest pytest-mock coverage pytest-cov pytest-sugar
-python3.9 -m pip install -U pip pipx pyautogui jupyterlab pandas \
-    flake8 black pytest pytest-mock coverage pytext-cov pytest-sugar
+    # Pyenv
+    printsl "Installing Pyenv."
+    curl https://pyenv.run | bash
 
-# Pyenv
-printsl "Installing Pyenv."
-curl https://pyenv.run | bash
+    # Installing Flatpaks
+    printsl "Installing flatpaks"
+    flatpak install flathub \
+        com.slack.Slack \
+        com.axosoft.GitKraken \
+        com.spotify.Client \
+        net.cozic.joplin_desktop \
+        org.kde.haruna \
+        us.zoom.Zoom
 
-printsl "Install Poetry. Installation script will be saved in $HOME/.cache/ directory."
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py >> $HOME/.cache/install-poetry.py
-python3 $HOME/.cache/install-poetry.py
+    # Set fish shell
+    chsh -s "$(which fish)"
 
-# Install Rust
-printsl "Installing Rust"
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    # Install Starship Prompt
+    printsl "Installing 'Starship' for fish"
+    curl -fsSL https://starship.rs/install.sh | bash
 
-# Install delta via cargo
-printsl "Installing delta"
-$HOME/.cargo/bin/cargo install git-delta
+    # Install delta via cargo
+    printsl "Installing delta"
+    $HOME/.cargo/bin/cargo install git-delta
 
-# Install Starship Prompt
-printsl "Installing 'Starship' for fish"
-curl -fsSL https://starship.rs/install.sh | bash
-
-# Make fish the default shell
-printsl "Setting fish as default shell"
-chsh -s "$(which fish)"
-
-###############################################################################
-#                                                                             #
-############## Section 2 - Create symlinks for dotfiles  ######################
-#                                                                             #
-###############################################################################
-
-#####  Setup  #####
-function setup_vars {
-    CONFIG="$HOME/.config"
-    SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
-    SOURCE_DIR="$HOME/Source"
-    DOTFILES_DIR="$SOURCE_DIR/dotfiles"
-    FISH_DIR="$CONFIG/fish"
-    NVIM_DIR="$CONFIG/nvim"
-    TMP="/tmp"
 }
 
-# create tmp folder in case something goes wrong
-mkdir "$TMP"
+macos_install() {
+    # Install macos devtools
+    printsl "Installing terminal tools"
+    xcode-select --install
 
-function link {
-    ln -sf $1 $2
+    # install homebrew
+    printsl "Installing homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew doctor
+
+    # Fish shell
+    printsl "Installing fish shell"
+    brew install fish
+    sudo echo "$(which fish)" >> /etc/shells
+    chsh -s "$(which fish)"
+
+    # Install devtool
+    printsl "Installing devtools"
+    brew install cmake neovim pipx starship
+
+    # Pyenv
+    printsl "Installing pyenv"
+    brew install cmake openssl readline sqlite3 xz zlib pyenv
+
+    # NVM
+    printsl "Installing nvm"
+
 }
 
-# make folders
-mkdir -p "$SOURCE_DIR"
-mkdir -p "$SHARE/icons/"
-mkdir -p "$SHARE/themes"
-mkdir -p "$FISH_DIR"
-mkdir -p "$NVIM_DIR"
+crossplatform_section() {
+    printsl "Setting up pip and pipenv"
+    python3.8 -m pip install -U pip flake8 black pytest pytest-mock coverage pytest-cov pytest-sugar
+    python3.9 -m pip install -U pip pipx ensurepath pyautogui jupyterlab pandas \
+        flake8 black pytest pytest-mock coverage pytext-cov pytest-sugar
 
-# Download Git Repos
-# If repo not in DOTFILES dir, reclone repo to that dir
-if [ ! -d "$DOTFILES_DIR" ]; then
-    printsl "Dotfiles repository not located at $DOTFILES_DIR, fixing that now"
-    git clone https://github.com/JFitzy1321/dotfiles.git "$DOTFILES_DIR"
-fi
 
-# Creating symlinks to various file
-printsl "Creating symlinks for dotfiles."
-link "$DOTFILES_DIR/git" "$CONFIG/."
-link "$DOTFILES_DIR/bin" "$HOME/."
-link "$DOTFILES_DIR/pyproject" "$CONFIG/."
-link "$DOTFILES_DIR/python" "$CONFIG/."
+    printsl "Install Poetry. Installation script will be saved in $HOME/.cache/ directory."
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py >> $HOME/install-poetry.py
+    python3 $HOME/.cache/install-poetry.py
 
-mv "$HOME/.profile" "$TMP/.profile"
-link "$DOTFILES_DIR/.profile" "$HOME/.profile"
+    # Install Rust
+    printsl "Installing Rust"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-[ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/.bashrc"
-[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP/.bash_profile"
+    [ -f "$HOME/.profile" ] && mv "$HOME/.profile" "$TMP/.profile"
+    [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/."
+    [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP/."
 
-link "$DOTFILES_DIR/alacritty.yml" "$CONFIG/."
-link "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
-link "$DOTFILES_DIR/fish/config.fish" "$FISH_DIR/."
-link "$DOTFILES_DIR/fish/abbrevs.fish" "$FISH_DIR/."
-link "$DOTFILES_DIR/fish/functions" "$FISH_DIR"
-link "$DOTFILES_DIR/fish/completions" "$FISH_DIR"
-link "$DOTFILES_DIR/starship.toml" "$CONFIG/."
-link "$DOTFILES_DIR/nvim/init.vim" "$NVIM_DIR/."
+    ln -sf "$DOTFILES_DIR/.profile" "$HOME/."
+    ln -sf "$DOTFILES_DIR/alacritty.yml" "$CONFIG/."
+    ln -sf "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
+    ln -sf "$DOTFILES_DIR/starship.toml" "$CONFIG/."
 
-# Update locate db
-OS_NAME=$(uname)
-if [ "$UNAME" == "Linux" ]; then
-    sudo updatedb
-elif [ "$UNAME" == "Darwin"]; then
-    sudo /usr/libexec/locate.updatedb
-fi
+    # Update locate db
+    if [ "$PLATFORM" == "Darwin"]; then
+        sudo /usr/libexec/locate.updatedb
+    else
+        sudo updatedb
+    fi
+}
+
+install_subscripts() {
+    source "$DOTFILES/bin/install.sh"
+    source "$DOTFILES/fish/install.sh"
+    source "$DOTFILES/git/install.sh"
+    source "$DOTFILES/nvim/install.sh"
+    source "$DOTFILES/pypoetry/install.sh"
+    source "$DOTFILES/python/install.sh"
+}
+
+main() {
+    if [ "$PLATFORM" == "Linux" ]; then
+        linux_install
+    else
+        macos_install
+    fi
+
+    crossplatform_section
+    install_subscripts
+main

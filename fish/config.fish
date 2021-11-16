@@ -7,18 +7,27 @@ set -g fish_greeting
 
 if status is-interactive
     # Setup Common Paths
-    set -q FISH_PATH; or set -Ux FISH_PATH $HOME/.config/fish
+    set -q CONFIG_PATH; or set -Ux CONFIG_PATH $HOME/.config
+    set -q FISH_PATH; or set -Ux FISH_PATH $CONFIG_PATH/fish
 
     set -q MYVIMRC; or set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
 
     set -q SRC_PATH; or set -x SRC_PATH $HOME/Source
 
-    set -q DOTFILES; or set -x DOTFILES $SRC_PATH/dotfiles
+    if ! set -q DOTFILES
+        if test -d $SRC_PATH
+            set -x DOTFILES $SRC_PATH/dotfiles
+        else
+            set -x DOTFILES $CONFIG_PATH/dotfiles
+        end
+    end
 
     set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
+    set -q PLATFORM; set -Ux PLATFORM (uname -s)
+
     # macOS Specific thangs
-    if test (uname) = "Darwin"
+    if test $PLATFORM = "Darwin"
         alias updatedb="sudo /usr/libexec/locate.updatedb"
         if test -e /opt/homebrew/bin
             fish_add_path /opt/homebrew/bin

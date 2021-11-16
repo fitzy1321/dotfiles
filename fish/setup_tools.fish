@@ -16,13 +16,13 @@ if test -d $HOME/.deta
 end
 
 # Deno
-set -q DENO_INSTALL; or set -Ux $HOME/.deno
+set -q DENO_INSTALL; or set -Ux DENO_INSTALL $HOME/.deno
 if test -d $DENO_INSTALL
   fish_add_path $DENO_INSTALL/bin
 end
 
 # Setup pyenv
-set -Ux PYENV_ROOT $HOME/.pyenv
+set -q PYENV_ROOT; or set -Ux PYENV_ROOT $HOME/.pyenv
 if test -d $PYENV_ROOT
   fish_add_path $PYENV_ROOT/bin
   status is-interactive; and pyenv init --path | source

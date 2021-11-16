@@ -1,5 +1,5 @@
 install() {
-    curr="$DOTFILES/python/"
+    curr="$DOTFILES/python"
     dest="$HOME/.config/python"
     mkdir -p "$dest"
 

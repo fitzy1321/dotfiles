@@ -23,7 +23,7 @@
 #####################
 SOURCE_DIR = $HOME/Source
 CONFIG="$HOME/.config"
-[ -d "$SOURCE_DIR" ] && DOTFILES = "$SOURCE_DIR/fitzypop_dotfiles" || DOTFILES = "$CONFIG/fitzypop_dotfiles"
+[ -d "$SOURCE_DIR" ] && DOTFILES = "$SOURCE_DIR/dotfiles" || DOTFILES = "$CONFIG/dotfiles"
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 TMP="/tmp"
 
@@ -166,13 +166,6 @@ crossplatform_section() {
     fi
 }
 
-install_subscripts() {
-    for filename in $(find . -name "install.sh")
-    do
-        source "$filename"
-    done
-}
-
 main() {
     if [ "$PLATFORM" == "Linux" ]; then
         linux_install
@@ -181,5 +174,9 @@ main() {
     fi
 
     crossplatform_section
-    install_subscripts
+    for filename in $(find . -name "install.sh")
+    do
+        source "$filename"
+    done
+}
 main

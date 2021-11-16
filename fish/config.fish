@@ -7,7 +7,7 @@ set -g fish_greeting
 
 if status is-interactive
     # Setup Common Paths
-    set FISH_PATH $HOME/.config/fish
+    set -q FISH_PATH; or set -Ux FISH_PATH $HOME/.config/fish
 
     set -q MYVIMRC; or set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
 
@@ -36,12 +36,7 @@ if status is-interactive
         source $FISH_PATH/abbrevs.fish
     end
 
-    # Set PATH
-    if test -e $FISH_PATH/paths.fish
-        source $FISH_PATH/paths.fish
-    end
-
-    # Setup Devtools
+    # Setup Devtools and paths
     if test -e $FISH_PATH/setup_tools.fish
         source $FISH_PATH/setup_tools.fish
     end

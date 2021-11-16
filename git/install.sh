@@ -1,6 +1,6 @@
 install() {
-    curr="$DOTFILES/git"
-    dest="$HOME/.config/git"
+    local curr="$DOTFILES/git"
+    local dest="$HOME/.config/git"
     mkdir -p "$dest"
 
     ln -s "$curr/config" "$dest/."

@@ -1,5 +1,5 @@
 install() {
-    curr="$DOTFILES/home"
+    local curr="$DOTFILES/home"
     [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$TMP/."
     [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$TMP/."
     [ -f "$HOME/.profile" ] && mv "$HOME/.profile" "$TMP/.profile"

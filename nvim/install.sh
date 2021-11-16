@@ -1,6 +1,6 @@
 install() {
-    curr="$DOTFILES/nvim"
-    dest="${NVIM_DIR:-$HOME/.config/nvim}"
+    local curr="$DOTFILES/nvim"
+    local dest="${NVIM_DIR:-$HOME/.config/nvim}"
     mkdir -p "$dest"
 
     ln -sf "$curr/init.vim" "$dest/."

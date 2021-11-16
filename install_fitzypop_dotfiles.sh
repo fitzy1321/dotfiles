@@ -22,16 +22,9 @@
 # Setup Environment / Vars
 #####################
 SOURCE_DIR=$HOME/Source
-CONFIG="$HOME/.config"
-[ -d "$SOURCE_DIR" ] && DOTFILES="$SOURCE_DIR/dotfiles" || DOTFILES="$CONFIG/dotfiles"
-
-# Git Clone dotfiles repo, if not already present
-[ ! -d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
-cd "$DOTFILES"
-
-SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
+CONFIG_DIR="$HOME/.config"
+[ -d "$SOURCE_DIR" ] && DOTFILES="$SOURCE_DIR/dotfiles" || DOTFILES="$CONFIG_DIR/dotfiles"
 TMP="/tmp"
-
 PLATFORM="$(uname -s)"
 
 printsl() {
@@ -160,6 +153,10 @@ crossplatform_section() {
 }
 
 main() {
+    # Git Clone dotfiles repo, if not already present
+    [ ! -d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
+    cd "$DOTFILES"
+
     if [ "$PLATFORM" == "Linux" ]; then
         linux_install
     else

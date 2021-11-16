@@ -1,8 +1,8 @@
 nvm_for_fish_install() {
     if [ "$PLATFORM" == "Darwin" ]; then
-        set -Ux NVM_DIR $HOME/.nvm
+        local NVM_DIR $HOME/.nvm
     else
-        set -Ux NVM_DIR $HOME/.config/nvm
+        local NVM_DIR $HOME/.config/nvm
     fi
 
     if [ ! -d "$NVIM_DIR" ]; then
@@ -18,8 +18,8 @@ nvm_for_fish_install() {
 }
 
 install() {
-    curr="$DOTFILES/fish"
-    dest="${FISH_PATH:-$HOME/.config/fish}"
+    local curr="$DOTFILES/fish"
+    local dest="${FISH_PATH:-$HOME/.config/fish}"
     mkdir -p "$dest"
 
     ln -sf "$curr/config.fish" "$dest/."

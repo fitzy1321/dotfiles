@@ -21,22 +21,18 @@
 #####################
 # Setup Environment / Vars
 #####################
-SOURCE_DIR = $HOME/Source
+SOURCE_DIR=$HOME/Source
 CONFIG="$HOME/.config"
-[ -d "$SOURCE_DIR" ] && DOTFILES = "$SOURCE_DIR/dotfiles" || DOTFILES = "$CONFIG/dotfiles"
+[ -d "$SOURCE_DIR" ] && DOTFILES="$SOURCE_DIR/dotfiles" || DOTFILES="$CONFIG/dotfiles"
 
 # Git Clone dotfiles repo, if not already present
-[ ! - d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
+[ ! -d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
 cd "$DOTFILES"
 
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 TMP="/tmp"
 
-if [ `which apt` ]; then
-    PLATFORM="Linux"
-else
-    PLATFORM="Darwin"
-fi
+PLATFORM="$(uname -s)"
 
 printsl() {
     echo "" # newline

@@ -1,17 +1,25 @@
 nvm_for_fish_install() {
-    printsl "Download and Install nvm"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    if [ "$PLATFORM" == "Darwin" ]; then
+        set -Ux NVM_DIR $HOME/.nvm
+    else
+        set -Ux NVM_DIR $HOME/.config/nvm
+    fi
 
-    printsl "Download and Install fisher"
-    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    if [ ! -d "$NVIM_DIR" ]; then
+        printsl "Download and Install nvm"
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
-    printsl "Install bass from fisher"
-    fisher install edc/bass
+        printsl "Download and Install fisher"
+        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+
+        printsl "Install bass from fisher"
+        fisher install edc/bass
+    fi
 }
 
 install() {
-    curr = "$DOTFILES/fish"
-    dest = "${FISH_PATH:-$HOME/.config/fish}"
+    curr="$DOTFILES/fish"
+    dest="${FISH_PATH:-$HOME/.config/fish}"
     mkdir -p "$dest"
 
     ln -sf "$curr/config.fish" "$dest/."

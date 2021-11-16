@@ -1,6 +1,6 @@
 install() {
     curr="$DOTFILES/bin"
-    dest="$Home/bin"
+    dest="$HOME/bin"
     mkdir -p "$dest"
 
     ln -sf "$curr/fontcache" "$dest/."

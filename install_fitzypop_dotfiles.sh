@@ -24,6 +24,11 @@
 SOURCE_DIR = $HOME/Source
 CONFIG="$HOME/.config"
 [ -d "$SOURCE_DIR" ] && DOTFILES = "$SOURCE_DIR/dotfiles" || DOTFILES = "$CONFIG/dotfiles"
+
+# Git Clone dotfiles repo, if not already present
+[ ! - d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
+cd "$DOTFILES"
+
 SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 TMP="/tmp"
 
@@ -32,10 +37,6 @@ if [ `which apt` ]; then
 else
     PLATFORM="Darwin"
 fi
-
-# Git Clone dotfiles repo, if not already present
-[ ! - d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
-cd "$DOTFILES"
 
 printsl() {
     echo "" # newline
@@ -102,9 +103,6 @@ linux_install() {
         org.kde.haruna \
         us.zoom.Zoom
 
-    # Set fish shell
-    chsh -s "$(which fish)"
-
     # Install Starship Prompt
     printsl "Installing 'Starship' for fish"
     curl -fsSL https://starship.rs/install.sh | bash
@@ -129,7 +127,6 @@ macos_install() {
     printsl "Installing fish shell"
     brew install fish
     sudo echo "$(which fish)" >> /etc/shells
-    chsh -s "$(which fish)"
 
     # Install devtool
     printsl "Installing devtools"
@@ -138,9 +135,6 @@ macos_install() {
     # Pyenv
     printsl "Installing pyenv"
     brew install cmake openssl readline sqlite3 xz zlib pyenv
-
-    # NVM
-    printsl "Installing nvm"
 
 }
 
@@ -164,6 +158,9 @@ crossplatform_section() {
     else
         sudo updatedb
     fi
+
+    # Set fish shell
+    chsh -s "$(which fish)"
 }
 
 main() {
@@ -174,6 +171,7 @@ main() {
     fi
 
     crossplatform_section
+
     for filename in $(find . -name "install.sh")
     do
         source "$filename"

@@ -8,4 +8,4 @@ and various other files I need across systems.
 
 Run the following command:
 
-`curl -o- https://raw.githubusercontent.com/fitzypop/dotfiles/main/install_and_link | sudo -E bash -`
+`curl -o- https://git.io/J1sXg | sudo -E bash -`

@@ -5,26 +5,40 @@
 # Remove fish greeting
 set -g fish_greeting
 
+function src_file
+    if test -e $argv[1]
+        or test -f $argv[1]
+        source $argv[1]
+    end
+end
+
+function set_var
+    echo $argv
+    if ! set -q $argv[1]
+        set -Ux $argv
+    end
+end
+
+function set_dir_path
+    if test -d $argv[1]
+        fish_add_path $argv[1]
+    end
+end
+
 if status is-interactive
     # Setup Common Paths
-    set -q CONFIG_PATH; or set -Ux CONFIG_PATH $HOME/.config
-    set -q FISH_PATH; or set -Ux FISH_PATH $CONFIG_PATH/fish
+    set_var CONFIG_PATH $HOME/.config
+    set_var FISH_PATH $CONFIG_PATH/fish
+    set_var MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+    set_var DOTFILES $HOME/Source/dotfiles
+    set_var PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
-    set -q MYVIMRC; or set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+    set -l PLATFORM (uname -s)
 
-    set -q SRC_PATH; or set -x SRC_PATH $HOME/Source
 
-    if ! set -q DOTFILES
-        if test -d $SRC_PATH
-            set -x DOTFILES $SRC_PATH/dotfiles
-        else
-            set -x DOTFILES $CONFIG_PATH/dotfiles
-        end
+    if test $PLATFORM = "Linux"
+        alias mongo='mongosh'
     end
-
-    set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
-
-    set -q PLATFORM; set -Ux PLATFORM (uname -s)
 
     # macOS Specific thangs
     if test $PLATFORM = "Darwin"
@@ -35,18 +49,30 @@ if status is-interactive
         if test -e $HOME/Library/Python/3.9/bin
             fish_add_path $HOME/Library/Python/3.9/bin
         end
+
+        set_dir_path /usr/local/bin
     end
 
-    # Aliases
-    alias mongo='mongosh'
+    set_dir_path $HOME/.cargo/bin
+    set_dir_path $HOME/.local/bin
+    set_dir_path $HOME/bin
+    set_dir_path $HOME/.deta/bin
 
     # Set Abbreviations
-    if test -f $FISH_PATH/abbrevs.fish
-        source $FISH_PATH/abbrevs.fish
-    end
+    src_file $FISH_PATH/abbrevs.fish
 
-    # Setup Devtools and paths
-    if test -e $FISH_PATH/setup_tools.fish
-        source $FISH_PATH/setup_tools.fish
-    end
+
+    # Deno
+    set_var DENO_INSTALL $HOME/.deno
+    set_dir_path $DENO_INSTALL/bin
+
+    # Setup pyenv
+    set_var PYENV_ROOT $HOME/.pyenv
+    fish_add_path $PYENV_ROOT/bin
+    pyenv init - | source
+    pyenv rehash >/dev/null
+
+    # Starship setup
+    starship init fish | source
+
 end

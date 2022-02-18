@@ -5,27 +5,31 @@
 # Remove fish greeting
 set -g fish_greeting
 
+function src_file
+    if test -e $argv[1]
+        or test -f $argv[1]
+        source $argv[1]
+    end
+end
+
+function set_var
+    if ! set -q $argv[1]
+        set -x $argv[1] $argv[2]
+    end
+end
+
 if status is-interactive
-    # Setup Common Paths
-    set FISH_PATH $HOME/.config/fish
-
-    if ! set -q MYVIMRC
-        set -x MYVIMRC $HOME/.config/nvim/init.vim
-    end
-
-    if ! set -q SRC_PATH
-        set -x SRC_PATH $HOME/Source
-    end
-
-    if ! set -q DOTFILES
-        set -x DOTFILES $SRC_PATH/dotfiles
-    end
-
-    set --export PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+    # Add custom shell variables
+    set_var FISH_PATH $HOME/.config/fish
+    set_var MYVIMRC $HOME/.config/nvim/init.vim
+    set_var SRC_PATH $HOME/Source
+    set_var DOTFILES $SRC_PATH/dotfiles
+    set_var PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
     # Linux specific things
-    # if test (uname) = "Linux"
-    # end
+    if test (uname) = "Linux"
+        alias mongo='mongosh'
+    end
 
     # macOS Specific thangs
     if test (uname) = "Darwin"
@@ -34,34 +38,20 @@ if status is-interactive
             test -e $FISH_PATH/iterm2_shell_integration.fish; and source $FISH_PATH/iterm2_shell_integration.fish
         end
 
+        # Need to make sure this is in $PATH for loading
+        # other components/plugins/tools
         fish_add_path -m /usr/local/bin
     end
 
-    # Aliases
-    # alias ll='ls -lhAF'
-    alias mongo='mongosh'
+    #### Call other fish config files
+    src_file $FISH_PATH/abbrevs.fish
+    src_file $FISH_PATH/paths.fish
+    src_file $FISH_PATH/pyenv_setup.fish
 
-    # Set Abbreviations
-    if test -e $FISH_PATH/abbrevs.fish
-        or test -f $FISH_PATHS/abbrevs.fish
-        source $FISH_PATH/abbrevs.fish
-    end
-
-    # Set paths
-    if test -e $FISH_PATH/paths.fish
-        or test -f $FISH_PATHS/paths.fish
-        source $FISH_PATH/paths.fish
-    end
-
-    # Set pyenv
-    if test -e $FISH_PATH/pyenv_setup.fish
-        or test -f $FISH_PATHS/pyenv_setup.fish
-        source $FISH_PATH/pyenv_setup.fish
-    end
+    # direnv hook
+    direnv hook fish | source
 
     # Starship Prompt Setup
     starship init fish | source
 
-    # direnv hook
-    direnv hook fish | source
 end

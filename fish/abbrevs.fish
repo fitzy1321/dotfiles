@@ -1,7 +1,15 @@
 #!/usr/bin/env fish
 
-set -x VUKAHEAVY $HOME/Source/vukaheavy
-
+if test -d $HOME/Source/vukaheavy
+    set -x VUKAHEAVY $HOME/Source/vukaheavy
+    abbr --add vuka 'cd $VUKAHEAVY'
+    abbr --add ap 'cd $VUKAHEAVY/cerebrum'
+    abbr --add cp 'cd $VUKAHEAVY/customer-portal'
+    abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
+    abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
+    abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
+    abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'
+end
 
 # Updates and Upgrades
 abbr --add rupdate 'rustup update'
@@ -13,16 +21,6 @@ if test (uname) = 'Linux'
     abbr --add fupdate 'flatpak update'
     abbr --add flatpak_unused 'flatpak uninstall --unused'
 end
-
-
-# Repo's
-abbr --add vuka 'cd $VUKAHEAVY'
-abbr --add ap 'cd $VUKAHEAVY/cerebrum'
-abbr --add cp 'cd $VUKAHEAVY/customer-portal'
-abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
-abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
-abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
-abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'
 
 # Docker
 abbr --add d 'docker'

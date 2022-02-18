@@ -1,3 +1,5 @@
+command_timeout = 1000 # in milliseconds
+
 [directory]
 truncation_length = 6
 truncate_to_repo = false

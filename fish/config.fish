@@ -23,12 +23,18 @@ if status is-interactive
 
     set --export PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
+    # Linux specific things
+    # if test (uname) = "Linux"
+    # end
+
     # macOS Specific thangs
     if test (uname) = "Darwin"
         alias updatedb="sudo /usr/libexec/locate.updatedb"
         if test $TERM_PROGRAM = iTerm.app
             test -e $FISH_PATH/iterm2_shell_integration.fish; and source $FISH_PATH/iterm2_shell_integration.fish
         end
+
+        fish_add_path -m /usr/local/bin
     end
 
     # Aliases

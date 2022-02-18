@@ -1,19 +1,37 @@
 #!/usr/bin/env fish
 
+set -x VUKAHEAVY $HOME/Source/vukaheavy
+
+
+# Updates and Upgrades
+abbr --add rupdate 'rustup update'
+
+# Linux specific things
+if test (uname) = 'Linux'
+    abbr --add aupdate 'sudo apt update && apt list --upgradable'
+    abbr --add aupgrade 'sudo apt upgrade -y'
+    abbr --add fupdate 'flatpak update'
+    abbr --add flatpak_unused 'flatpak uninstall --unused'
+end
+
+
+# Repo's
+abbr --add vuka 'cd $VUKAHEAVY'
+abbr --add ap 'cd $VUKAHEAVY/cerebrum'
+abbr --add cp 'cd $VUKAHEAVY/customer-portal'
+abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
+abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
+abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
+abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'
+
 # Docker
 abbr --add d 'docker'
 abbr --add dc 'docker-compose'
 abbr --add dcdr 'docker-compose down --remove-orphans'
 
-# Updates and Upgrades
-abbr --add aupdate 'sudo apt update && apt list --upgradable'
-abbr --add aupgrade 'sudo apt upgrade -y'
-abbr --add fupdate 'flatpak update'
-abbr --add rupdate 'rustup update'
 
 # Misc
 abbr --add dotfiles 'cd $DOTFILES'
-abbr --add flatpak_unused 'flatpak uninstall --unused'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
 abbr --add ll 'ls -lhAF'
 abbr --add ppath 'echo $PATH'

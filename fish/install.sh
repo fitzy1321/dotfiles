@@ -24,7 +24,6 @@ install() {
 
     ln -sf "$curr/config.fish" "$dest/."
     ln -sf "$curr/abbrevs.fish" "$dest/."
-    ln -sf "$curr/setup_tools.fish" "$dest/."
     ln -sf "$curr/completions" "$dest/."
     ln -sf "$curr/functions/nvm.fish" "$dest/functions/."
 

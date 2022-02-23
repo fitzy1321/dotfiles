@@ -14,7 +14,7 @@ end
 
 function set_var
     if ! set -q $argv[1]
-        set -x $argv[1] $argv[2]
+        set -x $argv
     end
 end
 
@@ -61,8 +61,9 @@ if status is-interactive
     #### Pyenv setup
     set -Ux PYENV_ROOT $HOME/.pyenv
     fish_add_path $PYENV_ROOT/bin
+    pyenv init --path | source
     pyenv init - | source
-    pyenv rehash >/dev/null ^&1
+    # pyenv rehash >/dev/null
 
     #### Direnv Setup
     direnv hook fish | source

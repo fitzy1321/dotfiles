@@ -5,8 +5,8 @@ abbr --add dcdr 'docker-compose down --remove-orphans'
 
 # Linux Specific things
 if test (uname) = 'Linux'
-    abbr --add aupdate 'sudo apt update && apt list --upgradable'
-    abbr --add aupgrade 'sudo apt upgrade -y'
+    abbr --add update 'sudo apt update && apt list --upgradable'
+    abbr --add upgrade 'sudo apt upgrade -y'
     abbr --add fupdate 'flatpak update'
     abbr --add flatpak_unused 'flatpak uninstall --unused'
 end

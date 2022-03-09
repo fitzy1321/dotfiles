@@ -1,0 +1,9 @@
+--ignore=.stowrc
+--ignore=^\.git.*
+--ignore=.gitignore
+--ignore=\.gitkeep
+--ignore=color_schemes.json
+--ignore=Brewfile
+--ignore=Makefile
+--ignore=\*.md
+--target=$HOME

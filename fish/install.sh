@@ -25,9 +25,9 @@ install() {
     ln -sf "$curr/config.fish" "$dest/."
     ln -sf "$curr/abbrevs.fish" "$dest/."
     ln -sf "$curr/completions" "$dest/."
-    ln -sf "$curr/functions/nvm.fish" "$dest/functions/."
 
-    nvm_for_fish_install
+    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    fisher install FabioAntunes/fish-nvm edc/bass
 }
 
 install

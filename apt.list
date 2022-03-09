@@ -1,4 +1,5 @@
 alacritty
+bat
 brave-browser
 build-essential
 cheese
@@ -7,6 +8,7 @@ code
 deepin-icon-theme
 discord
 easytag
+exa
 fish
 gdb
 gh
@@ -22,19 +24,17 @@ lollypop
 make
 neofetch
 neovim
+pcscd
 qemu-kvm
 shellcheck
 sqlite3
 sqlitebrowser
-symlinks
+stow
 tensorman
-thunderbird
 tree
 ttf-mscorefonts-installer
 ubuntu-restricted-extras
 ufw
 virt-manager
 wget
-pcscd
-exa
-bat
+zsh

@@ -17,13 +17,14 @@ abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "q
 
 if command -v exa >/dev/null
     abbr --add ll 'exa -la --icons --group-directories-first'
+    abbr --add lt 'exa -la --icons --group-directories-first --tree --level=2'
 else
     abbr --add ll 'ls -lhAF'
 end
 
 abbr --add ppath 'echo $PATH'
 abbr --add py3 'python3.9'
-abbr --add reset_fish "source $FISH_PATH/config.fish"
+abbr --add reset_fish 'source $FISH_PATH/config.fish'
 
 # Git abbr's
 abbr --add ga 'git add'

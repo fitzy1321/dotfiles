@@ -1,4 +1,5 @@
-nvm_for_fish_install() {
+#!/usr/bin/env zsh
+install() {
     if [ "$PLATFORM" == "Darwin" ]; then
         local NVM_DIR $HOME/.nvm
     else
@@ -15,18 +16,6 @@ nvm_for_fish_install() {
         printsl "Install fish-nvm and bass from fisher"
         fisher install FabioAntunes/fish-nvm edc/bass
     fi
-}
-
-install() {
-    local curr="$DOTFILES/fish"
-    local dest="${FISH_PATH:-$HOME/.config/fish}"
-    mkdir -p "$dest"
-
-    ln -sf "$curr/config.fish" "$dest/."
-    ln -sf "$curr/abbrevs.fish" "$dest/."
-    ln -sf "$curr/completions" "$dest/."
-    ln -sf "$curr/iterm2.fish" "$dest/."
-
 }
 
 install

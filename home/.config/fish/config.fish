@@ -2,7 +2,8 @@
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # etc: fish_add_path $HOME/.cargo/bin
 
-## for nvm, install fisher and fish-nvm
+# for nvm, install with fisher
+# `fisher install FabioAntunes/fish-nvm edc/bass`
 
 # Remove fish greeting
 set -g fish_greeting
@@ -47,11 +48,13 @@ test -d $HOME/bin; and fish_add_path $HOME/bin
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
 #### Call other fish config files
-test -d $FISH_PATH/abbrevs.fish; and source $FISH_PATH/abbrevs.fish
+if test -e $FISH_PATH/abbrevs.fish; or test -f $FISH_PATH/abbrevs.fish
+    source $FISH_PATH/abbrevs.fish
+end
 
 #### Setup pyenv
 if test -d $HOME/.pyenv
-    set -q PYENV_ROOT; or set -Ux PYENV_ROOT $HOME/.pyenv
+    set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
     fish_add_path $PYENV_ROOT/bin
     status is-login; and pyenv init --path | source
     status is-interactive; and pyenv init - | source

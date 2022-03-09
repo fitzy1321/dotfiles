@@ -31,6 +31,7 @@ abbr --add dotfiles 'cd $DOTFILES'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
 if command -v exa >/dev/null
     abbr --add ll 'exa -la --icons --group-directories-first'
+    abbr --add lt 'exa -la --icons --group-directories-first --tree --level=2'
 else
     abbr --add ll "ls -lhAF"
 end

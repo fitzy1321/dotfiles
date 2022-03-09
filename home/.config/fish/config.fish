@@ -2,6 +2,8 @@
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # etc: fish_add_path $HOME/.cargo/bin
 
+## for nvm, install fisher and fish-nvm
+
 # Remove fish greeting
 set -g fish_greeting
 
@@ -9,11 +11,12 @@ set -g fish_greeting
 set -Ux theme_nerd_fonts yes
 
 #### Add ENV vars
-set -Ux XDG_CONFIG_HOME $HOME/.config
-set -Ux FISH_PATH $XDG_CONFIG_HOME/fish
-set -Ux MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
-set -Ux DOTFILES $HOME/Source/dotfiles
-set -Ux PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx XDG_CACHE_HOME $HOME/.cache
+set -gx FISH_PATH $XDG_CONFIG_HOME/fish
+set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+set -gx DOTFILES $HOME/.dotfiles
+set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
 #### Linux specific Configs
 if test (uname) = "Linux"
@@ -35,7 +38,7 @@ command -v exa >/dev/null; and alias ls exa
 command -v bat >/dev/null; and alias cat bat
 
 #### Add Paths
-if not contains /usr/local/bin $PATH
+if test -d /usr/local/bin; and not contains /usr/local/bin $PATH
     fish_add_path /usr/local/bin
 end
 test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin

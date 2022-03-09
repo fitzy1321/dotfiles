@@ -27,7 +27,7 @@ abbr --add dcdr "docker-compose down --remove-orphans"
 
 
 # Misc
-abbr --add dotfiles "cd $DOTFILES"
+abbr --add dotfiles 'cd $DOTFILES'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
 if command -v exa >/dev/null
     abbr --add ll 'exa -la --icons --group-directories-first'

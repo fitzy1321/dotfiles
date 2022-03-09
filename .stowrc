@@ -6,6 +6,6 @@
 --ignore=^\windows
 --ignore=apt.list
 --ignore=Brewfile
---ignore=install_fitzypop_dotfiles.sh
+--ignore=install.sh
 --ignore=\*.md
 --target=$HOME

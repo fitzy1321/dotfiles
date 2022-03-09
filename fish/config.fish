@@ -7,11 +7,11 @@ set -g fish_greeting
 
 if status is-interactive
     #### Add custom shell variables
-    set -Ux XDG_CONFIG_HOME "$HOME/.config"
-    set -Ux FISH_PATH "$XDG_CONFIG_HOME/fish"
-    set -Ux MYVIMRC "$XDG_CONFIG_HOME/nvim/init.vim"
-    set -Ux DOTFILES "$HOME/Source/dotfiles"
-    set -Ux PYTHONSTARTUP "$XDG_CONFIG_HOME/python/pythonrc"
+    set -Ux XDG_CONFIG_HOME $HOME/.config
+    set -Ux FISH_PATH $XDG_CONFIG_HOME/fish
+    set -Ux MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+    set -Ux DOTFILES $HOME/Source/dotfiles
+    set -Ux PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
     #### Linux specific Configs
     if test (uname) = "Linux"
@@ -28,28 +28,29 @@ if status is-interactive
 
 
     #### Setup paths
-    test -d "$HOME/.local/bin" && fish_add_path "$HOME/.local/bin"
-    test -d "$HOME/bin" && fish_add_path "$HOME/bin"
-
-    test -d "$HOME/.cargo" && fish_add_path "$HOME/.cargo/bin"
-
-    if test -d /usr/local/bin; and not contains /usr/local/bin $PATH
+    fish_add_path $HOME/.local/bin
+    fish_add_path $HOME/bin
+    
+    if test not contains /usr/local/bin $PATH
         fish_add_path /usr/local/bin
     end
 
+    fish_add_path $HOME/.cargo/bin
+
     #### Call other fish config files
-    source "$FISH_PATH/abbrevs.fish"
+    test -d $FISH_PATH/abbrevs.fish; and source $FISH_PATH/abbrevs.fish
 
     #### Pyenv setup
-    set -Ux PYENV_ROOT "$HOME/.pyenv"
-    fish_add_path "$PYENV_ROOT/bin"
-    pyenv init --path | source
-    pyenv init - | source
+    if test -d $HOME/.pyenv
+        set -q PYENV_ROOT; or set -Ux PYENV_ROOT $HOME/.pyenv
+        fish_add_path $PYENV_ROOT/bin
+        pyenv init --path | source
+        pyenv init - | source
+    end
 
     #### Direnv Setup
     direnv hook fish | source
 
     #### Starship Prompt Setup
     starship init fish | source
-
 end

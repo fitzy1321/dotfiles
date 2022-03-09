@@ -29,7 +29,11 @@ abbr --add dcdr "docker-compose down --remove-orphans"
 # Misc
 abbr --add dotfiles "cd $DOTFILES"
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
-abbr --add ll "ls -lhAF"
+if command -v exa >/dev/null
+    abbr --add ll 'exa -la --icons --group-directories-first'
+else
+    abbr --add ll "ls -lhAF"
+end
 abbr --add ppath 'echo $PATH'
 abbr --add py3 "python3.9"
 abbr --add reset_fish "source $FISH_PATH/config.fish"

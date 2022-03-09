@@ -5,56 +5,61 @@
 # Remove fish greeting
 set -g fish_greeting
 
-if status is-interactive
-    #### Add custom shell variables
-    set -Ux XDG_CONFIG_HOME $HOME/.config
-    set -Ux FISH_PATH $XDG_CONFIG_HOME/fish
-    set -Ux MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
-    set -Ux DOTFILES $HOME/Source/dotfiles
-    set -Ux PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+#### Theme
+set -Ux theme_nerd_fonts yes
 
-    #### Linux specific Configs
-    if test (uname) = "Linux"
-        alias mongo='mongosh'
+#### Add ENV vars
+set -Ux XDG_CONFIG_HOME $HOME/.config
+set -Ux FISH_PATH $XDG_CONFIG_HOME/fish
+set -Ux MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+set -Ux DOTFILES $HOME/Source/dotfiles
+set -Ux PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+
+#### Linux specific Configs
+if test (uname) = "Linux"
+end
+
+#### macOS Specific Configs
+if test (uname) = "Darwin"
+    alias updatedb="sudo /usr/libexec/locate.updatedb"
+    if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
+        fish_add_path /opt/homebrew/bin
     end
-
-    #### macOS Specific Configs
-    if test (uname) = "Darwin"
-        alias updatedb="sudo /usr/libexec/locate.updatedb"
-        if test $TERM_PROGRAM = iTerm.app
-            source "$FISH_PATH/iterm2_shell_integration.fish"
-        end
+    if status is-interactive; and test $TERM_PROGRAM = iTerm.app
+        source "$FISH_PATH/iterm2.fish"
     end
+end
 
+#### Aliases
+command -v exa >/dev/null; and alias ls exa
+command -v bat >/dev/null; and alias cat bat
 
-    #### Setup paths
-    fish_add_path $HOME/.local/bin
-    fish_add_path $HOME/bin
-    
-    if not contains /usr/local/bin $PATH
-        fish_add_path /usr/local/bin
-    end
+#### Add Paths
+if not contains /usr/local/bin $PATH
+    fish_add_path /usr/local/bin
+end
+test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
+test -d $HOME/bin; and fish_add_path $HOME/bin
 
-    fish_add_path $HOME/.cargo/bin
+test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
-    #### Call other fish config files
-    test -d $FISH_PATH/abbrevs.fish; and source $FISH_PATH/abbrevs.fish
+#### Call other fish config files
+test -d $FISH_PATH/abbrevs.fish; and source $FISH_PATH/abbrevs.fish
 
-    #### Pyenv setup
-    if test -d $HOME/.pyenv
-        set -q PYENV_ROOT; or set -Ux PYENV_ROOT $HOME/.pyenv
-        fish_add_path $PYENV_ROOT/bin
-        pyenv init --path | source
-        pyenv init - | source
-    end
+#### Setup pyenv
+if test -d $HOME/.pyenv
+    set -q PYENV_ROOT; or set -Ux PYENV_ROOT $HOME/.pyenv
+    fish_add_path $PYENV_ROOT/bin
+    status is-login; and pyenv init --path | source
+    status is-interactive; and pyenv init - | source
+end
 
-    #### Direnv Setup
-    if command -v direnv >/dev/null
-        direnv hook fish | source
-    end
-    
-    #### Starship Prompt Setup
-    if command -v starship >/dev/null
-        starship init fish | source
-    end
+#### Direnv hook
+if command -v direnv >/dev/null
+    status is-interactive; and direnv hook fish | source
+end
+
+#### Starship hook
+if command -v starship >/dev/null
+    status is-interactive; and starship init fish | source
 end

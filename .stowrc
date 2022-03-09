@@ -1,0 +1,11 @@
+--ignore=.stowrc
+--ignore=^\.git.*
+--ignore=.gitignore
+--ignore=\.gitkeep
+--ignore=color_schemes.json
+--ignore=^\windows
+--ignore=apt.list
+--ignore=Brewfile
+--ignore=install_fitzypop_dotfiles.sh
+--ignore=\*.md
+--target=$HOME

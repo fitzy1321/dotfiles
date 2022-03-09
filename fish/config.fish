@@ -14,9 +14,6 @@ if status is-interactive
     set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
     set -l PLATFORM (uname -s)
 
-    if test $PLATFORM = "Linux"
-        alias mongo='mongosh'
-    end
     # macOS Specific thangs
     if test $PLATFORM = "Darwin"
         alias updatedb="sudo /usr/libexec/locate.updatedb"
@@ -24,6 +21,10 @@ if status is-interactive
             fish_add_path /opt/homebrew/bin
         end
     end
+
+    # Rust tool aliases
+    command -v exa >/dev/null; and alias ls exa
+    command -v bat >/dev/null; and alias cat bat
 
     # set variables and PATH
     fish_add_path $HOME/bin
@@ -52,6 +53,12 @@ if status is-interactive
         pyenv init - | source
     end
 
+    if command -v direnv >/dev/null
+        direnv hook fish | source
+    end
+
     # Starship
-    starship init fish | source
+    if command -v starship >/dev/null
+        starship init fish | source
+    end
 end

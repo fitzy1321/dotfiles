@@ -36,3 +36,5 @@ ufw
 virt-manager
 wget
 pcscd
+exa
+bat

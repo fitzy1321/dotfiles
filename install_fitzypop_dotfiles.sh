@@ -33,7 +33,7 @@ printsl() {
     sleep 0.5
 }
 
-linux_install() {
+popos_install() {
     # Need these to install ppas and setup scripts
     printsl "Installing prerequesites before installing PPAs."
     sudo apt update
@@ -118,13 +118,8 @@ macos_install() {
     sudo echo "$(which fish)" >> /etc/shells
 
     # Install devtool
-    printsl "Installing devtools"
-    brew install cmake neovim pipx starship
-
-    # Pyenv
-    printsl "Installing pyenv"
-    brew install cmake openssl readline sqlite3 xz zlib pyenv
-
+    printsl "Install brew tools from BrewFile"
+    brew bundle install --no-lock
 }
 
 crossplatform_section() {
@@ -158,7 +153,7 @@ main() {
     cd "$DOTFILES"
 
     if [ "$PLATFORM" == "Linux" ]; then
-        linux_install
+        popos_install
     else
         macos_install
     fi

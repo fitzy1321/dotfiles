@@ -12,8 +12,8 @@ nvm_for_fish_install() {
         printsl "Download and Install fisher"
         curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 
-        printsl "Install bass from fisher"
-        fisher install edc/bass
+        printsl "Install fish-nvm and bass from fisher"
+        fisher install FabioAntunes/fish-nvm edc/bass
     fi
 }
 
@@ -25,9 +25,9 @@ install() {
     ln -sf "$curr/config.fish" "$dest/."
     ln -sf "$curr/abbrevs.fish" "$dest/."
     ln -sf "$curr/completions" "$dest/."
+    ln -sf "$curr/iterm2.fish" "$dest/."
 
-    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-    fisher install FabioAntunes/fish-nvm edc/bass
 }
 
 install
+nvm_for_fish_install

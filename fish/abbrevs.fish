@@ -13,13 +13,14 @@ end
 
 # Misc
 abbr --add dotfiles 'cd $DOTFILES'
-abbr --add flatpak_unused 'flatpak uninstall --unused'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
+
 if command -v exa >/dev/null
-    abbr --add ll 'exa -laF --icons'
+    abbr --add ll 'exa -la --icons --group-directories-first'
 else
     abbr --add ll 'ls -lhAF'
 end
+
 abbr --add ppath 'echo $PATH'
 abbr --add py3 'python3.9'
 abbr --add reset_fish "source $FISH_PATH/config.fish"

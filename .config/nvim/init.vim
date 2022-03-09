@@ -2,6 +2,7 @@
 
 " Goto vim-plug github page and download
 " https://github.com/junegunn/vim-plug
+" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 " Autoload vim-plug
 "if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -28,9 +29,9 @@ syntax enable
 set number
 set rnu
 set nowrap
-set expandtab 
-set smarttab 
-set autoindent 
+set expandtab
+set smarttab
+set autoindent
 set smartindent
 set clipboard=unnamed
 
@@ -51,4 +52,3 @@ nnoremap <leader>tn :call ToggleNumbers()<CR>
 
 " Auto Source when writing to config file
 "au! BufWritePost $MYVIMRC source %
-

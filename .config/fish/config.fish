@@ -9,14 +9,14 @@ set -g fish_greeting
 set -Ux theme_nerd_fonts yes
 
 #### XDG variables
-set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
-set -q XDG_CACHE_HOME; or set XDG_CACHE_HOME $HOME/.cache
+set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx XDG_CACHE_HOME $HOME/.cache
 
 #### Custom variables
-set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
-set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
-set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
-set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+set -gx FISH_PATH $XDG_CONFIG_HOME/fish
+set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+set -gx DOTFILES $HOME/.dotfiles
+set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
 # macOS Specific thangs
 if test (uname -s) = "Darwin"
@@ -41,30 +41,28 @@ test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
 # Deno
 if test -d $HOME/.deno
-    set -q DENO_INSTALL; or set -Ux DENO_INSTALL $HOME/.deno
+    set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
 
 
 #### Alias, mainly rust alternatives
-command -v exa >/dev/null; and alias ls exa
-command -v bat >/dev/null; and alias cat bat
+type -q exa >/dev/null; and alias ls exa
+type -q bat >/dev/null; and alias cat bat
 
 #### Set Abbreviations
 test -f $FISH_PATH/abbrevs.fish; and source $FISH_PATH/abbrevs.fish
 
 #### Other tools
 if test -d $HOME/.pyenv
-    set -q PYENV_ROOT; or set -Ux PYENV_ROOT $HOME/.pyenv
+    set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
     fish_add_path $PYENV_ROOT/bin
     status is-login; and pyenv init --path | source
     status is-interactive; and pyenv init - | source
 end
 
-if command -v direnv >/dev/null
-    status is-interactive; and direnv hook fish | source
-end
+if status is-interactive
+    type -q direnv; and direnv hook fish | source
 
-if command -v starship >/dev/null
-    status is-interactive; and starship init fish | source
+    type -q starship; and starship init fish | source
 end

@@ -31,7 +31,7 @@ if status is-interactive
     fish_add_path $HOME/.local/bin
     fish_add_path $HOME/bin
     
-    if test not contains /usr/local/bin $PATH
+    if not contains /usr/local/bin $PATH
         fish_add_path /usr/local/bin
     end
 

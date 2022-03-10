@@ -8,4 +8,5 @@
 --ignore=Brewfile
 --ignore=install.sh
 --ignore=\*.md
+--ignore=Makefile
 --target=$HOME

@@ -47,8 +47,13 @@ end
 
 
 #### Alias, mainly rust alternatives
-type -q exa >/dev/null; and alias ls exa
-type -q bat >/dev/null; and alias cat bat
+type -q exa; and alias ls exa
+
+if type -q bat
+    alias cat bat
+else if type -q batcat
+    alias cat batcat
+end
 
 #### Set Abbreviations
 test -f $FISH_PATH/abbrevs.fish; and source $FISH_PATH/abbrevs.fish

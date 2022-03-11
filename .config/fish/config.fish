@@ -35,8 +35,8 @@ if test (uname) = "Darwin"
 end
 
 #### Aliases
-command -v exa >/dev/null; and alias ls exa
-command -v bat >/dev/null; and alias cat bat
+type -q exa >/dev/null; and alias ls exa
+type -q bat >/dev/null; and alias cat bat
 
 #### Add Paths
 if test -d /usr/local/bin; and not contains /usr/local/bin $PATH
@@ -60,12 +60,11 @@ if test -d $HOME/.pyenv
     status is-interactive; and pyenv init - | source
 end
 
-#### Direnv hook
-if command -v direnv >/dev/null
-    status is-interactive; and direnv hook fish | source
-end
 
-#### Starship hook
-if command -v starship >/dev/null
-    status is-interactive; and starship init fish | source
+if status is-interactive;
+    #### Direnv hook
+    type -q direnv; and direnv hook fish | source
+
+    #### Starship hook
+    type -q starship; and starship init fish | source
 end

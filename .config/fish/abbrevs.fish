@@ -23,7 +23,6 @@ else
 end
 
 abbr --add ppath 'echo $PATH'
-abbr --add py3 'python3.9'
 abbr --add reset_fish 'source $FISH_PATH/config.fish'
 
 # Git abbr's

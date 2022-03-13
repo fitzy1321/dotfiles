@@ -9,4 +9,5 @@
 --ignore=install.sh
 --ignore=\*.md
 --ignore=Makefile
+--ignore=iterm_presets
 --target=$HOME

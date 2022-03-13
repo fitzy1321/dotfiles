@@ -22,6 +22,10 @@
             "brightWhite": "#eeeeec"
           },
           {
+            "name": "ubuntu terminal color",
+            "hex_value": "#2c001e"
+          },
+          {
             "name": "Monokai Soda",
             "black": "#1a1a1a",
             "red": "#f4005f",

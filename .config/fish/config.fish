@@ -34,10 +34,6 @@ if test (uname) = "Darwin"
     end
 end
 
-#### Aliases
-type -q exa >/dev/null; and alias ls exa
-type -q bat >/dev/null; and alias cat bat
-
 #### Add Paths
 if test -d /usr/local/bin; and not contains /usr/local/bin $PATH
     fish_add_path /usr/local/bin
@@ -47,10 +43,61 @@ test -d $HOME/bin; and fish_add_path $HOME/bin
 
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
-#### Call other fish config files
-if test -e $FISH_PATH/abbrevs.fish; or test -f $FISH_PATH/abbrevs.fish
-    source $FISH_PATH/abbrevs.fish
+#### Aliases
+type -q exa >/dev/null; and alias ls exa
+type -q bat >/dev/null; and alias cat bat
+
+#### Set Abbreviations
+if test -d $HOME/Source/vukaheavy
+    set -Ux VUKAHEAVY $HOME/Source/vukaheavy
+    abbr --add vuka 'cd $VUKAHEAVY'
+    abbr --add cerebrum 'cd $VUKAHEAVY/cerebrum'
+    abbr --add customerportal 'cd $VUKAHEAVY/customer-portal'
+    abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
+    abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
+    abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
+    abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'
 end
+
+# Updates and Upgrades
+abbr --add rupdate 'rustup update'
+
+# Docker
+abbr --add d 'docker'
+abbr --add dc 'docker-compose'
+abbr --add dcdr 'docker-compose down --remove-orphans'
+
+# Misc
+abbr --add dotfiles 'cd $DOTFILES'
+abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
+if type -q exa >/dev/null
+    abbr --add ll 'exa -la --icons --group-directories-first'
+    abbr --add lt 'exa -la --icons --group-directories-first --tree --level=2'
+else
+    abbr --add ll 'ls -lhAF'
+end
+abbr --add ppath 'echo $PATH'
+abbr --add reset_fish 'source $FISH_PATH/config.fish'
+
+# Git abbr's
+abbr --add ga 'git add'
+abbr --add gaa 'git add -A'
+abbr --add gb 'git branch'
+abbr --add gcam 'git commit -a -m'
+abbr --add gcb 'git checkout -b'
+abbr --add gch 'git checkout'
+abbr --add gcm 'git commit -m'
+abbr --add gd 'git diff'
+abbr --add gds 'git diff --staged'
+abbr --add gl 'git pull'
+abbr --add glv 'git pull && git diff ORIG_HEAD..'
+abbr --add gp 'git push'
+abbr --add gpu 'git push -u origin'
+abbr --add gpum 'git push -u origin main'
+abbr --add gsl 'git status --long'
+abbr --add gss 'git status -s'
+abbr --add gst 'git status'
+
 
 #### Setup pyenv
 if test -d $HOME/.pyenv

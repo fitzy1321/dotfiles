@@ -10,4 +10,5 @@
 --ignore=\*.md
 --ignore=Makefile
 --ignore=iterm_presets
+--ignore=.DS_Store
 --target=$HOME

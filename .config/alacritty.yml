@@ -1,5 +1,5 @@
 shell:
-  program: /usr/bin/fish
+  program: /usr/local/bin/fish
   args:
     - --login
 
@@ -13,16 +13,16 @@ window:
 font:
   size: 12
   normal:
-    family: UbuntuMono Nerd Font
+    family: FiraCode Nerd Font
     style: Regular
   bold:
-    family: UbuntuMono Nerd Font
+    family: FiraCode Nerd Font
     style: Bold
   italic:
-    family: UbuntuMono Nerd Font
+    family: FiraCode Nerd Font
     style: Italic
   bold_italic:
-    family: UbuntuMono Nerd Font
+    family: FiraCode Nerd Font
     style: Bold Italic
 
 draw_bold_text_with_bright_colors: true

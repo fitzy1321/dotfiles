@@ -24,7 +24,8 @@ if test (uname -s) = "Darwin"
     if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
         fish_add_path /opt/homebrew/bin
     end
-    if test $TERM_PROGRAM = "iTerm.app"
+    if status is-interactive;
+        and test "$TERM_PROGRAM" = "iTerm.app"
         source $FISH_PATH/iterm2.fish
     end
 end

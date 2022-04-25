@@ -29,7 +29,8 @@ if test (uname) = "Darwin"
     if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
         fish_add_path /opt/homebrew/bin
     end
-    if status is-interactive; and test $TERM_PROGRAM = iTerm.app
+    if status is-interactive; 
+        and test "$TERM_PROGRAM" = "iTerm.app"
         source "$FISH_PATH/iterm2.fish"
     end
 end
@@ -66,6 +67,8 @@ abbr --add rupdate 'rustup update'
 abbr --add d 'docker'
 abbr --add dc 'docker-compose'
 abbr --add dcdr 'docker-compose down --remove-orphans'
+abbr --add docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
+abbr --add docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
 # Misc
 abbr --add dotfiles 'cd $DOTFILES'

@@ -1,8 +1,18 @@
 # Fitzypop's Dotfiles and config files
 
-Mainly storing dotfiles for my Pop!_OS installation.  
-Also contains some Window's config files, fonts, icons,  
-and various other files I need across systems.
+My various config files, fonts, icons, and other things I need across systems.
+
+## Branches
+
+You must switch branch for your respective OS.
+
+`main` is for Linux systems, mainly Pop!_OS/Ubuntu/ anything with apt.
+
+`mac` is for macOS systems, currently working to make it compatiable with m1 macs too.
+
+and
+
+`windows` is for windows.
 
 ## Installation
 

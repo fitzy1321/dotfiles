@@ -85,22 +85,29 @@ abbr --add reset_fish 'source $FISH_PATH/config.fish'
 # Git abbr's
 abbr --add ga 'git add'
 abbr --add gaa 'git add -A'
+
 abbr --add gb 'git branch'
-abbr --add gcam 'git commit -a -m'
-abbr --add gcb 'git checkout -b'
-abbr --add gch 'git checkout'
-abbr --add gcpoetry 'git checkout -- poetry.lock'
+
 abbr --add gcm 'git commit -m'
+abbr --add gcam 'git commit -am'
+
+abbr --add gch 'git checkout'
+abbr --add gcb 'git checkout -b'
+abbr --add gcpoetry 'git checkout -- poetry.lock'
+
 abbr --add gd 'git diff'
 abbr --add gds 'git diff --staged'
+
 abbr --add gl 'git pull'
 abbr --add glv 'git pull && git diff ORIG_HEAD..'
+
 abbr --add gp 'git push'
 abbr --add gpu 'git push -u origin'
 abbr --add gpum 'git push -u origin main'
+
+abbr --add gst 'git status'
 abbr --add gsl 'git status --long'
 abbr --add gss 'git status -s'
-abbr --add gst 'git status'
 
 
 #### Setup pyenv

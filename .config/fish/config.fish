@@ -29,7 +29,7 @@ if test (uname) = "Darwin"
     if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
         fish_add_path /opt/homebrew/bin
     end
-    if status is-interactive; 
+    if status is-interactive;
         and test "$TERM_PROGRAM" = "iTerm.app"
         source "$FISH_PATH/iterm2.fish"
     end
@@ -89,6 +89,7 @@ abbr --add gb 'git branch'
 abbr --add gcam 'git commit -a -m'
 abbr --add gcb 'git checkout -b'
 abbr --add gch 'git checkout'
+abbr --add gcpoetry 'git checkout -- poetry.lock'
 abbr --add gcm 'git commit -m'
 abbr --add gd 'git diff'
 abbr --add gds 'git diff --staged'

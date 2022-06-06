@@ -92,8 +92,8 @@ abbr --add gcm 'git commit -m'
 abbr --add gcam 'git commit -am'
 
 abbr --add gch 'git checkout'
-abbr --add gcb 'git checkout -b'
-abbr --add gcpoetry 'git checkout -- poetry.lock'
+abbr --add gchb 'git checkout -b'
+abbr --add gchpoetry 'git checkout master -- poetry.lock'
 
 abbr --add gd 'git diff'
 abbr --add gds 'git diff --staged'

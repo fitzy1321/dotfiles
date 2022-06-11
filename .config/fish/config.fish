@@ -98,6 +98,8 @@ abbr --add gchpoetry 'git checkout master -- poetry.lock'
 abbr --add gd 'git diff'
 abbr --add gds 'git diff --staged'
 
+abbr --add ggd 'git log --graph --oneline --decorate'
+
 abbr --add gl 'git pull'
 abbr --add glv 'git pull && git diff ORIG_HEAD..'
 

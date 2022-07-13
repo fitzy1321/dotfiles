@@ -3,6 +3,8 @@
 --ignore=.gitignore
 --ignore=\.gitkeep
 --ignore=color_schemes.json
+--ignore=^\windows
+--ignore=apt.list
 --ignore=Brewfile
 --ignore=install.sh
 --ignore=\*.md

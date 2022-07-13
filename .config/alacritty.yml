@@ -1,12 +1,13 @@
 shell:
-  program: /usr/bin/fish
+  # Linux: /usr/bin/fish
+  program: /usr/local/bin/fish
   args:
     - --login
 
 window:
   dynamic_padding: true
   padding:
-    x: 5
+    x: 15
     y: 5
   opacity: 0.9
 

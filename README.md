@@ -6,7 +6,7 @@ My various config files, fonts, icons, and other things I need across systems.
 
 You must switch branch for your respective OS.
 
-`main` is for Linux and MacOS, mainly Pop!_OS/Ubuntu/ anything with apt or homebrew.
+`main` is for Linux and MacOS, mainly Pop!_OS/Ubuntu/macOS. Anything with apt or homebrew.
 
 `windows` is for windows.
 

@@ -40,5 +40,15 @@ then run these commands
 
 ```shell
 cd $HOME/.dotfiles
-stow home
+stow .
+```
+
+## Troubleshooting
+
+### Alacritty
+
+You might need to make a symlink to your fish install like this:
+
+```sh
+ln -s <current_fish_locaation> /usr/local/bin/fish
 ```

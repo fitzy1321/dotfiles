@@ -9,33 +9,33 @@ set -g fish_greeting
 set -Ux theme_nerd_fonts yes
 
 #### XDG variables
-set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx XDG_CACHE_HOME $HOME/.cache
+set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
 #### Custom variables
-set -gx FISH_PATH $XDG_CONFIG_HOME/fish
-set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
-set -gx DOTFILES $HOME/.dotfiles
-set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
+set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
+set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
 # macOS Specific thangs
-if test (uname -s) = "Darwin"
-    alias updatedb="sudo /usr/libexec/locate.updatedb"
-    if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
-        fish_add_path /opt/homebrew/bin
-    end
-    if status is-interactive;
-        and test "$TERM_PROGRAM" = "iTerm.app"
-        source $FISH_PATH/iterm2.fish
+if test (uname -s) = 'Darwin'
+    alias updatedb='sudo /usr/libexec/locate.updatedb'
+    # homebrew setup
+    test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
+    # iterm2 setup
+    status is-interactive; and test "$TERM_PROGRAM" = "iTerm.app"; and source $FISH_PATH/iterm2.fish
+else
+    if test -e /usr/bin/fish; and test ! -e /usr/local/bin/fish
+        echo 'Need to make a symlink so fish and alacritty can work together.'
+        ln -s /usr/bin/fish /usr/local/bin/fish
     end
 end
 
 #### Setup paths
-if not contains /usr/local/bin $PATH
-    fish_add_path /usr/local/bin
-end
-test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
-test -d $HOME/bin; and fish_add_path $HOME/bin
+not contains /usr/local/bin $PATH; and fish_add_path /usr/local/bin
+not contains $HOME/.local/bin $PATH; and test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
+not contains $HOME/bin; and test -d $HOME/bin; and fish_add_path $HOME/bin
 
 # Rust / Cargo
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
@@ -46,13 +46,7 @@ if test -d $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
 
-
 #### Aliases
-if type -q bat
-    alias cat bat
-else if type -q batcat
-    alias cat batcat
-end
 
 #### Set Abbreviations
 # Docker

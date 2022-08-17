@@ -63,6 +63,7 @@ if test -d $HOME/Source/vukaheavy
     abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
     abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
     abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'
+    abbr --add spytego 'cd $VUKAHEAVY/asm-viz'
 end
 
 # Updates and Upgrades

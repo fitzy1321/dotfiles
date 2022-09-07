@@ -21,9 +21,9 @@
 #####################
 # Setup Environment / Vars
 #####################
-SOURCE_DIR=$HOME/Source
+DEV_DIR=$HOME/Source
 CONFIG_DIR="$HOME/.config"
-[ -d "$SOURCE_DIR" ] && DOTFILES="$SOURCE_DIR/dotfiles" || DOTFILES="$CONFIG_DIR/dotfiles"
+DOTFILES="$HOME/.dotfiles"
 TMP="/tmp"
 PLATFORM="$(uname -s)"
 

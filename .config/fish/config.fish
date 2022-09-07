@@ -54,16 +54,19 @@ end
 type -q exa >/dev/null; and alias ls exa
 
 #### Set Abbreviations
-if test -d $HOME/Source/vukaheavy
-    set -Ux VUKAHEAVY $HOME/Source/vukaheavy
+if test -d $HOME/dev/vukaheavy
+    set -Ux VUKAHEAVY $HOME/dev/vukaheavy
     abbr --add vuka 'cd $VUKAHEAVY'
+
     abbr --add cerebrum 'cd $VUKAHEAVY/cerebrum'
+    abbr --add compass 'cd $VUKAHEAVY/engine-compass'
     abbr --add customerportal 'cd $VUKAHEAVY/customer-portal'
-    abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
+    abbr --add exporteg 'cd $VUKAHEAVY/engine-data-export'
     abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
+    abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
+    abbr --add spytego 'cd $VUKAHEAVY/asm-viz'
     abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
     abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'
-    abbr --add spytego 'cd $VUKAHEAVY/asm-viz'
 end
 
 # Updates and Upgrades

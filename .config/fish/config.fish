@@ -64,6 +64,7 @@ if test -d $HOME/dev/vukaheavy
     abbr --add exporteg 'cd $VUKAHEAVY/engine-data-export'
     abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
     abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
+    abbr --add monitoring 'cd $VUKAHEAVY/engine-monitoring'
     abbr --add spytego 'cd $VUKAHEAVY/asm-viz'
     abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
     abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'

@@ -57,71 +57,74 @@ end
 #### Set Abbreviations
 if test -d $HOME/dev/vukaheavy
     set -Ux VUKAHEAVY $HOME/dev/vukaheavy
-    abbr --add vuka 'cd $VUKAHEAVY'
+    abbr -a vuka 'cd $VUKAHEAVY'
 
-    abbr --add cerebrum 'cd $VUKAHEAVY/cerebrum'
-    abbr --add compass 'cd $VUKAHEAVY/engine-compass'
-    abbr --add customerportal 'cd $VUKAHEAVY/customer-portal'
-    abbr --add exporteg 'cd $VUKAHEAVY/engine-data-export'
-    abbr --add external 'cd $VUKAHEAVY/sam-api-lambda-functions'
-    abbr --add internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
-    abbr --add monitoring 'cd $VUKAHEAVY/engine-monitoring'
-    abbr --add spytego 'cd $VUKAHEAVY/asm-viz'
-    abbr --add vukalib 'cd $VUKAHEAVY/vuka-lib'
-    abbr --add vukamodels 'cd $VUKAHEAVY/vuka-models'
+    abbr -a cerebrum 'cd $VUKAHEAVY/cerebrum'
+    abbr -a compass 'cd $VUKAHEAVY/engine-compass'
+    abbr -a customerportal 'cd $VUKAHEAVY/customer-portal'
+    abbr -a exporteg 'cd $VUKAHEAVY/engine-data-export'
+    abbr -a external 'cd $VUKAHEAVY/sam-api-lambda-functions'
+    abbr -a internal 'cd $VUKAHEAVY/internal-api-lambda-functions'
+    abbr -a monitoring 'cd $VUKAHEAVY/engine-monitoring'
+    abbr -a spytego 'cd $VUKAHEAVY/asm-viz'
+    abbr -a vukalib 'cd $VUKAHEAVY/vuka-lib'
+    abbr -a vukamodels 'cd $VUKAHEAVY/vuka-models'
 end
 
 # Updates and Upgrades
-abbr --add rupdate 'rustup update'
+abbr -a rupdate 'rustup update'
 
 # Docker
-abbr --add d 'docker'
-abbr --add dc 'docker-compose'
-abbr --add dcdr 'docker-compose down --remove-orphans'
-abbr --add docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
-abbr --add docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
+abbr -a d 'docker'
+abbr -a dc 'docker-compose'
+abbr -a dcdr 'docker-compose down --remove-orphans'
+abbr -a docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
+abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
 # Misc
-abbr --add dotfiles 'cd $DOTFILES'
-abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
+abbr -a dotfiles 'cd $DOTFILES'
+abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
 if type -q exa >/dev/null
-    abbr --add ls 'exa'
-    abbr --add ll 'exa -la --icons --group-directories-first'
-    abbr --add lt 'exa -la --icons --group-directories-first --tree --level=2'
+    abbr -a ls 'exa'
+    abbr -a ll 'exa -la --icons --group-directories-first'
+    abbr -a lt 'exa -la --icons --group-directories-first --tree --level=2'
 else
-    abbr --add ll 'ls -lhAF'
+    abbr -a ll 'ls -lhAF'
 end
-abbr --add ppath 'echo $PATH'
-abbr --add reset_fish 'source $FISH_PATH/config.fish'
+abbr -a ppath 'echo $PATH'
+abbr -a reset_fish 'source $FISH_PATH/config.fish'
+
+# My virtualenv setup command, yes pyenv integration without a wrapper
+type -q virtualenv >/dev/null; and abbr -a venv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e venv
 
 # Git abbr's
-abbr --add ga 'git add'
-abbr --add gaa 'git add -A'
+abbr -a ga 'git add'
+abbr -a gaa 'git add -A'
 
-abbr --add gb 'git branch'
+abbr -a gb 'git branch'
 
-abbr --add gcm 'git commit -m'
-abbr --add gcam 'git commit -am'
+abbr -a gcm 'git commit -m'
+abbr -a gcam 'git commit -am'
 
-abbr --add gch 'git checkout'
-abbr --add gchb 'git checkout -b'
-abbr --add gchpoetry 'git checkout master -- poetry.lock'
+abbr -a gch 'git checkout'
+abbr -a gchb 'git checkout -b'
+abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
-abbr --add gd 'git diff'
-abbr --add gds 'git diff --staged'
+abbr -a gd 'git diff'
+abbr -a gds 'git diff --staged'
 
-abbr --add ggd 'git log --graph --oneline --decorate'
+abbr -a ggd 'git log --graph --oneline --decorate'
 
-abbr --add gl 'git pull'
-abbr --add glv 'git pull && git diff ORIG_HEAD..'
+abbr -a gl 'git pull'
+abbr -a glv 'git pull && git diff ORIG_HEAD..'
 
-abbr --add gp 'git push'
-abbr --add gpu 'git push -u origin'
-abbr --add gpum 'git push -u origin main'
+abbr -a gp 'git push'
+abbr -a gpu 'git push -u origin'
+abbr -a gpum 'git push -u origin main'
 
-abbr --add gst 'git status'
-abbr --add gsl 'git status --long'
-abbr --add gss 'git status -s'
+abbr -a gst 'git status'
+abbr -a gsl 'git status --long'
+abbr -a gss 'git status -s'
 
 
 #### Setup pyenv

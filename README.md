@@ -12,4 +12,6 @@ Install homebrew: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.
 
 Install pacakges from Brewfile: `make brew-install`
 
+Install virtualenv `pipx install virtualenv`
+
 Once everything is installed run `stow .`

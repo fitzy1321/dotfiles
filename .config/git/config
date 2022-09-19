@@ -9,7 +9,7 @@
 	defaultBranch = main
 
 # delta config
-# To Install: cargo install git-delta
+# To Install: brew install git-delta or cargo install git-delta
 [pager]
 	diff = delta
 	log = delta

@@ -7,4 +7,5 @@
 --ignore Makefile
 --ignore \*.md
 --ignore ^iterm_presets
+--ignore .DS_Store
 --target=$HOME

@@ -15,6 +15,7 @@ set -gx XDG_CONFIG_HOME $HOME/.config
 set -gx XDG_CACHE_HOME $HOME/.cache
 
 #### Custom variables
+set -gx EDITOR (which nvim)
 set -gx FISH_PATH $XDG_CONFIG_HOME/fish
 set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
 set -gx DOTFILES $HOME/.dotfiles
@@ -51,7 +52,7 @@ if test -d $HOME/.Deno
 end
 
 #### Aliases
-type -q exa >/dev/null; and alias ls exa
+# type -q exa >/dev/null; and alias ls exa
 
 #### Set Abbreviations
 if test -d $HOME/dev/vukaheavy
@@ -84,6 +85,7 @@ abbr --add docker_clean_ps "docker rm (docker ps --filter=status=exited --filter
 abbr --add dotfiles 'cd $DOTFILES'
 abbr --add install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
 if type -q exa >/dev/null
+    abbr --add ls 'exa'
     abbr --add ll 'exa -la --icons --group-directories-first'
     abbr --add lt 'exa -la --icons --group-directories-first --tree --level=2'
 else

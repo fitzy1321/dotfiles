@@ -94,7 +94,7 @@ end
 abbr -a ppath 'echo $PATH'
 abbr -a reset_fish 'source $FISH_PATH/config.fish'
 
-# My virtualenv setup command, yes pyenv integration without a wrapper
+# My virtualenv setup command, easy pyenv integration without a wrapper
 type -q virtualenv >/dev/null; and abbr -a venv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e venv
 
 # Git abbr's

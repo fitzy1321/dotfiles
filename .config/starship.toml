@@ -23,6 +23,9 @@ symbol = " "
 [golang]
 symbol = " "
 
+[package]
+disabled = true
+
 [rust]
 symbol = " "
 

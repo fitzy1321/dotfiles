@@ -7,6 +7,5 @@
 --ignore ^iterm_presets
 --ignore ^assets
 --ignore Brewfile
---ignore color_schemes.json
 --ignore Makefile
 --target=$HOME

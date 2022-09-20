@@ -13,5 +13,5 @@ save-vsc-ext:
 	code --list-extensions > ${ROOT_DIR}/vscode.extensions
 
 .PHONY: vsc-ext
-vscode-extensions:
+vsc-ext:
 	cat ${ROOT_DIR}/vscode.extensions | xargs -L 1 echo code --install-extensions

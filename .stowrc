@@ -8,4 +8,5 @@
 --ignore ^assets
 --ignore Brewfile
 --ignore Makefile
+--ignore vscode.extensions
 --target=$HOME

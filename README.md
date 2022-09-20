@@ -17,6 +17,8 @@ My workflow:
 
 I use [vscode](https://code.visualstudio.com/docs/setup/mac) as my main editor.
 
+Once you install vscode, run this command to install extensions: `make vsc-ext`
+
 ### Clone this repo and run these commands to create my dev workflow
 
 My recommendation is clone this repo into `$HOME/.dotfiles` like this

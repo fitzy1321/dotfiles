@@ -6,11 +6,11 @@ My dev setup and workflow for intel macOS.
 
 My workflow:
 
-- Terminal: Alacritty
-- Prompt: Starship
-- Shell: fish
-- Editor: Neovim (and vscode)
-- Fonts: Nerd Fonts
+- Terminal: [Alacritty](https://github.com/alacritty/alacritty)
+- Prompt: [Starship](https://starship.rs/)
+- Shell: [Fish](https://fishshell.com/)
+- Editor: [Neovim](https://github.com/neovim/neovim) (and vscode)
+- Fonts: [Nerd Fonts](https://www.nerdfonts.com/)
 
 
 ## Installation

@@ -1,11 +1,12 @@
---ignore .stowrc
 --ignore ^\.git.*
---ignore .gitignore
---ignore \.gitkeep
---ignore color_schemes.json
---ignore Brewfile
---ignore Makefile
 --ignore \*.md
---ignore ^iterm_presets
 --ignore .DS_Store
+--ignore .gitignore
+--ignore .stowrc
+--ignore \.gitkeep
+--ignore ^iterm_presets
+--ignore ^assets
+--ignore Brewfile
+--ignore color_schemes.json
+--ignore Makefile
 --target=$HOME

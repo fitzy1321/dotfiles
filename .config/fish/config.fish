@@ -1,9 +1,6 @@
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # use `fish_add_path` instead: fish_add_path $HOME/.cargo/bin
 
-# for nvm, install with fisher
-# `fisher install FabioAntunes/fish-nvm edc/bass`
-
 # Remove fish greeting
 set -g fish_greeting
 
@@ -31,10 +28,10 @@ if test (uname -s) = "Darwin"
     if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
         fish_add_path /opt/homebrew/bin
     end
-    if status is-interactive;
-        and test "$TERM_PROGRAM" = "iTerm.app"
-        source "$FISH_PATH/iterm2.fish"
-    end
+    # if status is-interactive;
+    #     and test "$TERM_PROGRAM" = "iTerm.app"
+    #     source "$FISH_PATH/iterm2.fish"
+    # end
 end
 
 #### Add Paths
@@ -46,7 +43,7 @@ test -d $HOME/bin; and fish_add_path $HOME/bin
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
 #### Deno setup
-if test -d $HOME/.Deno
+if test -d $HOME/.deno
     set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
@@ -71,9 +68,6 @@ if test -d $HOME/dev/vukaheavy
     abbr -a vukamodels 'cd $VUKAHEAVY/vuka-models'
 end
 
-# Updates and Upgrades
-abbr -a rupdate 'rustup update'
-
 # Docker
 abbr -a d 'docker'
 abbr -a dc 'docker-compose'
@@ -91,7 +85,6 @@ if type -q exa >/dev/null
 else
     abbr -a ll 'ls -lhAF'
 end
-abbr -a ppath 'echo $PATH'
 abbr -a reset_fish 'source $FISH_PATH/config.fish'
 
 # My virtualenv setup command, easy pyenv integration without a wrapper

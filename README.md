@@ -11,6 +11,7 @@ My workflow:
 - Shell: [Fish](https://fishshell.com/)
 - Editor: [Neovim](https://github.com/neovim/neovim) (and vscode)
 - Fonts: [Nerd Fonts](https://www.nerdfonts.com/)
+- Dotfiles Management: [GNU Stow](https://www.gnu.org/software/stow/)
 
 
 ## Installation

@@ -119,6 +119,16 @@ abbr -a gst 'git status'
 abbr -a gsl 'git status --long'
 abbr -a gss 'git status -s'
 
+# Github CLI shortcuts
+if type -q gh
+    abbr -a gprv 'gh pr view -w'
+    abbr -a grv 'gh repo view -w'
+
+else
+    abbr -e gprv
+    abbr -e grv
+end
+
 
 #### Setup pyenv
 if test -d $HOME/.pyenv

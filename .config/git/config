@@ -1,6 +1,6 @@
 [user]
 	name = fitzypop
-	email = fitzypop@pm.me
+	email = 32967490+fitzypop@users.noreply.github.com
 [fetch]
 	prune = true
 [pull]
@@ -43,4 +43,3 @@
 	# old = red bold
 	# new = green bold
 	# whitespace = red reverse
-

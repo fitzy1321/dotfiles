@@ -2,6 +2,17 @@
 
 My various config files, fonts, icons, and other things I need across systems.
 
+![Terminal Image](/assets/terminal.png "My terminal image")
+
+My workflow:
+
+- Terminal: [Alacritty](https://github.com/alacritty/alacritty)
+- Prompt: [Starship](https://starship.rs/)
+- Shell: [Fish](https://fishshell.com/)
+- Editor: [Neovim](https://github.com/neovim/neovim) (and vscode)
+- Fonts: [Nerd Fonts](https://www.nerdfonts.com/)
+- Dotfiles Management: [GNU Stow](https://www.gnu.org/software/stow/)
+
 ## Branches
 
 You must switch branch for your respective OS.
@@ -12,30 +23,47 @@ You must switch branch for your respective OS.
 
 ## Installation
 
-<!-- Run the following command:
+I use [vscode](https://code.visualstudio.com/docs/setup/mac) as my main editor.
 
-`curl -o- https://git.io/J1sXg | sudo -E bash -` -->
+Once you install vscode, run this command to install extensions: `make vsc-ext`
 
-Currently reworking all my dotfiles to use gnu stow
+### Clone this repo and run these commands to create my dev workflow
 
-clone this repo into this folder `$HOME/.dotfiles`
+My recommendation is clone this repo into `$HOME/.dotfiles` like this
 
 ```git clone <this repo> .dotfiles```
-
-install stow
 
 ```shell
 #linux
 apt install -y stow
 
-#macOS
-brew install stow
+cd $HOME/.dotfiles
+stow .
 ```
 
-then run these commands
+```sh
+# macOS Specific installation
 
-```shell
+# install xcode cli tools: need git installed
+xcode-select --install
+
+# clone repo to dotfiles dir
+git clone git@github.com:joefitzy/dotfiles.git $HOME/.dotfiles
+
+# Move into dotfiles dir
 cd $HOME/.dotfiles
+
+# install homebrew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# install packages from brewfile
+make brewinstall
+
+# install virtualenv
+pipx install virtualenv
+
+# use gnu stow to manage symlinks for dotfiles
+# must be in $HOME/.dotfiles directory
 stow .
 ```
 

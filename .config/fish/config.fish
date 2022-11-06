@@ -19,7 +19,7 @@ set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
 set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
 # macOS Specific thangs
-if test (uname -s) = 'Darwin'
+if test (uname -s) = Darwin
     alias updatedb='sudo /usr/libexec/locate.updatedb'
     # homebrew setup
     test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
@@ -33,9 +33,13 @@ else
 end
 
 #### Setup paths
-not contains /usr/local/bin $PATH; and fish_add_path /usr/local/bin
-not contains $HOME/.local/bin $PATH; and test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
-not contains $HOME/bin; and test -d $HOME/bin; and fish_add_path $HOME/bin
+# not contains /usr/local/bin $PATH; and fish_add_path /usr/local/bin
+# not contains $HOME/.local/bin $PATH; and test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
+# not contains $HOME/bin; and test -d $HOME/bin; and fish_add_path $HOME/bin
+test -d /usr/local/bin; and fish_add_path /usr/local/bin
+test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
+test -d $HOME/bin; and fish_add_path $HOME/bin
+
 
 # Rust / Cargo
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
@@ -50,12 +54,12 @@ end
 
 #### Set Abbreviations
 # Docker
-abbr --add d 'docker'
-abbr --add dc 'docker-compose'
+abbr --add d docker
+abbr --add dc docker-compose
 abbr --add dcdr 'docker-compose down --remove-orphans'
 
 # Linux Specific things
-if test (uname) = 'Linux'
+if test (uname) = Linux
     abbr --add update 'sudo apt update && apt list --upgradable'
     abbr --add upgrade 'sudo apt upgrade -y'
     abbr --add fupdate 'flatpak update'
@@ -75,28 +79,53 @@ else
     abbr --add ll 'ls -lhAF'
 end
 
-abbr --add ppath 'echo $PATH'
 abbr --add reset_fish 'source $FISH_PATH/config.fish'
 
-# Git abbr's
-abbr --add ga 'git add'
-abbr --add gaa 'git add -A'
-abbr --add gb 'git branch'
-abbr --add gcam 'git commit -am'
-abbr --add gcb 'git checkout -b'
-abbr --add gch 'git checkout'
-abbr --add gcm 'git commit -m'
-abbr --add gd 'git diff'
-abbr --add gds 'git diff --staged'
-abbr --add gl 'git pull'
-abbr --add glv 'git pull && git diff ORIG_HEAD..'
-abbr --add gp 'git push'
-abbr --add gpu 'git push -u origin'
-abbr --add gpum 'git push -u origin main'
-abbr --add gsl 'git status --long'
-abbr --add gss 'git status -s'
-abbr --add gst 'git status'
+# My virtualenv setup command, easy pyenv integration without a wrapper
+if type -q virtualenv
+    abbr -a venv 'virtualenv -p (pyenv version-name) .venv'
+else
+    abbr -e venv
+end
 
+# Git abbr's
+abbr -a ga 'git add'
+abbr -a gaa 'git add -A'
+
+abbr -a gb 'git branch'
+
+abbr -a gcm 'git commit -m'
+abbr -a gcam 'git commit -am'
+
+abbr -a gch 'git checkout'
+abbr -a gchb 'git checkout -b'
+abbr -a gchpoetry 'git checkout master -- poetry.lock'
+
+abbr -a gd 'git diff'
+abbr -a gds 'git diff --staged'
+
+abbr -a ggd 'git log --graph --oneline --decorate'
+
+abbr -a gl 'git pull'
+abbr -a glv 'git pull && git diff ORIG_HEAD..'
+
+abbr -a gp 'git push'
+abbr -a gpu 'git push -u origin'
+abbr -a gpum 'git push -u origin main'
+
+abbr -a gst 'git status'
+abbr -a gsl 'git status --long'
+abbr -a gss 'git status -s'
+
+# Github CLI shortcuts
+if type -q gh
+    abbr -a gprv 'gh pr view -w'
+    abbr -a grv 'gh repo view -w'
+
+else
+    abbr -e gprv
+    abbr -e grv
+end
 
 #### Other tools
 if test -d $HOME/.pyenv

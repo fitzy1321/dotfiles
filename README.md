@@ -6,7 +6,7 @@ My various config files, fonts, icons, and other things I need across systems.
 
 My workflow:
 
-- Terminal: [Alacritty](https://github.com/alacritty/alacritty) Currently migrating to Kitty
+- Terminal: [kitty](https://github.com/kovidgoyal/kitty)
 - Prompt: [Starship](https://starship.rs/)
 - Shell: [Fish](https://fishshell.com/)
 - Editor: [Neovim](https://github.com/neovim/neovim) (and vscode)

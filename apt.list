@@ -1,4 +1,3 @@
-alacritty
 bat
 brave-browser
 build-essential
@@ -15,6 +14,7 @@ google-chrome-stable
 gparted
 gufw
 htop
+kitty
 libssl-dev
 llvm
 locate

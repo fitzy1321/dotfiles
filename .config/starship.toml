@@ -9,12 +9,6 @@ symbol = " "
 [c]
 symbol = " "
 
-[conda]
-symbol = " "
-
-[dart]
-symbol = " "
-
 [directory]
 truncate_to_repo = false
 truncation_length = 5
@@ -36,29 +30,14 @@ symbol = " "
 [golang]
 symbol = " "
 
-[haskell]
-symbol = " "
-
-[hg_branch]
-symbol = " "
-
 [java]
 symbol = " "
-
-[julia]
-symbol = " "
 
 [lua]
 symbol = " "
 
 [memory_usage]
 symbol = " "
-
-[meson]
-symbol = "喝 "
-
-[nim]
-symbol = " "
 
 [nix_shell]
 symbol = " "
@@ -84,6 +63,3 @@ symbol = " "
 
 [scala]
 symbol = " "
-
-[spack]
-symbol = "🅢 "

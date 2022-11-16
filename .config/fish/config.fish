@@ -12,6 +12,12 @@ set -Ux theme_nerd_fonts yes
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
+#### Go / g (go manager) variables
+set -gx GOPATH $HOME/go
+set -gx GOROOT $HOME/.go
+set -gx PATH $GOPATH/bin $PATH
+# g-install: do NOT edit, see https://github.com/stefanmaric/g
+
 #### Custom variables
 set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
 set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim

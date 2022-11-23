@@ -127,13 +127,12 @@ abbr -a gss 'git status -s'
 if type -q gh
     abbr -a gprv 'gh pr view -w'
     abbr -a grv 'gh repo view -w'
-
 else
     abbr -e gprv
     abbr -e grv
 end
 
-#### Other tools
+#### Pyenv setup
 if test -d $HOME/.pyenv
     set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
     fish_add_path $PYENV_ROOT/bin

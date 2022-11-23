@@ -3,11 +3,11 @@ ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 .PHONY: brewinstall
 brewinstall:
-	brew bundle install -- file ${DOTFILES}/Brewfile --no-lock
+	brew bundle install --no-lock --file ${DOTFILES}/Brewfile
 
 .PHONY: brewfile
 brewfile:
-	brew bundle dump -f --file ${DOTFILES}/Brewfile --no-lock
+	brew bundle dump -f --no-lock --file ${DOTFILES}/Brewfile
 
 .PHONY: save-vsc-ext
 save-vsc-ext:

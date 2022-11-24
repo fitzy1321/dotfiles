@@ -108,6 +108,7 @@ abbr -a gchb 'git checkout -b'
 abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
 abbr -a gd 'git diff'
+abbr -a gdl "git diff -- . ':!Cargo.lock'"
 abbr -a gds 'git diff --staged'
 
 abbr -a ggd 'git log --graph --oneline --decorate'

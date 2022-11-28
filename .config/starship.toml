@@ -1,4 +1,5 @@
 command_timeout = 10000000
+add_newline = false  # remove extra height padding
 
 [aws]
 symbol = "  "

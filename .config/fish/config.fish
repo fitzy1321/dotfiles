@@ -85,7 +85,8 @@ else
     abbr --add ll 'ls -lhAF'
 end
 
-abbr --add reset_fish 'source $FISH_PATH/config.fish'
+abbr -a pre 'prevd' # shorthand for previous directory
+abbr -a rfish 'source $FISH_PATH/config.fish'
 
 # My virtualenv setup command, easy pyenv integration without a wrapper
 if type -q virtualenv
@@ -108,8 +109,11 @@ abbr -a gchb 'git checkout -b'
 abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
 abbr -a gd 'git diff'
-abbr -a gdl "git diff -- . ':!Cargo.lock'"
 abbr -a gds 'git diff --staged'
+
+# git diffs without lock files
+abbr -a gdnl "git diff -- ':!*Cargo.lock' ':!*poetry.lock'"
+abbr -a gdsnl "git diff --staged -- ':!*Cargo.lock' ':!*poetry.lock'"
 
 abbr -a ggd 'git log --graph --oneline --decorate'
 

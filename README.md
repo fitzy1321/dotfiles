@@ -6,7 +6,7 @@ My various config files, fonts, icons, and other things I need across systems.
 
 My workflow:
 
-- Terminal: [kitty](https://github.com/kovidgoyal/kitty)
+- Terminal: [kitty](https://github.com/kovidgoyal/kitty), previously [alacritty](https://github.com/alacritty/alacritty)
 - Prompt: [Starship](https://starship.rs/)
 - Shell: [Fish](https://fishshell.com/)
 - Editor: [Neovim](https://github.com/neovim/neovim) (and vscode)
@@ -57,7 +57,8 @@ cd $HOME/.dotfiles
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # install packages from brewfile
-make brewinstall
+brew update && brew install just
+just brewfile
 
 # install virtualenv
 pipx install virtualenv

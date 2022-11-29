@@ -1,6 +1,6 @@
 command_timeout = 1000 # in milliseconds
 
-add_newline = false
+# add_newline = false
 
 [directory]
 truncation_length = 6

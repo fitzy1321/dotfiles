@@ -4,15 +4,14 @@ My dev setup and workflow for intel macOS.
 
 ![Terminal Image](/assets/terminal.png "My terminal image")
 
-My workflow:
+My setup and tools:
 
-- Terminal: [Alacritty](https://github.com/alacritty/alacritty)
+- Terminal: [kitty](https://github.com/kovidgoyal/kitty), previously [alacritty](https://github.com/alacritty/alacritty)
 - Prompt: [Starship](https://starship.rs/)
 - Shell: [Fish](https://fishshell.com/)
-- Editor: [Neovim](https://github.com/neovim/neovim) (and vscode)
+- Editor: [VS Code](https://code.visualstudio.com/) and [Neovim](https://github.com/neovim/neovim)
 - Fonts: [Nerd Fonts](https://www.nerdfonts.com/)
 - Dotfiles Management: [GNU Stow](https://www.gnu.org/software/stow/)
-
 
 ## Installation
 
@@ -38,7 +37,8 @@ cd $HOME/.dotfiles
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # install packages from brewfile
-make brewinstall
+brew update && brew install just
+just brewinstall
 
 # install virtualenv
 pipx install virtualenv
@@ -46,4 +46,14 @@ pipx install virtualenv
 # use gnu stow to manage symlinks for dotfiles
 # must be in $HOME/.dotfiles directory
 stow .
+```
+
+## Troubleshooting
+
+### Alacritty
+
+You might need to make a symlink to your fish install like this:
+
+```sh
+ln -s <current_fish_locaation> /usr/local/bin/fish
 ```

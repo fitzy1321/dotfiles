@@ -9,7 +9,7 @@ My workflow:
 - Terminal: [kitty](https://github.com/kovidgoyal/kitty), previously [alacritty](https://github.com/alacritty/alacritty)
 - Prompt: [Starship](https://starship.rs/)
 - Shell: [Fish](https://fishshell.com/)
-- Editor: [Neovim](https://github.com/neovim/neovim) (and vscode)
+- Editor: [VS Code](https://code.visualstudio.com/) and [Neovim](https://github.com/neovim/neovim)
 - Fonts: [Nerd Fonts](https://www.nerdfonts.com/)
 - Dotfiles Management: [GNU Stow](https://www.gnu.org/software/stow/)
 

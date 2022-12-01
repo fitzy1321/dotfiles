@@ -1,4 +1,5 @@
-# Pro-tip: use fish_add_path to edit the PATH variable in this config file
+# Fitypop's Fish Config
+
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # etc: fish_add_path $HOME/.cargo/bin
 
@@ -85,7 +86,7 @@ else
     abbr --add ll 'ls -lhAF'
 end
 
-abbr -a pre 'prevd' # shorthand for previous directory
+abbr -a pre prevd # shorthand for previous directory
 abbr -a rfish 'source $FISH_PATH/config.fish'
 
 # My virtualenv setup command, easy pyenv integration without a wrapper

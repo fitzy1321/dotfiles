@@ -4,7 +4,7 @@ My various config files, fonts, icons, and other things I need across systems.
 
 ![Terminal Image](/assets/terminal.png "My terminal image")
 
-My workflow:
+My setup and tools:
 
 - Terminal: [kitty](https://github.com/kovidgoyal/kitty), previously [alacritty](https://github.com/alacritty/alacritty)
 - Prompt: [Starship](https://starship.rs/)
@@ -22,8 +22,6 @@ You must switch branch for your respective OS.
 `windows` is for windows.
 
 ## Installation
-
-I use [vscode](https://code.visualstudio.com/docs/setup/mac) as my main editor.
 
 Once you install vscode, run this command to install extensions: `make vsc-ext`
 
@@ -58,7 +56,7 @@ cd $HOME/.dotfiles
 
 # install packages from brewfile
 brew update && brew install just
-just brewfile
+just brewinstall
 
 # install virtualenv
 pipx install virtualenv

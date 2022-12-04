@@ -6,11 +6,11 @@ My various config files, fonts, icons, and other things I need across systems.
 
 My setup and tools:
 
-- Terminal: [kitty](https://github.com/kovidgoyal/kitty), previously [alacritty](https://github.com/alacritty/alacritty)
+- Terminal: [Kitty](https://github.com/kovidgoyal/kitty), previously [Alacritty](https://github.com/alacritty/alacritty)
 - Prompt: [Starship](https://starship.rs/)
 - Shell: [Fish](https://fishshell.com/)
-- Editor: [VS Code](https://code.visualstudio.com/) and [Neovim](https://github.com/neovim/neovim)
-- Fonts: [Nerd Fonts](https://www.nerdfonts.com/)
+- Text Editors: [VS Code](https://code.visualstudio.com/) and [Neovim](https://github.com/neovim/neovim)
+- Fonts: [Nerd Fonts](https://www.nerdfonts.com/) (FiraCode and Hack)
 - Dotfiles Management: [GNU Stow](https://www.gnu.org/software/stow/)
 
 ## Branches

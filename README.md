@@ -6,7 +6,7 @@ My dev setup and workflow for intel macOS.
 
 My setup and tools:
 
-- Terminal: [kitty](https://github.com/kovidgoyal/kitty), previously [alacritty](https://github.com/alacritty/alacritty)
+- Terminal: [Kitty](https://github.com/kovidgoyal/kitty), previously [Alacritty](https://github.com/alacritty/alacritty)
 - Prompt: [Starship](https://starship.rs/)
 - Shell: [Fish](https://fishshell.com/)
 - Editor: [VS Code](https://code.visualstudio.com/) and [Neovim](https://github.com/neovim/neovim)
@@ -17,7 +17,7 @@ My setup and tools:
 
 I use [vscode](https://code.visualstudio.com/docs/setup/mac) as my main editor.
 
-Once you install vscode, run this command to install extensions: `make vsc-ext`
+Once you install vscode, run this command to install extensions: `just vsc-ext`
 
 ### Clone this repo and run these commands to create my dev workflow
 

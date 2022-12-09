@@ -110,8 +110,8 @@ abbr -a gds 'git diff --staged'
 
 # git diffs without lock files
 set _g_git_ignore_list "':!*Cargo.lock' ':!*package-lock.json' ':!*poetry.lock' ':!*yarn.lock'"
-abbr -a gdnl git diff -- {$_g_git_ignore_list}
-abbr -a gdsnl git diff --staged -- {$_g_git_ignore_list}
+abbr -a gdnl git diff -- $_g_git_ignore_list
+abbr -a gdsnl git diff --staged -- $_g_git_ignore_list
 
 abbr -a ggd 'git log --graph --oneline --decorate'
 

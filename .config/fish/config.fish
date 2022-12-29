@@ -119,7 +119,7 @@ if status is-interactive
     abbr -a gds 'git diff --staged'
 
     # git diffs without lock files
-    set -q _git_ignore_list; or set _git_ignore_list "':!*Cargo.lock' ':!*package-lock.json' ':!*poetry.lock' ':!*yarn.lock'"
+    set -q _git_ignore_list; or set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock'"
     abbr -a gdnl git diff -- $_git_ignore_list
     abbr -a gdsnl git diff --staged -- $_git_ignore_list
 

@@ -5,8 +5,8 @@ set -gx PYTHONDONTWRITEBYTECODE 1 # prevent .pyc files
 set -gx SHELL fish
 
 # XDG variables
-set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx XDG_CACHE_HOME $HOME/.cache
+set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
 # Rust / Cargo
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
@@ -57,7 +57,6 @@ if status is-interactive
         # end
     end
 
-end
     # Aliases
     # type -q exa >/dev/null; and alias ls exa
 

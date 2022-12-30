@@ -13,7 +13,7 @@ set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 # Rust / Cargo
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
-# Deno
+# Deno setup
 if test -d $HOME/.deno
     set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
@@ -23,7 +23,6 @@ if status is-interactive
     # Remove fish greeting
     set -g fish_greeting
 
-    # Setup themes
     set -Ux theme_nerd_fonts yes
 
     # Go / g (go manager) variables
@@ -33,16 +32,17 @@ if status is-interactive
     fish_add_path $GOPATH/bin
 
     # Custom variables
-    set -q EDITOR; or set -gx EDITOR nvim
+    set -q EDITOR; or set -gx EDITOR (which nvim)
     set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
     set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
     set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
     # set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
-    # Setup paths
-    test -d /usr/local/bin; and fish_add_path /usr/local/bin
+    # User paths
     test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
     test -d $HOME/bin; and fish_add_path $HOME/bin
+
+    test -d /usr/local/bin; and fish_add_path /usr/local/bin
 
     # macOS Specific thangs
     if test (uname -s) = Darwin
@@ -51,7 +51,7 @@ if status is-interactive
         test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
         # iterm2 setup
         # test "$TERM_PROGRAM" = "iTerm.app"; and source $FISH_PATH/iterm2.fish
-    else
+
         # Alacritty trouble shooting
         # if test -e /usr/bin/fish; and test ! -e /usr/local/bin/fish
         #     echo 'Need to make a symlink so fish and alacritty can work together.'
@@ -60,13 +60,6 @@ if status is-interactive
     end
 
     # Set Abbreviations
-
-    # faster traversal up dirs
-    abbr -a ... "../../"
-    abbr -a .... "../../../"
-    abbr -a ..... "../../../../"
-    abbr -a ...... "../../../../../"
-
     # Docker
     abbr -a d docker
     abbr -a dc docker-compose

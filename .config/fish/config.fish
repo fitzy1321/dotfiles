@@ -22,28 +22,28 @@ if status is-interactive
     set -g fish_greeting
 
     set -Ux theme_nerd_fonts yes
-    
+
     # Go / g (go manager) variables
     # g-install: do NOT edit, see https://github.com/stefanmaric/g
     # set -gx GOPATH $HOME/go
     # set -gx GOROOT $HOME/.go
     # fish_add_path $GOPATH/bin
-    
+
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)
     set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
     set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
     set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
     # set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
-    
+
     # User paths
     test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
     test -d $HOME/bin; and fish_add_path $HOME/bin
-    
+
     test -d /usr/local/bin; and fish_add_path /usr/local/bin
-    
+
     # macOS Specific Configs
-    if test (uname -s) = "Darwin"
+    if test (uname -s) = Darwin
         alias updatedb="sudo /usr/libexec/locate.updatedb"
         # homebrew setup
         test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
@@ -78,24 +78,24 @@ if status is-interactive
     end
 
     # Docker
-    abbr -a d 'docker'
-    abbr -a dc 'docker-compose'
+    abbr -a d docker
+    abbr -a dc docker-compose
     abbr -a dcdr 'docker-compose down --remove-orphans'
     abbr -a docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
     # Misc
     abbr -a dotfiles 'cd $DOTFILES'
-    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''    
-    abbr -a pre 'prevd' # shorthand for previous directory
+    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
+    abbr -a pre prevd # shorthand for previous directory
     abbr -a rfish 'source $FISH_PATH/config.fish'
 
 
     # My virtualenv setup command, easy pyenv integration without a wrapper
     type -q virtualenv; and abbr -a nvenv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e nvenv
-    
+
     if type -q exa >/dev/null
-        abbr -a ls 'exa'
+        abbr -a ls exa
         abbr -a ll 'exa -la --icons --group-directories-first'
         abbr -a lt 'exa -la --icons --group-directories-first --tree --level=2'
     else
@@ -145,7 +145,7 @@ if status is-interactive
         abbr -e gprv
         abbr -e grv
     end
-    
+
     # Tooling / prompts
 
     # Pyenv setup

@@ -44,9 +44,9 @@ if status is-interactive
 
     test -d /usr/local/bin; and fish_add_path /usr/local/bin
 
-    # macOS Specific thangs
+    # macOS Specific Configs
     if test (uname -s) = Darwin
-        alias updatedb='sudo /usr/libexec/locate.updatedb'
+        alias updatedb="sudo /usr/libexec/locate.updatedb"
         # homebrew setup
         test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
         # iterm2 setup
@@ -64,6 +64,8 @@ if status is-interactive
     abbr -a d docker
     abbr -a dc docker-compose
     abbr -a dcdr 'docker-compose down --remove-orphans'
+    abbr -a docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
+    abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
     # Linux Specific things
     if test (uname) = Linux
@@ -75,24 +77,20 @@ if status is-interactive
 
     # Misc
     abbr -a dotfiles 'cd $DOTFILES'
-    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c "qa"'
+    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
     abbr -a pre prevd # shorthand for previous directory
     abbr -a rfish 'source $FISH_PATH/config.fish'
 
-    if type -q exa
-        abbr -a ls 'exa --icons --group-directories-first'
-        abbr -a la 'exa -a --icons --group-directories-first'
+
+    # My virtualenv setup command, easy pyenv integration without a wrapper
+    type -q virtualenv; and abbr -a nvenv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e nvenv
+
+    if type -q exa >/dev/null
+        abbr -a ls exa
         abbr -a ll 'exa -la --icons --group-directories-first'
         abbr -a lt 'exa -la --icons --group-directories-first --tree --level=2'
     else
         abbr -a ll 'ls -lhAF'
-    end
-
-    # My virtualenv setup command, easy pyenv integration without a wrapper
-    if type -q virtualenv
-        abbr -a venv 'virtualenv -p (pyenv version-name) .venv'
-    else
-        abbr -e venv
     end
 
     # Git abbr's
@@ -112,7 +110,7 @@ if status is-interactive
     abbr -a gds 'git diff --staged'
 
     # git diffs without lock files
-    set -q _git_ignore_list; or set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock'"
+    set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock'"
     abbr -a gdnl git diff -- $_git_ignore_list
     abbr -a gdsnl git diff --staged -- $_git_ignore_list
 

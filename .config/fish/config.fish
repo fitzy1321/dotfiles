@@ -1,19 +1,17 @@
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # use `fish_add_path` instead: fish_add_path $HOME/.cargo/bin
 
-#### XDG variables
-set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx XDG_CACHE_HOME $HOME/.cache
+set -gx PYTHONDONTWRITEBYTECODE 1 # prevent .pyc files
+set -gx SHELL fish
 
-#### Necessary Paths
-test -d /usr/local/bin; and fish_add_path /usr/local/bin
-test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
-test -d $HOME/bin; and fish_add_path $HOME/bin
+# XDG variables
+set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
-#### Rust / Cargo
+# Rust / Cargo
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
-#### Deno setup
+# Deno setup
 if test -d $HOME/.deno
     set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
@@ -23,33 +21,46 @@ if status is-interactive
     # Remove fish greeting
     set -g fish_greeting
 
-    #### Theme
     set -Ux theme_nerd_fonts yes
-    #### Custom variables
-    set -gx EDITOR (which nvim)
-    set -gx FISH_PATH $XDG_CONFIG_HOME/fish
-    set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
-    set -gx DOTFILES $HOME/.dotfiles
-    set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
 
-    #### Linux specific Configs
-    if test (uname) = "Linux"
-    end
-    #### macOS Specific Configs
-    if test (uname -s) = "Darwin"
+    # Go / g (go manager) variables
+    # g-install: do NOT edit, see https://github.com/stefanmaric/g
+    # set -gx GOPATH $HOME/go
+    # set -gx GOROOT $HOME/.go
+    # fish_add_path $GOPATH/bin
+
+    # Custom variables
+    set -q EDITOR; or set -gx EDITOR (which nvim)
+    set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
+    set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+    set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
+    # set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+
+    # User paths
+    test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
+    test -d $HOME/bin; and fish_add_path $HOME/bin
+
+    test -d /usr/local/bin; and fish_add_path /usr/local/bin
+
+    # macOS Specific Configs
+    if test (uname -s) = Darwin
         alias updatedb="sudo /usr/libexec/locate.updatedb"
-        if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
-            fish_add_path /opt/homebrew/bin
-        end
-        # if status is-interactive;
-        #     and test "$TERM_PROGRAM" = "iTerm.app"
-        #     source "$FISH_PATH/iterm2.fish"
+        # homebrew setup
+        test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
+        # iterm2 setup
+        # test "$TERM_PROGRAM" = "iTerm.app"; and source $FISH_PATH/iterm2.fish
+
+        # Alacritty trouble shooting
+        # if test -e /usr/bin/fish; and test ! -e /usr/local/bin/fish
+        #     echo 'Need to make a symlink so fish and alacritty can work together.'
+        #     ln -s /usr/bin/fish /usr/local/bin/fish
         # end
-end
-    #### Aliases
+    end
+
+    # Aliases
     # type -q exa >/dev/null; and alias ls exa
 
-    #### Set Abbreviations
+    # Set Abbreviations
     if test -d $HOME/dev/vukaheavy
         set -Ux VUKAHEAVY $HOME/dev/vukaheavy
         abbr -a vuka 'cd $VUKAHEAVY'
@@ -67,8 +78,8 @@ end
     end
 
     # Docker
-    abbr -a d 'docker'
-    abbr -a dc 'docker-compose'
+    abbr -a d docker
+    abbr -a dc docker-compose
     abbr -a dcdr 'docker-compose down --remove-orphans'
     abbr -a docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
@@ -76,19 +87,20 @@ end
     # Misc
     abbr -a dotfiles 'cd $DOTFILES'
     abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
+    abbr -a pre prevd # shorthand for previous directory
+    abbr -a rfish 'source $FISH_PATH/config.fish'
+
+
+    # My virtualenv setup command, easy pyenv integration without a wrapper
+    type -q virtualenv; and abbr -a nvenv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e nvenv
+
     if type -q exa >/dev/null
-        abbr -a ls 'exa'
+        abbr -a ls exa
         abbr -a ll 'exa -la --icons --group-directories-first'
         abbr -a lt 'exa -la --icons --group-directories-first --tree --level=2'
     else
         abbr -a ll 'ls -lhAF'
     end
-
-    abbr -a pre 'prevd' # shorthand for previous directory
-    abbr -a rfish 'source $FISH_PATH/config.fish'
-
-    # My virtualenv setup command, easy pyenv integration without a wrapper
-    type -q virtualenv; and abbr -a nvenv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e nvenv
 
     # Git abbr's
     abbr -a ga 'git add'
@@ -107,9 +119,9 @@ end
     abbr -a gds 'git diff --staged'
 
     # git diffs without lock files
-    set _g_git_ignore_list "':!*Cargo.lock' ':!*package-lock.json' ':!*poetry.lock' ':!*yarn.lock'"
-    abbr -a gdnl git diff -- $_g_git_ignore_list
-    abbr -a gdsnl git diff --staged -- $_g_git_ignore_list
+    set -q _git_ignore_list; or set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock'"
+    abbr -a gdnl git diff -- $_git_ignore_list
+    abbr -a gdsnl git diff --staged -- $_git_ignore_list
 
     abbr -a ggd 'git log --graph --oneline --decorate'
 
@@ -134,8 +146,9 @@ end
         abbr -e grv
     end
 
+    # Tooling / prompts
 
-    #### Setup pyenv
+    # Pyenv setup
     if test -d $HOME/.pyenv
         set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
         fish_add_path $PYENV_ROOT/bin
@@ -143,9 +156,9 @@ end
         status is-interactive; and pyenv init - | source
     end
 
-    #### Direnv hook
+    # Direnv setup
     type -q direnv; and direnv hook fish | source
 
-    #### Starship hook
+    # Starship prompt setup
     type -q starship; and starship init fish | source
 end

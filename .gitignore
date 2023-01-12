@@ -1,3 +1,5 @@
 tmp/
 **.DS_Store
 **/nvim/autoload
+.config/fish/fish_variables
+.nvimlog

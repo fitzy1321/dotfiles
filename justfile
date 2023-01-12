@@ -1,8 +1,8 @@
 brewfile:
-	brew bundle dump -f --no-lock --file ${DOTFILES}/Brewfile
+	brew bundle dump -f --no-lock --file Brewfile
 
 brewinstall:
-	brew bundle install --no-lock --file ${DOTFILES}/Brewfile
+	brew bundle install --no-lock --file Brewfile
 
 root_dir := justfile_directory()
 

@@ -64,6 +64,10 @@ pipx install virtualenv
 # use gnu stow to manage symlinks for dotfiles
 # must be in $HOME/.dotfiles directory
 stow .
+
+# change shell to fish
+# For mac, add fish path to `/etc/shells` file.
+chsh -s $(which fish)
 ```
 
 ## Troubleshooting

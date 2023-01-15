@@ -147,9 +147,10 @@ if status is-interactive
         status is-interactive; and pyenv init - | source
     end
 
-    # Direnv setup
-    type -q direnv; and direnv hook fish | source
-
     # Starship prompt setup
     type -q starship; and starship init fish | source
+
+    # asdf setup - WIP
+    # ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+    # test -d $HOME/.asdf; and source ~/.asdf/asdf.fish
 end

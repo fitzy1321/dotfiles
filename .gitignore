@@ -4,3 +4,4 @@ tmp/
 .config/fish/fish_variables
 .nvimlog
 .python-version
+**.vscode

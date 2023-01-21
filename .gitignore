@@ -3,3 +3,4 @@ tmp/
 **/nvim/autoload
 .config/fish/fish_variables
 .nvimlog
+.python-version

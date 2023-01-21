@@ -7,10 +7,12 @@
 --ignore=apt.list
 --ignore=Brewfile
 --ignore=install.sh
+--ignore=install.py
 --ignore=\*.md
 --ignore=Makefile
 --ignore=justfile
 --ignore=^assets
 --ignore=.DS_Store
+--ignore=.python-version
 --ignore=vscode.extensions
 --target=$HOME

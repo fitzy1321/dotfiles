@@ -1,4 +1,3 @@
-# import argparse
 import os
 import subprocess
 import sys
@@ -9,18 +8,16 @@ SHELL = os.getenv("SHELL", "")
 WINDOWS = sys.platform.startswith("win") or (sys.platform == "cli" and os.name == "nt")
 
 
-def _run_as_root():
-    if os.geteuid() == 0:
-        print("We're root!")
-    else:
-        print("We're not root.")
-        subprocess.call(["sudo", "python3", *sys.argv])
-        sys.exit()
+def in_file(filenane, substring):
+    """Return True if substring is contained with the named file"""
+    with open(filenane, "r") as fp:
+        data = fp.read()
+        return substring in data
 
 
 def mac_installer() -> int:
     xcode_cmd = "xcode-select --install"
-    brew_cmd = '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    brew_cmd = 'bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 
     print(f'installing dev tools with "{xcode_cmd}"')
     subprocess.run(xcode_cmd, shell=True)
@@ -41,20 +38,25 @@ def mac_installer() -> int:
     subprocess.run("pipx install virutalenv", shell=True)
 
     print("Adding fish shell to /etc/shells")
-    with open("/etc/shells", "a") as myfile:
-        myfile.write("/opt/homebrew/bin/fish")
 
-    subprocess.run("chsh -s $(which fish)")
+    # with open("/etc/shells", "a") as myfile:
+    #     myfile.write("/opt/homebrew/bin/fish")
+    fish_path = subprocess.run("which fish", shell=True).stdout.decode()
+
+    if not in_file("/etc/shells", fish_path):
+        # subprocess hack: drop into bash shell with root permissions
+        subprocess.call(
+            f'sudo bash -c "echo "{fish_path}" >> /etc/shells',
+            shell=True,
+        )
+
+    subprocess.run(f"chsh -s {fish_path})", shell=True)
 
     print("All done! Close terminal session and re-open")
     return 0
 
 
 def main() -> int:
-    _run_as_root()
-    # parser = argparse.ArgumentParser(
-    #     description="Installs the latest version of Fitzypop's dotfiles."
-    # )
     if WINDOWS:
         sys.stderr.write(
             "Sorry, this script doesn't support windows systems right now."

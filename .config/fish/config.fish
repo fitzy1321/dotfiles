@@ -104,6 +104,7 @@ if status is-interactive
 
     abbr -a gch 'git checkout'
     abbr -a gchb 'git checkout -b'
+    abbr -a gchm 'git checkout main'
     abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
     abbr -a gd 'git diff'
@@ -145,6 +146,11 @@ if status is-interactive
         fish_add_path $PYENV_ROOT/bin
         status is-login; and pyenv init --path | source
         status is-interactive; and pyenv init - | source
+    end
+
+    if type -q zoxide
+        zoxide init fish | source
+        alias cd z
     end
 
     # Starship prompt setup

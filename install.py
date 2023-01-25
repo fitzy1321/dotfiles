@@ -4,6 +4,8 @@ import argparse
 import os
 import subprocess
 import sys
+from pathlib import Path
+from typing import Optional
 
 MACOS = sys.platform == "darwin"
 LINUX = sys.platform.startswith("linux")
@@ -16,7 +18,37 @@ BREW_CMD = 'bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/ins
 
 # Various installation paths
 BREW_PATH_DEFAULT = "/opt/homebrew/bin/"
-DOTFILES_PATH = "~/.dotfiles"
+# DOTFILES_PATH = "~/.dotfiles"
+
+
+class InstallationError(RuntimeError):
+    def __init__(self, return_code: int = 0, log: Optional[str] = None):
+        super().__init__()
+        self.return_code = return_code
+        self.log = log
+
+
+def run_shell(cmd, *args, **kwargs) -> subprocess.CompletedProcess:
+    return subprocess.run(cmd, *args, shell=True, **kwargs)
+
+
+def dot_dir(args) -> Path:
+    if args.path:
+        return Path(args.path).expanduser().resolve()
+
+    env = os.getenv("DOTFILES")
+    if env:
+        return Path(env).expanduser()
+
+    if WINDOWS:
+        raise InstallationError(1, "Windows is not currently supported.")
+    # elif MACOS:
+    #     base_dir = Path("~/.dotfiles").expanduser()
+    else:
+        base_dir = Path(os.getenv("XDG_CONFIG_HOME", "~/.config")).expanduser()
+
+    base_dir = base_dir.resolve()
+    return base_dir / "dotfiles"
 
 
 def in_file(filenane, substring):
@@ -28,28 +60,34 @@ def in_file(filenane, substring):
 
 def mac_installer(args) -> int:
     brew_path = args.brew_path if args.brew_path else BREW_PATH_DEFAULT
-    dot_path = args.path if args.path else DOTFILES_PATH
+    dot_path = dot_dir(args)
     fish_path = f"{brew_path}fish"
 
+    print(f"{brew_path=}", f"{dot_path=}", f"{fish_path=}")
+
+    if args.preview:
+        return 0
+
     print(f'installing dev tools with "{XCODE_CMD}"')
-    subprocess.run(XCODE_CMD, shell=True)
+    run_shell(XCODE_CMD)
 
     print("installing homebrew")
-    subprocess.run(BREW_CMD, shell=True)
+    run_shell(BREW_CMD)
 
     print("installing necessary packages with brew")
-    subprocess.run("brew install git just", shell=True)
+    run_shell("brew install git just")
 
     # clone dotfiles repo
-    subprocess.run(
-        f"{brew_path}git clone git@github.com:fitzypop/dotfiles.git {dot_path}"
-    )
+    if not dot_path.exists():
+        run_shell(
+            f"{brew_path}git clone https://github.com/fitzypop/dotfiles.git {dot_path}"
+        )
 
     print("Installing remaining brew packages")
-    subprocess.run(f"{brew_path}just brewinstall", shell=True)
+    run_shell(f"{brew_path}just brewinstall")
 
     print("installing virtualenv")
-    subprocess.run(f"{brew_path}pipx install virutalenv", shell=True)
+    run_shell(f"{brew_path}pipx install virutalenv")
 
     print("Adding fish shell to /etc/shells")
 
@@ -60,35 +98,48 @@ def mac_installer(args) -> int:
             shell=True,
         )
 
-    subprocess.run(f"chsh -s {fish_path})", shell=True)
+    run_shell(f"chsh -s {fish_path})")
 
     print("All done! Close terminal session and re-open")
     return 0
 
 
 def main() -> int:
-    if WINDOWS:
-        sys.stderr.write(
-            "Sorry, this script doesn't support windows systems right now."
+    try:
+        if WINDOWS:
+            raise InstallationError(1, "Windows is not currently supported.")
+
+        parser = argparse.ArgumentParser(
+            description="Installs the latest version of Fitzypop's dotfiles"
         )
-        return 1
+        parser.add_argument(
+            "-p",
+            "--preview",
+            help="install preview version",
+            dest="preview",
+            action="store_true",
+            default=False,
+        )
+        parser.add_argument(
+            "--path",
+            dest="path",
+            action="store",
+            help="Install dotfiles to a given path",
+        )
+        parser.add_argument(
+            "--brew-path",
+            dest="brew_path",
+            action="store",
+            help=f"Path to Homebrew bin directory, defautls to {BREW_CMD}",
+        )
+        args = parser.parse_args()
 
-    parser = argparse.ArgumentParser(
-        description="Installs the latest version of Fitzypop's dotfiles"
-    )
-    parser.add_argument(
-        "--path", dest="path", action="store", help="Install dotfiles to a given path"
-    )
-    parser.add_argument(
-        "--brew-path",
-        dest="brew_path",
-        action="store",
-        help=f"Path to Homebrew bin directory, defautls to {BREW_CMD}",
-    )
-    args = parser.parse_args()
-
-    if MACOS:
-        return mac_installer(args)
+        if MACOS:
+            return mac_installer(args)
+    except InstallationError as e:
+        if e.log:
+            sys.stderr.write(e.log)
+        return e.return_code
 
     return 2
 

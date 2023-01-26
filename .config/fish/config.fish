@@ -76,7 +76,8 @@ if status is-interactive
     end
 
     # Misc
-    abbr -a cdf 'cd $DOTFILES'
+    type -q zoxide; and abbr -a cdf 'z $DOTFILES'; or abbr -a cdf 'cd $DOTFILES'
+
     abbr -a codf 'code $DOTFILES'
     abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
     abbr -a pre prevd # shorthand for previous directory

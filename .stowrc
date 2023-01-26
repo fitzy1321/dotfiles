@@ -8,7 +8,6 @@
 --ignore=Brewfile
 --ignore=install.sh
 --ignore=\*.md
---ignore=Makefile
 --ignore=justfile
 --ignore=^assets
 --ignore=.DS_Store

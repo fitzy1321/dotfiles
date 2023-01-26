@@ -85,7 +85,7 @@ if status is-interactive
     abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
     # Misc
-    abbr -a cdf 'cd $DOTFILES'
+    type -q zoxide; and abbr -a cdf 'z $DOTFILES'; or abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
     abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
     abbr -a pre prevd # shorthand for previous directory
@@ -148,7 +148,11 @@ if status is-interactive
     end
 
     # Tooling / prompts
-
+    if type -q zoxide
+        zoxide init fish | source
+        alias cd z
+    end
+    
     # Pyenv setup
     if test -d $HOME/.pyenv
         set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv

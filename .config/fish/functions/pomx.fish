@@ -6,3 +6,5 @@ function pomx --description "Bashbunni's pomo mac terminal timer"
         -appIcon '~/Pictures/pumpkin.png' \
         -sound Crystal
 end
+
+#  brew install caarlos0/tap/timer terminal-notifier

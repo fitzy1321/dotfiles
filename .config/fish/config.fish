@@ -85,7 +85,7 @@ if status is-interactive
 
 
     # My virtualenv setup command, easy pyenv integration without a wrapper
-    type -q virtualenv; and abbr -a nvenv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e nvenv
+    type -q virtualenv; and abbr -a nvenv 'test -d .venv; or virtualenv -p (pyenv version-name) .venv'
 
     if type -q exa >/dev/null
         abbr -a ls exa

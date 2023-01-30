@@ -1,6 +1,11 @@
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # use `fish_add_path` instead: fish_add_path $HOME/.cargo/bin
 
+# Remove fish greeting
+set -g fish_greeting
+
+set -Ux theme_nerd_fonts yes
+
 set -gx PYTHONDONTWRITEBYTECODE 1 # prevent .pyc files
 set -gx SHELL fish
 
@@ -18,16 +23,11 @@ if test -d $HOME/.deno
 end
 
 if status is-interactive
-    # Remove fish greeting
-    set -g fish_greeting
-
-    set -Ux theme_nerd_fonts yes
-
     # Go / g (go manager) variables
     # g-install: do NOT edit, see https://github.com/stefanmaric/g
-    # set -gx GOPATH $HOME/go
-    # set -gx GOROOT $HOME/.go
-    # fish_add_path $GOPATH/bin
+    set -gx GOPATH $HOME/go
+    set -gx GOROOT $HOME/.go
+    fish_add_path $GOPATH/bin
 
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)
@@ -85,15 +85,14 @@ if status is-interactive
     abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
     # Misc
-    type -q zoxide; and abbr -a cdf 'z $DOTFILES'; or abbr -a cdf 'cd $DOTFILES'
+    abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
     abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
     abbr -a pre prevd # shorthand for previous directory
-    abbr -a rfish 'source $FISH_PATH/config.fish'
-
+    abbr -a refish 'source $FISH_PATH/config.fish'
 
     # My virtualenv setup command, easy pyenv integration without a wrapper
-    type -q virtualenv; and abbr -a nvenv 'virtualenv -p (pyenv version-name) .venv'; or abbr -e nvenv
+    type -q virtualenv; and abbr -a nvenv 'virtualenv -p (pyenv version-name) .venv'
 
     if type -q exa >/dev/null
         abbr -a ls exa
@@ -120,7 +119,7 @@ if status is-interactive
     abbr -a gds 'git diff --staged'
 
     # git diffs without lock files
-    set -q _git_ignore_list; or set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock'"
+    set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock'"
     abbr -a gdnl git diff -- $_git_ignore_list
     abbr -a gdsnl git diff --staged -- $_git_ignore_list
 
@@ -148,11 +147,7 @@ if status is-interactive
     end
 
     # Tooling / prompts
-    if type -q zoxide
-        zoxide init fish | source
-        alias cd z
-    end
-    
+
     # Pyenv setup
     if test -d $HOME/.pyenv
         set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
@@ -161,9 +156,16 @@ if status is-interactive
         status is-interactive; and pyenv init - | source
     end
 
-    # Direnv setup
+    # asdf setup - WIP
+    # ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+    # test -d $HOME/.asdf; and source ~/.asdf/asdf.fish
+
+    if type -q zoxide
+        zoxide init fish | source
+        alias cd z
+    end
+
     type -q direnv; and direnv hook fish | source
 
-    # Starship prompt setup
     type -q starship; and starship init fish | source
 end

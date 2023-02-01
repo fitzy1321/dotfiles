@@ -3,6 +3,8 @@
 # DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
 # use `fish_add_path` instead: fish_add_path $HOME/.cargo/bin
 
+set -g fish_greeting
+set -Ux theme_nerd_fonts yes
 set -gx PYTHONDONTWRITEBYTECODE 1 # prevent .pyc files
 set -gx SHELL fish
 
@@ -10,20 +12,15 @@ set -gx SHELL fish
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
-# Rust / Cargo
-test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
-
-# Deno setup
-if test -d $HOME/.deno
-    set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
-    fish_add_path $DENO_INSTALL/bin
-end
-
 if status is-interactive
-    # Remove fish greeting
-    set -g fish_greeting
+    # Rust / Cargo
+    test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
-    set -Ux theme_nerd_fonts yes
+    # Deno setup
+    if test -d $HOME/.deno
+        set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
+        fish_add_path $DENO_INSTALL/bin
+    end
 
     # Go / g (go manager) variables
     # g-install: do NOT edit, see https://github.com/stefanmaric/g
@@ -101,13 +98,13 @@ if status is-interactive
 
     abbr -a gb 'git branch'
 
-    abbr -a gcm 'git commit -m'
-    abbr -a gcam 'git commit -am'
-
+    abbr -a gcb 'git checkout -b'
     abbr -a gch 'git checkout'
-    abbr -a gchb 'git checkout -b'
     abbr -a gchm 'git checkout main'
     abbr -a gchpoetry 'git checkout master -- poetry.lock'
+
+    abbr -a gcm 'git commit -m'
+    abbr -a gcam 'git commit -am'
 
     abbr -a gd 'git diff'
     abbr -a gds 'git diff --staged'

@@ -78,7 +78,7 @@ if status is-interactive
     abbr -a codf 'code $DOTFILES'
     abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
     abbr -a pre prevd # shorthand for previous directory
-    abbr -a rfish 'source $FISH_PATH/config.fish'
+    abbr -a refish 'source $FISH_PATH/config.fish'
 
 
     # My virtualenv setup command, easy pyenv integration without a wrapper
@@ -96,7 +96,9 @@ if status is-interactive
     abbr -a ga 'git add'
     abbr -a gaa 'git add -A'
 
-    abbr -a gb 'git branch'
+    abbr -a gb 'git branch -l'
+    abbr -a gbr 'git branch -r'
+    abbr -a gbv 'git branch -vl'
 
     abbr -a gcb 'git checkout -b'
     abbr -a gch 'git checkout'
@@ -123,9 +125,9 @@ if status is-interactive
     abbr -a gpu 'git push -u origin'
     abbr -a gpum 'git push -u origin main'
 
+    abbr -a gs 'git status -s'
     abbr -a gst 'git status'
     abbr -a gsl 'git status --long'
-    abbr -a gss 'git status -s'
 
     # Github CLI shortcuts
     if type -q gh

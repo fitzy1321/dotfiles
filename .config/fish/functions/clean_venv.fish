@@ -13,6 +13,6 @@ function clean_venv --description="Delete current virtualenv and create a new on
         return 1
     end
 
-    rm -rf .venv && virtualenv -p (pyenv version-name) .venv && source .venv/bin/activate.fish && ip install --upgrade flake8 flake8-bugbear black isort pep8-naming pytest && deactivate
+    rm -rf .venv && virtualenv -p (pyenv version-name) .venv && source .venv/bin/activate.fish && pip install -U pip black isort pytest ruff && deactivate
     return 0
 end

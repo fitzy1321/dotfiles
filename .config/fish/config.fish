@@ -3,9 +3,7 @@
 
 # Remove fish greeting
 set -g fish_greeting
-
 set -Ux theme_nerd_fonts yes
-
 set -gx PYTHONDONTWRITEBYTECODE 1 # prevent .pyc files
 set -gx SHELL fish
 
@@ -13,22 +11,7 @@ set -gx SHELL fish
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
-# Rust / Cargo
-test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
-
-# Deno setup
-if test -d $HOME/.deno
-    set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
-    fish_add_path $DENO_INSTALL/bin
-end
-
 if status is-interactive
-    # Go / g (go manager) variables
-    # g-install: do NOT edit, see https://github.com/stefanmaric/g
-    set -gx GOPATH $HOME/go
-    set -gx GOROOT $HOME/.go
-    fish_add_path $GOPATH/bin
-
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)
     set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
@@ -106,14 +89,16 @@ if status is-interactive
     abbr -a ga 'git add'
     abbr -a gaa 'git add -A'
 
-    abbr -a gb 'git branch'
+    abbr -a gb 'git branch -l'
+    abbr -a gbr 'git branch -r'
+    abbr -a gbv 'git branch -vl'
+
+    abbr -a gcb 'git checkout -b'
+    abbr -a gch 'git checkout'
+    abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
     abbr -a gcm 'git commit -m'
     abbr -a gcam 'git commit -am'
-
-    abbr -a gch 'git checkout'
-    abbr -a gchb 'git checkout -b'
-    abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
     abbr -a gd 'git diff'
     abbr -a gds 'git diff --staged'
@@ -132,9 +117,9 @@ if status is-interactive
     abbr -a gpu 'git push -u origin'
     abbr -a gpum 'git push -u origin main'
 
+    abbr -a gs 'git status -s'
     abbr -a gst 'git status'
     abbr -a gsl 'git status --long'
-    abbr -a gss 'git status -s'
 
     # Github CLI shortcuts
     if type -q gh
@@ -146,8 +131,25 @@ if status is-interactive
         abbr -e grv
     end
 
-    # Tooling / prompts
+    # Dev tools
+    
+    # Rust / Cargo
+    test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
+    # Deno setup
+    if test -d $HOME/.deno
+        set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
+        fish_add_path $DENO_INSTALL/bin
+    end
+    
+    # Go / g (go manager) variables
+    # g-install: do NOT edit, see https://github.com/stefanmaric/g
+    set -gx GOPATH $HOME/go
+    set -gx GOROOT $HOME/.go
+    fish_add_path $GOPATH/bin
+
+    # Shell Tools
+    
     # Pyenv setup
     if test -d $HOME/.pyenv
         set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
@@ -155,10 +157,6 @@ if status is-interactive
         status is-login; and pyenv init --path | source
         status is-interactive; and pyenv init - | source
     end
-
-    # asdf setup - WIP
-    # ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
-    # test -d $HOME/.asdf; and source ~/.asdf/asdf.fish
 
     if type -q zoxide
         zoxide init fish | source

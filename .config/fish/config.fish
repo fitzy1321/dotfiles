@@ -12,21 +12,6 @@ set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
 if status is-interactive
-    # Rust / Cargo
-    test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
-
-    # Deno setup
-    if test -d $HOME/.deno
-        set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
-        fish_add_path $DENO_INSTALL/bin
-    end
-    
-    # Go / g (go manager) variables
-    # g-install: do NOT edit, see https://github.com/stefanmaric/g
-    set -gx GOPATH $HOME/go
-    set -gx GOROOT $HOME/.go
-    fish_add_path $GOPATH/bin
-
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)
     set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
@@ -146,8 +131,25 @@ if status is-interactive
         abbr -e grv
     end
 
-    # Tooling / prompts
+    # Dev tools
+    
+    # Rust / Cargo
+    test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
+    # Deno setup
+    if test -d $HOME/.deno
+        set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
+        fish_add_path $DENO_INSTALL/bin
+    end
+    
+    # Go / g (go manager) variables
+    # g-install: do NOT edit, see https://github.com/stefanmaric/g
+    set -gx GOPATH $HOME/go
+    set -gx GOROOT $HOME/.go
+    fish_add_path $GOPATH/bin
+
+    # Shell Tools
+    
     # Pyenv setup
     if test -d $HOME/.pyenv
         set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
@@ -155,10 +157,6 @@ if status is-interactive
         status is-login; and pyenv init --path | source
         status is-interactive; and pyenv init - | source
     end
-
-    # asdf setup - WIP
-    # ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
-    # test -d $HOME/.asdf; and source ~/.asdf/asdf.fish
 
     if type -q zoxide
         zoxide init fish | source

@@ -31,8 +31,6 @@ if status is-interactive
         alias updatedb="sudo /usr/libexec/locate.updatedb"
         # homebrew setup
         test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
-        # iterm2 setup
-        # test "$TERM_PROGRAM" = "iTerm.app"; and source $FISH_PATH/iterm2.fish
 
         # Alacritty trouble shooting
         # if test -e /usr/bin/fish; and test ! -e /usr/local/bin/fish

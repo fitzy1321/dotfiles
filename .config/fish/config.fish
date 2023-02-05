@@ -40,12 +40,6 @@ if status is-interactive
     end
 
     # Set Abbreviations
-    # Docker
-    abbr -a d docker
-    abbr -a dc docker-compose
-    abbr -a dcdr 'docker-compose down --remove-orphans'
-    abbr -a docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
-    abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
     # Linux Specific things
     if test (uname) = Linux
@@ -55,16 +49,15 @@ if status is-interactive
         abbr -a flatpak_unused 'flatpak uninstall --unused'
     end
 
-    # Misc
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
-    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
-    abbr -a pre prevd # shorthand for previous directory
-    abbr -a refish 'source $FISH_PATH/config.fish'
 
-
-    # My virtualenv setup command, easy pyenv integration without a wrapper
-    type -q virtualenv; and abbr -a nvenv 'test -d .venv; or virtualenv -p (pyenv version-name) .venv'
+    # Docker
+    abbr -a d docker
+    abbr -a dc docker-compose
+    abbr -a dcdr 'docker-compose down --remove-orphans'
+    abbr -a docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
+    abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
     if type -q exa >/dev/null
         abbr -a ls exa
@@ -120,6 +113,15 @@ if status is-interactive
         abbr -e gprv
         abbr -e grv
     end
+
+    type -q supabase; and abbr -a supa supabase
+
+    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
+    abbr -a pre prevd # shorthand for previous directory
+    abbr -a refish 'source $FISH_PATH/config.fish'
+
+    # My virtualenv setup command, easy pyenv integration without a wrapper
+    type -q virtualenv; and abbr -a nvenv 'test -d .venv; or virtualenv -p (pyenv version-name) .venv'
 
     # Dev tools
     # Rust / Cargo

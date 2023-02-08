@@ -95,6 +95,8 @@ if status is-interactive
 
     abbr -a gcb 'git checkout -b'
     abbr -a gch 'git checkout'
+    abbr -a gchm 'git checkout main'
+    abbr -a gch- 'git checkout -'
     abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
     abbr -a gcm 'git commit -m'
@@ -132,7 +134,7 @@ if status is-interactive
     end
 
     # Dev tools
-    
+
     # Rust / Cargo
     test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
@@ -141,7 +143,7 @@ if status is-interactive
         set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
         fish_add_path $DENO_INSTALL/bin
     end
-    
+
     # Go / g (go manager) variables
     # g-install: do NOT edit, see https://github.com/stefanmaric/g
     set -gx GOPATH $HOME/go
@@ -149,7 +151,7 @@ if status is-interactive
     fish_add_path $GOPATH/bin
 
     # Shell Tools
-    
+
     # Pyenv setup
     if test -d $HOME/.pyenv
         set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv

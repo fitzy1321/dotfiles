@@ -105,6 +105,8 @@ if status is-interactive
     abbr -a gst 'git status'
     abbr -a gsl 'git status --long'
 
+    abbr -a gwc 'git whatchanged -p --abbrev-commit --pretty=medium'
+
     # Github CLI shortcuts
     if type -q gh
         abbr -a gprv 'gh pr view -w'

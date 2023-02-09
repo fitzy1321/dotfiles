@@ -78,6 +78,7 @@ if status is-interactive
     abbr -a gcb 'git checkout -b'
     abbr -a gch 'git checkout'
     abbr -a gchm 'git checkout main'
+    abbr -a gch- 'git checkout -'
     abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
     abbr -a gcm 'git commit -m'

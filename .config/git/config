@@ -22,27 +22,7 @@
 [interactive]
 	diffFilter = delta --color-only
 
-
-## diff-so-fancy config
-## To Install: npm i -g diff-so-fancy
-# [diff]
-	# colorMoved = zebra
-# [core]
-	# pager = diff-so-fancy | less --tabs=4 -RFX
-# [color]
-	# ui = true
-# [color "diff-highlight"]
-	# oldNormal = red bold
-	# oldHighlight = red bold 52
-	# newNormal = green bold
-	# newHighlight = green bold 22
-# [color "diff"]
-	# meta = 11
-	# frag = magenta bold
-	# commit = yellow bold
-	# old = red bold
-	# new = green bold
-	# whitespace = red reverse
+# lfs config
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

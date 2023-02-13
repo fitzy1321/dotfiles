@@ -6,6 +6,7 @@ function clean_venv --description="Delete current virtualenv and create a new on
 
     if ! type -q pyenv
         echo "please install pyenv"
+        return 1
     end
 
     if ! test -d .venv

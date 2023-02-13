@@ -1,3 +1,5 @@
+default: brewfile
+
 root_dir := justfile_directory()
 
 brewfile:

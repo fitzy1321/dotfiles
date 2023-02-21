@@ -136,6 +136,12 @@ if status is-interactive
         fish_add_path $DENO_INSTALL/bin
     end
 
+    # Deta Space (cloud host)
+    if test -d $HOME/.detaspace
+        set -q DETA_INSTALL; or set -qx DETA_INSTALL $HOME/.detaspace
+        fish_add_path $HOME/.detaspace/bin
+    end
+
     # Go / g (go manager) variables
     # g-install: do NOT edit, see https://github.com/stefanmaric/g
     set -gx GOPATH $HOME/go

@@ -52,6 +52,8 @@ if status is-interactive
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
 
+    abbr -a dev 'cd $HOME/dev/'
+
     # Docker
     abbr -a d docker
     abbr -a dc docker-compose
@@ -90,7 +92,7 @@ if status is-interactive
     abbr -a gds 'git diff --staged'
 
     # git diffs without lock files
-    set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock'"
+    set _git_ignore_list "':!/*Cargo.lock' ':!/*deno.lock' ':!/*package-lock.json' ':!/*poetry.lock' ':!/*yarn.lock' ':!/*pnpm-lock.yaml'"
     abbr -a gdnl git diff -- $_git_ignore_list
     abbr -a gdsnl git diff --staged -- $_git_ignore_list
 
@@ -133,14 +135,14 @@ if status is-interactive
     test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
     # Deno setup
-    if test -d $HOME/.deno
-        set -q DENO_INSTALL; or set -gx DENO_INSTALL $HOME/.deno
+    if ! set -q DENO_INSTALL and test -d $HOME/.deno
+        set -gx DENO_INSTALL $HOME/.deno
         fish_add_path $DENO_INSTALL/bin
     end
 
     # Deta Space (cloud host)
-    if test -d $HOME/.detaspace
-        set -q DETA_INSTALL; or set -qx DETA_INSTALL $HOME/.detaspace
+    if ! set -q DETA_INSTALL and test -d $HOME/.detaspace
+        set -gx DETA_INSTALL $HOME/.detaspace
         fish_add_path $HOME/.detaspace/bin
     end
 
@@ -162,6 +164,12 @@ if status is-interactive
     if type -q zoxide
         zoxide init fish | source
         alias cd z
+    end
+
+    # pnpm
+    if ! set -q PNPM_HOME and test -d $HOME/Library/pnpm
+        set -gx PNPM_HOME $HOME/Library/pnpm
+        fish_add_path $PNPM_HOME
     end
 
     # Starship prompt setup

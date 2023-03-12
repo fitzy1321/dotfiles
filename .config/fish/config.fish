@@ -121,11 +121,13 @@ if status is-interactive
         abbr -e grv
     end
 
-    type -q supabase; and abbr -a supa supabase
 
     abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
+    type -q pnpm; and abbr -a pnpx 'pnpm dlx '
     abbr -a pre prevd # shorthand for previous directory
     abbr -a refish 'source $FISH_PATH/config.fish'
+
+    type -q supabase; and abbr -a supa supabase
 
     # My virtualenv setup command, easy pyenv integration without a wrapper
     type -q virtualenv; and abbr -a nvenv 'test -d .venv; or virtualenv -p (pyenv version-name) .venv'

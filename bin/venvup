@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import subprocess
+from pathlib import Path
+from typing import Optional
+
+HOME = str(Path.home())
+CHECK = False
+
+
+def update_venv(venv_path: Path):
+    # call subprocess: source .venv
+    command = (
+        f"{venv_path / 'bin' / 'python3'} -m pip install -U ruff black isort pytest"
+    )
+    subprocess.run(command, shell=True, check=CHECK)
+
+
+def find_path(current_path: str, search_text: str) -> Optional[Path]:
+    """Brute force recursive directory search"""
+    # Edge case, if script cwd is in .venv
+    if search_text in current_path:
+        return find_path(str(Path(current_path).parent), search_text)
+
+    cur = Path(current_path)
+    while True:
+        # bail iterating if we are at $HOME or root
+        str_p = str(cur)
+        if str_p == HOME or str_p == "/":
+            return None
+
+        # Get everything in the current directory
+        for p in cur.glob("*"):
+            if search_text in str(p):
+                return p
+
+        # Go up to parent directory
+        cur = cur.parent
+
+
+def main():
+    try:
+        # TODO arg parse or typer
+        venv_path = find_path(str(Path.cwd()), ".venv")
+
+        if venv_path:
+            print("found .venv at :", venv_path)
+            update_venv(venv_path)
+        else:
+            print(".venv not found")
+    except KeyboardInterrupt:
+        print("Keyboard Interrupt sent! Stopping process.")
+        pass
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -12,6 +12,7 @@ def _run_cmd(cmd: str):
 
 def refresh_venv(path: Path):
     try:
+        print("reconstructing .venv ...")
         _run_cmd(f"rm -rf {path} && virtualenv -p $(pyenv version-name) {path}")
     except:
         _run_cmd(f"mkdir -p {path}")
@@ -48,16 +49,14 @@ def find_path(current_path: str, search_text: str) -> Optional[Path]:
 
 def main(refresh: bool = False):
     try:
-        # TODO arg parse or typer
         venv_path = find_path(str(Path.cwd()), ".venv")
-
         if venv_path:
             print("found .venv folder at:", venv_path)
             if refresh:
                 refresh_venv(venv_path)
             update_venv(venv_path)
         else:
-            print(".venv not found")
+            print(".venv folder not found")
     except KeyboardInterrupt:
         print("Keyboard Interrupt sent! Stopping process.")
         pass

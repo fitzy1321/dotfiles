@@ -9,16 +9,16 @@ HOME = str(Path.home())
 VENV_MAKE_CMD = "virtualenv {0} -p $(pyenv version-name)"
 
 
-def _run_cmd(cmd: str):
+def _run_cmd(cmd: str) -> None:
     subprocess.run(cmd, shell=True)
 
 
-def _make_venv(path) -> None:
+def _make_venv(path: Path) -> None:
     venv_cmd = VENV_MAKE_CMD.format(path)
     _run_cmd(venv_cmd)
 
 
-def refresh_venv(path: Path):
+def refresh_venv(path: Path) -> None:
     try:
         print("reconstructing .venv ...")
         _run_cmd(f"rm -rf {path}")
@@ -28,11 +28,11 @@ def refresh_venv(path: Path):
         raise
 
 
-def _py_path(venv_path) -> Path:
+def _py_path(venv_path: Path) -> Path:
     return venv_path / "bin" / "python"
 
 
-def check_or_fix_py_path(venv_path: Path) -> Path:
+def get_or_make_py_path(venv_path: Path) -> Path:
     py_path = _py_path(venv_path)
     if not py_path.exists():
         _make_venv(py_path)
@@ -40,8 +40,8 @@ def check_or_fix_py_path(venv_path: Path) -> Path:
     return py_path
 
 
-def update_venv(venv_path: Path):
-    py_path = check_or_fix_py_path(venv_path)
+def update_venv(venv_path: Path) -> None:
+    py_path = get_or_make_py_path(venv_path)
     _run_cmd(f"{py_path} -m pip install -U pip")
     _run_cmd(f"{py_path} -m pip install -U ruff black isort pytest")
 

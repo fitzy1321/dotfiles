@@ -6,19 +6,15 @@ from typing import Optional
 
 import typer  # pip3 install -U typer
 
-FUNC_MAP = {"1": uuid.uuid1, "3": uuid.uuid3, "4": uuid.uuid4, "5": uuid.uuid5}
+FUNC_MAP = {1: uuid.uuid1, 3: uuid.uuid3, 4: uuid.uuid4, 5: uuid.uuid5}
 
 
-def main(type: Optional[str] = None) -> int:
-    if not type:
-        func = FUNC_MAP["4"]
-
-    else:
-        try:
-            func = FUNC_MAP[type]
-        except KeyError:
-            print("type is unknown", file=sys.stderr)
-            return 1
+def main(type: Optional[int] = None) -> int:
+    try:
+        func = FUNC_MAP[4] if not type else FUNC_MAP[type]
+    except KeyError:
+        print("type is unknown", file=sys.stderr)
+        return 1
 
     print(func())
     return 0

@@ -2,6 +2,8 @@
 --ignore=^\.git.*
 --ignore=.gitignore
 --ignore=\.gitkeep
+--ignore=^\.ruff_cache
+--ignore=^\.venv
 --ignore=^\windows
 --ignore=apt.list
 --ignore=Brewfile

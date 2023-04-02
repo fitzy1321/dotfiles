@@ -12,8 +12,10 @@ VENV_MAKE_CMD = "virtualenv {0} -p $(pyenv version-name)"
 def _run_cmd(cmd: str) -> None:
     subprocess.run(cmd, shell=True)
 
+def _py_path(venv_path: Path) -> Path:
+    return venv_path / "bin" / "python"
 
-def _make_venv(path: Path) -> None:
+def make_venv(path: Path) -> None:
     venv_cmd = VENV_MAKE_CMD.format(path)
     _run_cmd(venv_cmd)
 
@@ -22,20 +24,16 @@ def refresh_venv(path: Path) -> None:
     try:
         print("reconstructing .venv ...")
         _run_cmd(f"rm -rf {path}")
-        _make_venv(path)
+        make_venv(path)
     except:
         _run_cmd(f"mkdir -p {path}")
         raise
 
 
-def _py_path(venv_path: Path) -> Path:
-    return venv_path / "bin" / "python"
-
-
 def get_or_make_py_path(venv_path: Path) -> Path:
     py_path = _py_path(venv_path)
     if not py_path.exists():
-        _make_venv(py_path)
+        make_venv(py_path)
 
     return py_path
 
@@ -76,8 +74,14 @@ def find_path(current_path: str, search_text: str) -> Optional[Path]:
         cur = cur.parent
 
 
-def main(refresh: bool = False) -> int:
+def main(refresh: bool = False, create: bool = False) -> int:
     try:
+        if create:
+            p = Path.cwd() / '.venv'
+            make_venv(p)
+            update_venv(p)
+            return 0
+
         venv_path = find_path(str(Path.cwd()), ".venv")
         if venv_path:
             print("found .venv folder at:", venv_path)

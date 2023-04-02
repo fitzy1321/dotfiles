@@ -3,3 +3,5 @@ tmp/
 **/nvim/autoload
 .config/fish/fish_variables
 .nvimlog
+.ruff_cache
+.venv

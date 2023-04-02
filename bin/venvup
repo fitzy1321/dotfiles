@@ -6,23 +6,52 @@ from typing import Optional
 import typer  # pip3 install -U typer
 
 HOME = str(Path.home())
+VENV_MAKE_CMD = "virtualenv {0} -p $(pyenv version-name)"
+
 
 def _run_cmd(cmd: str):
-    subprocess.run(cmd, shell=True, check=True)
+    subprocess.run(cmd, shell=True)
+
+
+def _make_venv(path) -> None:
+    venv_cmd = VENV_MAKE_CMD.format(path)
+    _run_cmd(venv_cmd)
+
 
 def refresh_venv(path: Path):
     try:
         print("reconstructing .venv ...")
-        _run_cmd(f"rm -rf {path} && virtualenv -p $(pyenv version-name) {path}")
+        _run_cmd(f"rm -rf {path}")
+        _make_venv(path)
     except:
         _run_cmd(f"mkdir -p {path}")
         raise
 
+
+def _py_path(venv_path) -> Path:
+    return venv_path / "bin" / "python"
+
+
+def check_or_fix_py_path(venv_path: Path) -> Path:
+    py_path = _py_path(venv_path)
+    if not py_path.exists():
+        _make_venv(py_path)
+
+    return py_path
+
+
 def update_venv(venv_path: Path):
-    # call subprocess: source .venv
-    path = f"{venv_path / 'bin' / 'python3'}"
-    _run_cmd(f"{path} -m pip install -U pip")
-    _run_cmd(f"{path} -m pip install -U ruff black isort pytest")
+    py_path = check_or_fix_py_path(venv_path)
+    _run_cmd(f"{py_path} -m pip install -U pip")
+    _run_cmd(f"{py_path} -m pip install -U ruff black isort pytest")
+
+
+def trim_path(path: Path) -> Path:
+    parts = str(path).split(".venv")
+    if len(parts) >= 2:
+        return Path(parts[0]) / ".venv"
+
+    return path
 
 
 def find_path(current_path: str, search_text: str) -> Optional[Path]:
@@ -41,13 +70,13 @@ def find_path(current_path: str, search_text: str) -> Optional[Path]:
         # Get everything in the current directory
         for p in cur.glob("*"):
             if search_text in str(p):
-                return p
+                return trim_path(p)
 
         # Go up to parent directory
         cur = cur.parent
 
 
-def main(refresh: bool = False):
+def main(refresh: bool = False) -> int:
     try:
         venv_path = find_path(str(Path.cwd()), ".venv")
         if venv_path:
@@ -55,12 +84,14 @@ def main(refresh: bool = False):
             if refresh:
                 refresh_venv(venv_path)
             update_venv(venv_path)
+            return 0
         else:
             print(".venv folder not found")
+            return 1
     except KeyboardInterrupt:
         print("Keyboard Interrupt sent! Stopping process.")
-        pass
+        return 2
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    raise SystemExit(typer.run(main))

@@ -56,8 +56,8 @@ if status is-interactive
 
     # Docker
     abbr -a d docker
-    abbr -a dc docker-compose
-    abbr -a dcdr 'docker-compose down --remove-orphans'
+    abbr -a dc 'docker compose'
+    abbr -a dcdr 'docker compose down --remove-orphans'
     abbr -a docker_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a docker_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 

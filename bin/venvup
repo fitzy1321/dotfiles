@@ -41,7 +41,7 @@ def get_or_make_py_path(venv_path: Path) -> Path:
 def update_venv(venv_path: Path) -> None:
     py_path = get_or_make_py_path(venv_path)
     _run_cmd(f"{py_path} -m pip install -U pip")
-    _run_cmd(f"{py_path} -m pip install -U ruff black isort pytest")
+    _run_cmd(f"{py_path} -m pip install -U ruff black isort pytest pytest-cov")
 
 
 def trim_path(path: Path) -> Path:
@@ -83,15 +83,17 @@ def main(refresh: bool = False, create: bool = False) -> int:
             return 0
 
         venv_path = find_path(str(Path.cwd()), ".venv")
-        if venv_path:
-            print("found .venv folder at:", venv_path)
-            if refresh:
-                refresh_venv(venv_path)
-            update_venv(venv_path)
-            return 0
-        else:
+        if not venv_path:
             print(".venv folder not found")
             return 1
+
+        print("found .venv folder at:", venv_path)
+        if refresh:
+            refresh_venv(venv_path)
+
+        update_venv(venv_path)
+        return 0
+
     except KeyboardInterrupt:
         print("Keyboard Interrupt sent! Stopping process.")
         return 2

@@ -19,15 +19,15 @@ if status is-interactive
     set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
     set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
     # set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
+    set -l _OS (uname -s)
 
-    # User paths
+    # Path Setup
     test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
     test -d $HOME/bin; and fish_add_path $HOME/bin
-
     test -d /usr/local/bin; and fish_add_path /usr/local/bin
 
-    # macOS Specific Configs
-    if test (uname -s) = Darwin
+    # macOS custom settings
+    if test $_OS = Darwin
         alias updatedb="sudo /usr/libexec/locate.updatedb"
         # homebrew setup
         test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
@@ -39,16 +39,20 @@ if status is-interactive
         # end
     end
 
-    # Set Abbreviations
-
-    # Linux Specific things
-    if test (uname) = Linux
+    # Linux custom dettings
+    if test $_OS = Linux
         abbr -a update 'sudo apt update && apt list --upgradable'
         abbr -a upgrade 'sudo apt upgrade -y'
         abbr -a fupdate 'flatpak update'
         abbr -a flatpak_unused 'flatpak uninstall --unused'
     end
 
+    # Kitty custom settings
+    if test $TERM = xterm-kitty
+        alias ssh="kitten ssh"
+    end
+
+    # Custom Abbreviations and aliases
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
 
@@ -69,6 +73,17 @@ if status is-interactive
         abbr -a ll 'ls -lhAF'
     end
 
+    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
+    type -q pnpm; and abbr -a pnpx 'pnpm dlx '
+    abbr -a pre prevd # shorthand for previous directory
+    abbr -a refish 'source $FISH_PATH/config.fish'
+
+    type -q supabase; and abbr -a supa supabase
+
+    # My virtualenv setup command, easy pyenv integration without a wrapper
+    type -q virtualenv; and abbr -a nvenv 'test -d .venv; or virtualenv -p (pyenv version-name) .venv'
+
+
     # Git abbr's
     abbr -a ga 'git add'
     abbr -a gaa 'git add -A'
@@ -86,7 +101,7 @@ if status is-interactive
     abbr -a gcl 'git clean -fdx'
 
     abbr -a gcm 'git commit -m'
-    abbr -a gcam 'git commit -am'
+    abbr -a gcam 'git commit -a -m'
 
     abbr -a gd 'git diff'
     abbr -a gds 'git diff --staged'
@@ -102,7 +117,7 @@ if status is-interactive
     abbr -a glv 'git pull && git diff ORIG_HEAD..'
 
     abbr -a gp 'git push'
-    abbr -a gpu 'git push -u origin'
+    abbr -a gpu 'git push -u origin HEAD'
     abbr -a gpum 'git push -u origin main'
 
     abbr -a gs 'git status -s'
@@ -121,18 +136,8 @@ if status is-interactive
         abbr -e grv
     end
 
+    # Dev tools Setup
 
-    abbr -a install_vimplugs 'nvim -es -u init.vim -i NONE -c "PlugInstall" -c 'qa''
-    type -q pnpm; and abbr -a pnpx 'pnpm dlx '
-    abbr -a pre prevd # shorthand for previous directory
-    abbr -a refish 'source $FISH_PATH/config.fish'
-
-    type -q supabase; and abbr -a supa supabase
-
-    # My virtualenv setup command, easy pyenv integration without a wrapper
-    type -q virtualenv; and abbr -a nvenv 'test -d .venv; or virtualenv -p (pyenv version-name) .venv'
-
-    # Dev tools
     # Rust / Cargo
     test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
@@ -142,11 +147,11 @@ if status is-interactive
         fish_add_path $DENO_INSTALL/bin
     end
 
-    # Deta Space (cloud host)
-    if ! set -q DETA_INSTALL and test -d $HOME/.detaspace
-        set -gx DETA_INSTALL $HOME/.detaspace
-        fish_add_path $HOME/.detaspace/bin
-    end
+    # # Deta Space (cloud host)
+    # if ! set -q DETA_INSTALL and test -d $HOME/.detaspace
+    #     set -gx DETA_INSTALL $HOME/.detaspace
+    #     fish_add_path $HOME/.detaspace/bin
+    # end
 
     # Go / g (go manager) variables
     # g-install: do NOT edit, see https://github.com/stefanmaric/g

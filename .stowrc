@@ -13,4 +13,5 @@
 --ignore=^assets
 --ignore=.DS_Store
 --ignore=vscode.extensions
+--ignore=^.vscode
 --target=$HOME

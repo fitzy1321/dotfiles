@@ -2,9 +2,9 @@
     "python.terminal.activateEnvironment": false,
     "python.terminal.activateEnvInCurrentTerminal": false,
     "workbench.colorCustomizations": {
-        "titleBar.activeForeground": "#000",
+        // "titleBar.activeForeground": "#000",
+        // "titleBar.inactiveForeground": "#333",
         "titleBar.activeForeground": "#FFF",
-        "titleBar.inactiveForeground": "#333",
         "titleBar.inactiveForeground": "#FFFFFFAA",
         "titleBar.activeBackground": "#0599BC",
         "titleBar.inactiveBackground": "#0599BCCC"

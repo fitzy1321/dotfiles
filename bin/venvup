@@ -6,7 +6,7 @@ from typing import Optional
 import typer  # pip3 install -U typer[all]
 
 HOME = str(Path.home())
-VENV_MAKE_CMD = "virtualenv {0} -p $(pyenv version-name)"
+VENV_MAKE_CMD = "python -m venv {0}"
 
 
 def _run_cmd(cmd: str) -> None:
@@ -43,7 +43,9 @@ def get_or_make_py_path(venv_path: Path) -> Path:
 def update_venv(venv_path: Path) -> None:
     py_path = get_or_make_py_path(venv_path)
     _run_cmd(f"{py_path} -m pip install -U pip")
-    _run_cmd(f"{py_path} -m pip install -U ruff black isort pytest pytest-cov")
+    _run_cmd(
+        f"{py_path} -m pip install -U ruff black isort pytest pytest-cov pytest-mock"
+    )
 
 
 def trim_path(path: Path) -> Path:

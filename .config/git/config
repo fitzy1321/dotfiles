@@ -10,11 +10,8 @@
 
 # delta config
 # To Install: cargo install git-delta
-[pager]
-	diff = delta
-	log = delta
-	reflog = delta
-	show = delta
+[core]
+	pager = delta
 [delta]
 	line-numbers = true
 	file-style = bold yellow ul

@@ -11,13 +11,26 @@
 # delta config
 # To Install: cargo install git-delta
 [core]
-	pager = delta --dark
-[delta]
-	line-numbers = true
-	file-style = bold yellow ul
-	file-decoration-style = none
+    pager = delta
+
 [interactive]
-	diffFilter = delta --color-only
+    diffFilter = delta --color-only
+
+[delta]
+    # navigate = true    # use n and N to move between diff sections
+
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    dark = true
+    # light = true
+	file-decoration-style = none
+	file-style = bold yellow ul
+	line-numbers = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
 
 # lfs config
 [filter "lfs"]

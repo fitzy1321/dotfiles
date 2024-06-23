@@ -11,7 +11,7 @@
 # delta config
 # To Install: cargo install git-delta
 [core]
-	pager = delta
+	pager = delta --dark
 [delta]
 	line-numbers = true
 	file-style = bold yellow ul

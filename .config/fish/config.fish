@@ -12,6 +12,13 @@ set -gx SHELL fish
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
+# pnpm
+set -gx PNPM_HOME /Users/joefitzgibbons/Library/pnpm
+if not string match -q -- $PNPM_HOME $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
 if status is-interactive
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)

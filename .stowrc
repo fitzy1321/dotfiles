@@ -10,6 +10,7 @@
 --ignore=install.sh
 --ignore=\*.md
 --ignore=justfile
+--ignore=LICENSE
 --ignore=^assets
 --ignore=.DS_Store
 --ignore=vscode.extensions

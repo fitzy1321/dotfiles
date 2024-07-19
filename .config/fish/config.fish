@@ -76,10 +76,11 @@ if status is-interactive
     abbr -a d_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a d_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
-    if type -q exa >/dev/null
-        abbr -a ls exa
-        abbr -a ll 'exa -la --icons --group-directories-first'
-        abbr -a lt 'exa -la --icons --group-directories-first --tree --level=2'
+    if type -q lsd >/dev/null
+        abbr -a ls lsd
+        abbr -a ll 'lsd -la --group-directories-first'
+        abbr -a lt 'lsd -la --group-directories-first --tree --depth 2'
+        abbr -a lta 'lsd -la --group-directories-first --tree'
     else
         abbr -a ll 'ls -lhAF'
     end

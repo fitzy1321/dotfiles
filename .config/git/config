@@ -26,12 +26,6 @@
 	file-style = bold yellow ul
 	line-numbers = true
 
-[merge]
-    conflictstyle = diff3
-
-[diff]
-    colorMoved = default
-
 # lfs config
 [filter "lfs"]
 	clean = git-lfs clean -- %f

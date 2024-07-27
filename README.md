@@ -23,11 +23,7 @@ You must switch branch for your respective OS.
 
 ## Installation
 
-Once you install vscode, run this command to install extensions: `make vsc-ext`
-
-### Clone this repo and run these commands to create my dev workflow
-
-My recommendation is clone this repo into `$HOME/.dotfiles` like this
+Clone this repo and run these commands to create my dev workflow. My recommendation is clone this repo into `$HOME/.dotfiles` like this
 
 ```git clone <this repo> .dotfiles```
 

@@ -78,9 +78,9 @@ if status is-interactive
 
     if type -q lsd >/dev/null
         abbr -a ls lsd
-        abbr -a la 'lsd -lAh'
-        abbr -a ll 'lsd -la --group-directories-first'
-        abbr -a lt 'lsd -la --group-directories-first --tree --depth 2'
+        abbr -a la 'lsd -lah'
+        abbr -a ll 'lsd -lA --group-directories-first'
+        abbr -a lt 'lsd -lA --group-directories-first --tree --depth 2'
         abbr -a lta 'lsd -la --group-directories-first --tree'
     else
         abbr -a ll 'ls -lhAF'

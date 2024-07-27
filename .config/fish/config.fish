@@ -12,12 +12,26 @@ set -gx SHELL fish
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
-# pnpm
+# Langs and tools setup
+## Rust / Cargo
+test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
+
+## Deno setup
+if ! set -q DENO_INSTALL and test -d $HOME/.deno
+    set -gx DENO_INSTALL $HOME/.deno
+    fish_add_path $DENO_INSTALL/bin
+end
+
+## pnpm
 set -gx PNPM_HOME /Users/joefitzgibbons/Library/pnpm
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
-# pnpm end
+
+## asdf setup - WIP
+# ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+# test -d $HOME/.asdf; and source ~/.asdf/asdf.fish
+
 
 if status is-interactive
     # Custom variables
@@ -149,31 +163,8 @@ if status is-interactive
         abbr -e grv
     end
 
-    # Dev tools Setup
-
-    # Rust / Cargo
-    test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
-
-    # Deno setup
-    if ! set -q DENO_INSTALL and test -d $HOME/.deno
-        set -gx DENO_INSTALL $HOME/.deno
-        fish_add_path $DENO_INSTALL/bin
-    end
-
-    # # Deta Space (cloud host)
-    # if ! set -q DETA_INSTALL and test -d $HOME/.detaspace
-    #     set -gx DETA_INSTALL $HOME/.detaspace
-    #     fish_add_path $HOME/.detaspace/bin
-    # end
-
-    # Go / g (go manager) variables
-    # g-install: do NOT edit, see https://github.com/stefanmaric/g
-    set -gx GOPATH $HOME/go
-    set -gx GOROOT $HOME/.go
-    fish_add_path $GOPATH/bin
-
     # Shell tools
-    # Pyenv setup
+    ## Pyenv setup
     if test -d $HOME/.pyenv
         set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
         fish_add_path $PYENV_ROOT/bin
@@ -186,16 +177,6 @@ if status is-interactive
         alias cd z
     end
 
-    # pnpm
-    if ! set -q PNPM_HOME and test -d $HOME/Library/pnpm
-        set -gx PNPM_HOME $HOME/Library/pnpm
-        fish_add_path $PNPM_HOME
-    end
-
-    # Starship prompt setup
+    ## Starship prompt setup
     type -q starship; and starship init fish | source
-
-    # asdf setup - WIP
-    # ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
-    # test -d $HOME/.asdf; and source ~/.asdf/asdf.fish
 end

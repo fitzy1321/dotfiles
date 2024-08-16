@@ -31,6 +31,14 @@ if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
 
+# pyenv
+if test -d $HOME/.pyenv
+    set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
+    fish_add_path $PYENV_ROOT/bin
+    status is-login; and pyenv init --path | source
+    status is-interactive; and pyenv init - | source
+end
+
 if status is-interactive
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)
@@ -58,7 +66,7 @@ if status is-interactive
         # end
     end
 
-    # Linux custom dettings
+    # Linux custom settings
     if test $_OS = Linux
         abbr -a update 'sudo apt update && apt list --upgradable'
         abbr -a upgrade 'sudo apt upgrade -y'
@@ -162,14 +170,6 @@ if status is-interactive
     end
 
     # Shell tools
-    ## Pyenv setup
-    # if test -d $HOME/.pyenv
-    #     set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
-    #     fish_add_path $PYENV_ROOT/bin
-    #     status is-login; and pyenv init --path | source
-    #     status is-interactive; and pyenv init - | source
-    # end
-
     if type -q zoxide
         zoxide init fish | source
         alias cd z

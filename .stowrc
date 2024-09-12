@@ -12,6 +12,7 @@
 --ignore=justfile
 --ignore=LICENSE
 --ignore=^assets
+--ignore=^archive
 --ignore=.DS_Store
 --ignore=vscode.extensions
 --ignore=^.vscode

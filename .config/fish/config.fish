@@ -73,6 +73,10 @@ if status is-interactive
         alias ssh="kitten ssh"
     end
 
+    if type -q bpytop
+        abbr -a btop bpytop
+    end
+
     # Custom Abbreviations and aliases
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'

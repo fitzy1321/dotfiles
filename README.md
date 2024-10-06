@@ -1,4 +1,4 @@
-# Fitzypop's Dotfiles and config files
+# Fitzy's Dotfiles and config files
 
 My various config files, fonts, icons, and other things I need across systems.
 

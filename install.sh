@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Fitzypop's Linux Install script
+# Fitzy's Linux Install script
 #
 # First section:    Install various packages via apt, flatpak,
 #                   and install scripts
@@ -149,7 +149,7 @@ crossplatform_section() {
 
 main() {
     # Git Clone dotfiles repo, if not already present
-    [ ! -d "$DOTFILES" ] && git clone https://github.com/fitzypop/dotfiles.git "$DOTFILES"
+    [ ! -d "$DOTFILES" ] && git clone https://github.com/joe-c00l-fitzy/dotfiles.git "$DOTFILES"
     cd "$DOTFILES"
 
     if [ "$PLATFORM" == "Linux" ]; then

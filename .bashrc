@@ -115,9 +115,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
-. "$HOME/.cargo/env"
+if [ -f "$HOME/.docker/init-bash.sh" ]; then
+    source "$HOME/.docker/init-bash.sh" || true # Added by Docker Desktop
+fi
+
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
 
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "/home/joe/.deno/env"
+if [ -f "$HOME/.deno/env" ]; then
+    . "$HOME/.deno/env"
+fi

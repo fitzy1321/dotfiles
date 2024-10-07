@@ -142,6 +142,8 @@ if status is-interactive
     abbr -a gdnl git diff -- $_git_ignore_list
     abbr -a gdsnl git diff --staged -- $_git_ignore_list
 
+    abbr -a gfu 'git fetch upstream'
+
     abbr -a ggd 'git log --graph --oneline --decorate'
 
     abbr -a gl 'git pull'

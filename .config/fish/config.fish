@@ -22,24 +22,11 @@ if ! set -q DENO_INSTALL and test -d $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
 
-## pnpm
-set -gx PNPM_HOME /Users/joefitzgibbons/Library/pnpm
-if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
-end
-
-## asdf setup - WIP
-# ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
-# test -d $HOME/.asdf; and source ~/.asdf/asdf.fish
-
-
 if status is-interactive
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)
     set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
-    set -q MYVIMRC; or set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
     set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
-    # set -q PYTHONSTARTUP; or set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc
     set -l _OS (uname -s)
 
     # Path Setup
@@ -52,12 +39,6 @@ if status is-interactive
         alias updatedb="sudo /usr/libexec/locate.updatedb"
         # homebrew setup
         test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
-
-        # Alacritty trouble shooting
-        # if test -e /usr/bin/fish; and test ! -e /usr/local/bin/fish
-        #     echo 'Need to make a symlink so fish and alacritty can work together.'
-        #     ln -s /usr/bin/fish /usr/local/bin/fish
-        # end
     end
 
     # Linux custom dettings
@@ -169,15 +150,6 @@ if status is-interactive
         abbr -e grv
     end
 
-    # Shell tools
-    ## Pyenv setup
-    if test -d $HOME/.pyenv
-        set -q PYENV_ROOT; or set -gx PYENV_ROOT $HOME/.pyenv
-        fish_add_path $PYENV_ROOT/bin
-        status is-login; and pyenv init --path | source
-        status is-interactive; and pyenv init - | source
-    end
-
     if type -q zoxide
         zoxide init fish | source
         alias cd z
@@ -185,4 +157,7 @@ if status is-interactive
 
     ## Starship prompt setup
     type -q starship; and starship init fish | source
+
+    ## asdf
+    test -d $HOME/.asdf; and source $HOME/.asdf/asdf.fish
 end

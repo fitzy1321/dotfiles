@@ -22,18 +22,12 @@ if ! set -q DENO_INSTALL and test -d $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
 
-# pnpm
-set -gx PNPM_HOME $HOME/Library/pnpm
-if not string match -q -- $PNPM_HOME $PATH
-    fish_add_path $PNPM_HOME
-end
-
 if status is-interactive
     # Custom variables
-    set -q EDITOR; or set -gx EDITOR (which nvim)
+    # set -q EDITOR; or set -gx EDITOR (which nvim)
     set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
     set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
-    set -l _OS (uname -s)
+    set -q _OS; or set -l _OS (uname -s)
 
     # Path Setup
     test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
@@ -159,9 +153,18 @@ if status is-interactive
         alias cd z
     end
 
+    # pnpm
+    set -gx PNPM_HOME $HOME/Library/pnpm
+    if not string match -q -- $PNPM_HOME $PATH
+        fish_add_path $PNPM_HOME
+    end
+
     ## Starship prompt setup
     type -q starship; and starship init fish | source
 
     ## asdf
     test -d $HOME/.asdf; and source $HOME/.asdf/asdf.fish
+
+    # mise
+    # type -q mise; and mise activate fish | source
 end

@@ -112,3 +112,22 @@ asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 # install a version
 asdf install nodejs latest
 ```
+
+## Mise
+
+<https://mise.jdx.dev/getting-started.html/>
+
+```sh
+curl https://mise.run | sh
+
+mise activate
+
+mise use --global node
+
+## need `usage` to use shell completions
+mise use -g usage
+# or
+cargo install usage-cli
+# or
+brew install usage
+```

@@ -154,17 +154,21 @@ if status is-interactive
     end
 
     # pnpm
-    set -gx PNPM_HOME $HOME/Library/pnpm
-    if not string match -q -- $PNPM_HOME $PATH
-        fish_add_path $PNPM_HOME
+    if type -q pnpm
+        set -gx PNPM_HOME $HOME/Library/pnpm
+        if not string match -q -- $PNPM_HOME $PATH
+            fish_add_path $PNPM_HOME
+        end
     end
 
-    ## Starship prompt setup
+    ## Starship ~ shell prompt
     type -q starship; and starship init fish | source
 
-    ## asdf
-    test -d $HOME/.asdf; and source $HOME/.asdf/asdf.fish
+    # ! Do not use asdf and mise together or you're gonna have a bad time 🙅
+    # un/comment the line you want to use below.
+    ## asdf ~ dev env
+    # test -d $HOME/.asdf; and source $HOME/.asdf/asdf.fish
 
-    # mise
-    # type -q mise; and mise activate fish | source
+    ## mise ~ dev env
+    type -q mise; and mise activate fish | source
 end

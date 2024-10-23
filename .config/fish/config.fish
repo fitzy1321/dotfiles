@@ -22,6 +22,12 @@ if ! set -q DENO_INSTALL and test -d $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
 
+# pnpm
+set -gx PNPM_HOME $HOME/Library/pnpm
+if not string match -q -- $PNPM_HOME $PATH
+    fish_add_path $PNPM_HOME
+end
+
 if status is-interactive
     # Custom variables
     set -q EDITOR; or set -gx EDITOR (which nvim)

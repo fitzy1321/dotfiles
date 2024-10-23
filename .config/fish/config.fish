@@ -54,9 +54,7 @@ if status is-interactive
         alias ssh="kitten ssh"
     end
 
-    if type -q bpytop
-        abbr -a btop bpytop
-    end
+    type -q bpytop; and abbr -a btop bpytop
 
     # Custom Abbreviations and aliases
     abbr -a cdf 'cd $DOTFILES'
@@ -75,7 +73,7 @@ if status is-interactive
     abbr -a d_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a d_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
-    if type -q pls >/dev/null
+    if type -q pls
         abbr -a ls 'pls -g true'
         # abbr -a la 'lsd -lah'
         # abbr -a ll 'lsd -lA --group-directories-first'

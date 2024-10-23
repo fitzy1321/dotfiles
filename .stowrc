@@ -12,8 +12,8 @@
 --ignore=apt.list
 --ignore=Brewfile
 --ignore=install.sh
---ignore=\*.md
 --ignore=justfile
 --ignore=LICENSE
 --ignore=previous_brewfile
+--ignore=README.md
 --target=$HOME

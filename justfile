@@ -1,6 +1,7 @@
-default: brewfile
-
 root_dir := justfile_directory()
+
+@_default:
+	just --list --unsorted
 
 brewfile:
 	brew bundle dump -f --no-lock --file {{root_dir}}/Brewfile

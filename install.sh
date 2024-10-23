@@ -149,7 +149,7 @@ crossplatform_section() {
 
 main() {
     # Git Clone dotfiles repo, if not already present
-    [ ! -d "$DOTFILES" ] && git clone https://github.com/joe-c00l-fitzy/dotfiles.git "$DOTFILES"
+    [ ! -d "$DOTFILES" ] && git clone https://github.com/fitzy1321/dotfiles.git "$DOTFILES"
     cd "$DOTFILES"
 
     if [ "$PLATFORM" == "Linux" ]; then

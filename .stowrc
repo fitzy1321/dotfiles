@@ -7,6 +7,7 @@
 --ignore=^\windows
 --ignore=apt.list
 --ignore=Brewfile
+--ignore=previous_brewfile
 --ignore=install.sh
 --ignore=\*.md
 --ignore=justfile

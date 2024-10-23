@@ -75,12 +75,13 @@ if status is-interactive
     abbr -a d_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a d_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
-    if type -q lsd >/dev/null
-        abbr -a ls lsd
-        abbr -a la 'lsd -lah'
-        abbr -a ll 'lsd -lA --group-directories-first'
-        abbr -a lt 'lsd -lA --group-directories-first --tree --depth 2'
-        abbr -a lta 'lsd -la --group-directories-first --tree'
+    if type -q pls >/dev/null
+        abbr -a ls 'pls -g true'
+        # abbr -a la 'lsd -lah'
+        # abbr -a ll 'lsd -lA --group-directories-first'
+        abbr -a ll 'pls --det std'
+        # abbr -a lt 'lsd -lA --group-directories-first --tree --depth 2'
+        # abbr -a lta 'lsd -la --group-directories-first --tree'
     else
         abbr -a ll 'ls -lhAF'
     end
@@ -144,7 +145,6 @@ if status is-interactive
     if type -q gh
         abbr -a gprv 'gh pr view -w'
         abbr -a grv 'gh repo view -w'
-
     else
         abbr -e gprv
         abbr -e grv

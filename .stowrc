@@ -1,3 +1,4 @@
+--ignore=.DS_Store
 --ignore=.stowrc
 --ignore=^\.git.*
 --ignore=.gitignore
@@ -5,16 +6,14 @@
 --ignore=^\.ruff_cache
 --ignore=^\.venv
 --ignore=^\windows
+--ignore=^.vscode
+--ignore=^archive
+--ignore=^assets
 --ignore=apt.list
 --ignore=Brewfile
---ignore=previous_brewfile
 --ignore=install.sh
 --ignore=\*.md
 --ignore=justfile
 --ignore=LICENSE
---ignore=^assets
---ignore=^archive
---ignore=.DS_Store
---ignore=vscode.extensions
---ignore=^.vscode
+--ignore=previous_brewfile
 --target=$HOME

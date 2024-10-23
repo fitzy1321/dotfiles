@@ -60,16 +60,13 @@ stow .
 # change shell to fish
 # For mac, add fish path to `/etc/shells` file.
 chsh -s $(which fish)
-```
 
-## Troubleshooting
+# install uv for python. make sure you have python and pip first
 
-### Alacritty
-
-You might need to make a symlink to your fish install like this:
-
-```sh
-ln -s <current_fish_locaation> /usr/local/bin/fish
+# for macos
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# or
+pipx install uv
 ```
 
 ## ASDF
@@ -127,4 +124,14 @@ brew install usage
 ```fish
 # add this to shell config file
 type -q mise; and mise activate fish | source
+```
+
+## Troubleshooting
+
+### Alacritty
+
+You might need to make a symlink to your fish install like this:
+
+```sh
+ln -s <current_fish_locaation> /usr/local/bin/fish
 ```

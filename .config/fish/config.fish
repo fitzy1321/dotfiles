@@ -127,11 +127,13 @@ if status is-interactive
 
     if type -q pls
         abbr -a ls 'pls -g true'
-        # abbr -a la 'lsd -lah'
-        # abbr -a ll 'lsd -lA --group-directories-first'
         abbr -a ll 'pls --det std'
-        # abbr -a lt 'lsd -lA --group-directories-first --tree --depth 2'
-        # abbr -a lta 'lsd -la --group-directories-first --tree'
+    else if type -q lsd
+        abbr -a ls lsd
+        abbr -a la 'lsd -lah'
+        abbr -a ll 'lsd -lA --group-directories-first'
+        abbr -a lt 'lsd -lA --group-directories-first --tree --depth 2'
+        abbr -a lta 'lsd -la --group-directories-first --tree'
     else
         abbr -a ll 'ls -lhAF'
     end
@@ -140,32 +142,24 @@ if status is-interactive
 
     type -q supabase; and abbr -a supa supabase
 
-    # My virtualenv setup command, easy pyenv integration without a wrapper
-    # type -q virtualenv; and abbr -a nvenv 'test -d .venv; or virtualenv -p (pyenv version-name) .venv'
-
     if type -q zoxide
         zoxide init fish | source
         alias cd z
     end
 
-    # Starship ~ shell prompt
     type -q starship; and starship init fish | source
 
-    # ! Do not use asdf and mise together or you're gonna have a bad time 🙅
-    # un/comment the line you want to use below.
+    ## ! Do not use asdf and mise together or you're gonna have a bad time 🙅
+    ## un/comment the line you want to use below.
+
     ## asdf ~ dev env
     # test -d $HOME/.asdf; and source $HOME/.asdf/asdf.fish
 
     ## mise ~ dev env
     type -q mise; and mise activate fish | source
+    # ! end warning
 
-    # pnpm
-    if type -q pnpm
-        abbr -a pnpx 'pnpm dlx '
-        #     set -gx PNPM_HOME $HOME/Library/pnpm
-        #     if not string match -q -- $PNPM_HOME $PATH
-        #         fish_add_path $PNPM_HOME
-        #     end
-    end
+    # pnpm (needs to come after dev env setup)
+    type -q pnpm; and abbr -a pnpx 'pnpm dlx '
 
 end # is-interactive

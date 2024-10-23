@@ -42,7 +42,7 @@ stow .
 xcode-select --install
 
 # clone repo to dotfiles dir
-git clone git@github.com:joefitzy/dotfiles.git $HOME/.dotfiles
+git clone git@github.com:fitzy1321/dotfiles.git $HOME/.dotfiles
 
 # Move into dotfiles dir
 cd $HOME/.dotfiles
@@ -51,11 +51,7 @@ cd $HOME/.dotfiles
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # install packages from brewfile
-brew update && brew install just
-just brewinstall
-
-# install virtualenv
-pipx install virtualenv
+brew update && brew bundle install --no-lock --file {{root_dir}}/Brewfile
 
 # use gnu stow to manage symlinks for dotfiles
 # must be in $HOME/.dotfiles directory
@@ -76,23 +72,14 @@ You might need to make a symlink to your fish install like this:
 ln -s <current_fish_locaation> /usr/local/bin/fish
 ```
 
-### N
-
-If you want to avoid using sudo with `n` all the time: run these commands in your shell.
-
-```sh
-# make cache folder (if missing) and take ownership
-sudo mkdir -p /usr/local/n
-sudo chown -R $(whoami) /usr/local/n
-# make sure the required folders exist (safe to execute even if they already exist)
-sudo mkdir -p /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
-# take ownership of Node.js install destination folders
-sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
-```
-
 ## ASDF
 
 Let's try out asdf
+
+Do not activate / use while `mise` is active in your shell.
+I'm not sure what exactly would happen, but I imagine having 2 shell package managers active would cause all sorts of problems.
+
+Just comment out one or the other lines in `config.fish`
 
 <https://asdf-vm.com/guide/getting-started.html/>
 
@@ -115,12 +102,17 @@ asdf install nodejs latest
 
 ## Mise
 
+Do not activate / use while `asdf` is active in your shell.
+I'm not sure what exactly would happen, but I imagine having 2 shell package managers active would cause all sorts of problems.
+
+Just comment out one or the other lines in `config.fish`
+
 <https://mise.jdx.dev/getting-started.html/>
 
 ```sh
 curl https://mise.run | sh
 
-mise activate
+mise activate fish | source
 
 mise use --global node
 
@@ -130,4 +122,9 @@ mise use -g usage
 cargo install usage-cli
 # or
 brew install usage
+```
+
+```fish
+# add this to shell config file
+type -q mise; and mise activate fish | source
 ```

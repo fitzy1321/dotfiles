@@ -76,7 +76,7 @@ Let's try out asdf
 Do not activate / use while `mise` is active in your shell.
 I'm not sure what exactly would happen, but I imagine having 2 shell package managers active would cause all sorts of problems.
 
-Just comment out one or the other lines in `config.fish`
+Just comment out one or the other lines in `<repo>/.config/fish/config.fish`
 
 <https://asdf-vm.com/guide/getting-started.html/>
 
@@ -102,7 +102,7 @@ asdf install nodejs latest
 Do not activate / use while `asdf` is active in your shell.
 I'm not sure what exactly would happen, but I imagine having 2 shell package managers active would cause all sorts of problems.
 
-Just comment out one or the other lines in `config.fish`
+Just comment out one or the other lines in `<repo>/.config/fish/config.fish`
 
 <https://mise.jdx.dev/getting-started.html/>
 

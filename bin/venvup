@@ -43,9 +43,7 @@ def get_or_make_py_path(venv_path: Path) -> Path:
 def update_venv(venv_path: Path) -> None:
     py_path = get_or_make_py_path(venv_path)
     _run_cmd(f"{py_path} -m pip install -U pip")
-    _run_cmd(
-        f"{py_path} -m pip install -U ruff pytest"
-    )
+    _run_cmd(f"{py_path} -m pip install -U ruff pytest")
 
 
 def trim_path(path: Path) -> Path:

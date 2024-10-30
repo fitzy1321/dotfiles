@@ -128,6 +128,11 @@ if status is-interactive
     if type -q pls
         abbr -a ls 'pls -g true'
         abbr -a ll 'pls --det std'
+    else if type -q eza
+        abbr -a ls 'eza --icons --group-directories-first'
+        abbr -a la 'eza -aG --icons --group-directories-first'
+        abbr -a ll 'eza -al --icons --group-directories-first'
+        abbr -a lt 'eza -alTL=2 --icons --group-directories-first'
     else if type -q lsd
         abbr -a ls lsd
         abbr -a la 'lsd -lah'

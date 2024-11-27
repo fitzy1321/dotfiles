@@ -11,6 +11,12 @@ set -gx PYTHONDONTWRITEBYTECODE 1 # prevent .pyc files
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
 
+# disable .lesshst
+set -Ux LESSHISTFILE /dev/null
+
+# disable node repl history
+set -Ux NODE_REPL_HISTORY ""
+
 # Langs and tools setup
 # Rust / Cargo
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
@@ -146,6 +152,8 @@ if status is-interactive
     abbr -a refish 'source $FISH_PATH/config.fish'
 
     type -q supabase; and abbr -a supa supabase
+
+    alias vim='vim -i NONE'
 
     if type -q zoxide
         zoxide init fish | source

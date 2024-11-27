@@ -104,6 +104,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ls="ls --color=auto"
 alias ll="ls -lhAF"
 
+alias vim="vim -i NONE"
+
+export LESSHISTFILE=/dev/null
+export NODE_REPL_HISTORY=""
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

@@ -131,10 +131,7 @@ if status is-interactive
 
     abbr -a dev 'cd $HOME/dev/'
 
-    if type -q pls
-        abbr -a ls 'pls -g true'
-        abbr -a ll 'pls --det std'
-    else if type -q eza
+    if type -q eza
         abbr -a ls 'eza --icons --group-directories-first'
         abbr -a la 'eza -aG --icons --group-directories-first'
         abbr -a ll 'eza -al --icons --group-directories-first'

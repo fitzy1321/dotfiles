@@ -128,7 +128,7 @@ if status is-interactive
 
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
-
+    abbr -a cargo-up 'cargo install-update -a'
     abbr -a dev 'cd $HOME/dev/'
 
     if type -q eza

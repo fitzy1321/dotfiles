@@ -1,57 +1,31 @@
 #!/usr/bin/env python3
 import subprocess
+from enum import StrEnum
 from pathlib import Path
 from typing import Optional
 
 import typer  # pip3 install -U typer[all]
+from typing_extensions import Annotated
 
 HOME = str(Path.home())
-VENV_MAKE_CMD = "python3 -m venv {0}"
+
+app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
 
 
-def _run_cmd(cmd: str) -> None:
-    subprocess.run(cmd, shell=True)
+class ShellCmdStrs(StrEnum):
+    CREATE_PATH = "mkdir -p {0}"
+    DELETE_PATH = "rm -rf {0}"
+    UPDATE_PIP = "{0} -m pip install -U pip"
+    UPDATE_STD_PACKAGES = "{0} -m pip install -U ruff pytest"
+    VENV_MAKE_CMD = "python3 -m venv {0}"
 
 
 def _py_path(venv_path: Path) -> Path:
     return venv_path / "bin" / "python"
 
 
-def make_venv(path: Path) -> None:
-    venv_cmd = VENV_MAKE_CMD.format(path)
-    _run_cmd(venv_cmd)
-
-
-def refresh_venv(path: Path) -> None:
-    try:
-        print("reconstructing .venv ...")
-        _run_cmd(f"rm -rf {path}")
-        make_venv(path)
-    except:
-        _run_cmd(f"mkdir -p {path}")
-        raise
-
-
-def get_or_make_py_path(venv_path: Path) -> Path:
-    py_path = _py_path(venv_path)
-    if not py_path.exists():
-        make_venv(py_path)
-
-    return py_path
-
-
-def update_venv(venv_path: Path) -> None:
-    py_path = get_or_make_py_path(venv_path)
-    _run_cmd(f"{py_path} -m pip install -U pip")
-    _run_cmd(f"{py_path} -m pip install -U ruff pytest")
-
-
-def trim_path(path: Path) -> Path:
-    parts = str(path).split(".venv")
-    if len(parts) >= 2:
-        return Path(parts[0]) / ".venv"
-
-    return path
+def _run_cmd(cmd: str) -> None:
+    subprocess.run(cmd, shell=True)
 
 
 def find_path(current_path: str, search_text: str) -> Optional[Path]:
@@ -76,30 +50,71 @@ def find_path(current_path: str, search_text: str) -> Optional[Path]:
         cur = cur.parent
 
 
-def main(refresh: bool = False, create: bool = False) -> int:
+def get_or_make_py_path(venv_path: Path) -> Path:
+    py_path = _py_path(venv_path)
+    if not py_path.exists():
+        make_venv(py_path)
+
+    return py_path
+
+
+def make_venv(path: Path) -> None:
+    venv_cmd = ShellCmdStrs.VENV_MAKE_CMD.format(path)
+    _run_cmd(venv_cmd)
+
+
+def refresh_venv(path: Path) -> None:
+    try:
+        print("reconstructing .venv ...")
+        _run_cmd(ShellCmdStrs.DELETE_PATH.format(path))
+        make_venv(path)
+    except:
+        _run_cmd(ShellCmdStrs.CREATE_PATH.format(path))
+        raise
+
+
+def trim_path(path: Path) -> Path:
+    parts = str(path).split(".venv")
+    if len(parts) >= 2:
+        return Path(parts[0]) / ".venv"
+
+    return path
+
+
+def update_venv(venv_path: Path) -> None:
+    py_path = get_or_make_py_path(venv_path)
+    _run_cmd(ShellCmdStrs.UPDATE_PIP.format(py_path))
+    _run_cmd(ShellCmdStrs.UPDATE_STD_PACKAGES.format(py_path))
+
+
+@app.command()
+def main(
+    create: Annotated[bool, typer.Option("--create", "-c")] = False,
+    refresh: Annotated[bool, typer.Option("--refresh", "-r")] = False,
+) -> None:
     try:
         if create:
             p = Path.cwd() / ".venv"
             make_venv(p)
             update_venv(p)
-            return 0
+            raise typer.Exit()
 
         venv_path = find_path(str(Path.cwd()), ".venv")
         if not venv_path:
             print(".venv folder not found")
-            return 1
+            raise typer.Exit(1)
 
         print("found .venv folder at:", venv_path)
         if refresh:
             refresh_venv(venv_path)
 
         update_venv(venv_path)
-        return 0
+        raise typer.Exit()
 
     except KeyboardInterrupt:
         print("Keyboard Interrupt sent! Stopping process.")
-        return 2
+        raise typer.Exit(2)
 
 
 if __name__ == "__main__":
-    raise SystemExit(typer.run(main))
+    app()

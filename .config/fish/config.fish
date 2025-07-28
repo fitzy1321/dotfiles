@@ -150,7 +150,7 @@ if status is-interactive
 
     type -q supabase; and abbr -a supa supabase
 
-    alias vim='vim -i NONE'
+    alias vim='vim -i NONE' # disable viminfo collection
 
     if type -q zoxide
         zoxide init fish | source

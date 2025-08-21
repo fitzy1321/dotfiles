@@ -27,6 +27,9 @@ if ! set -q DENO_INSTALL and test -d $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
 
+set -x GOPATH $HOME/go
+fish_add_path $GOPATH/bin
+
 if status is-interactive
     # Custom variables
     # set -q EDITOR; or set -gx EDITOR (which nvim)
@@ -171,5 +174,10 @@ if status is-interactive
 
     # pnpm (needs to come after dev env setup)
     type -q pnpm; and abbr -a pnpx 'pnpm dlx '
-
+    # pnpm
+    set -gx PNPM_HOME /Users/fitzy/Library/pnpm
+    if not string match -q -- $PNPM_HOME $PATH
+        set -gx PATH "$PNPM_HOME" $PATH
+    end
+    # pnpm end
 end # is-interactive

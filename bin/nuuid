@@ -8,7 +8,10 @@ import typer  # pip3 install -U typer
 
 FUNC_MAP = {1: uuid.uuid1, 3: uuid.uuid3, 4: uuid.uuid4, 5: uuid.uuid5}
 
+app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
 
+
+@app.command()
 def main(type: Optional[int] = None) -> int:
     try:
         func = FUNC_MAP[4] if not type else FUNC_MAP[type]
@@ -21,4 +24,4 @@ def main(type: Optional[int] = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(typer.run(main))
+    raise SystemExit(app())

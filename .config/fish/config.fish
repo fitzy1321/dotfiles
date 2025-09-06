@@ -149,6 +149,9 @@ if status is-interactive
         abbr -a ll 'ls -lhAF'
     end
 
+    type -q lazydocker; and abbr -a lzd lazydocker
+    type -q lazygit; and abbr -a lzg lazygit
+
     abbr -a refish 'source $FISH_PATH/config.fish'
 
     type -q supabase; and abbr -a supa supabase

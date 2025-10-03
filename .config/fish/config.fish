@@ -155,7 +155,6 @@ if status is-interactive
     end
 
     type -q lazydocker; and abbr -a lzd lazydocker
-    type -q lazygit; and abbr -a lzg lazygit
 
     abbr -a refish 'source $FISH_PATH/config.fish'
 

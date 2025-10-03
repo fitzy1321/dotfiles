@@ -1,56 +1,58 @@
-# Fitypop's Fish Config
-
-# DO NOT MANUALLY EDIT $PATH IN THIS FILE!!!!
-# use `fish_add_path` instead: fish_add_path $HOME/.cargo/bin
-
 set -g fish_greeting
 set -Ux theme_nerd_fonts yes
-set -gx PYTHONDONTWRITEBYTECODE 1 # prevent .pyc files
 
-# XDG variables
-set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
-set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
-
-# disable .lesshst
+# I hate home folder pollution
+## Turn off variour tools from saving files to homedir
+## disable .lesshst
 set -Ux LESSHISTFILE /dev/null
 
-# disable node repl history
+## disable node repl history
 set -Ux NODE_REPL_HISTORY ""
 
-# Langs and tools setup
-# Rust / Cargo
+# Langs and tools setup (not installed via mise)
+## Rust / Cargo
 test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
-# Deno setup
+## Deno setup
 if ! set -q DENO_INSTALL and test -d $HOME/.deno
     set -gx DENO_INSTALL $HOME/.deno
     fish_add_path $DENO_INSTALL/bin
 end
 
-set -x GOPATH $HOME/go
-fish_add_path $GOPATH/bin
+## Golang setup
+if test -d $HOME/go
+    set -gx GOPATH $HOME/go
+    fish_add_path $GOPATH/bin
+end
+
+# MacOS custom settings
+set -q _OS; or set -l _OS (uname -s)
+if test $_OS = Darwin
+    alias updatedb="sudo /usr/libexec/locate.updatedb"
+    # homebrew setup
+    if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
+        fish_add_path /opt/homebrew/bin
+    end
+end
 
 if status is-interactive
+    # XDG variables
+    set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+    set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
+
     # Custom variables
     # set -q EDITOR; or set -gx EDITOR (which nvim)
     set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
     set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
-    set -q _OS; or set -l _OS (uname -s)
 
     # Path Setup
+    test -d /usr/local/bin; and fish_add_path /usr/local/bin
     test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
     test -d $HOME/bin; and fish_add_path $HOME/bin
-    test -d /usr/local/bin; and fish_add_path /usr/local/bin
 
-    # macOS custom settings
-    if test $_OS = Darwin
-        alias updatedb="sudo /usr/libexec/locate.updatedb"
-        # homebrew setup
-        test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin; and fish_add_path /opt/homebrew/bin
-    end
-
-    # Linux custom dettings
+    # Linux custom settings
     if test $_OS = Linux
+        # I use pop!_os
         abbr -a update 'sudo apt update && apt list --upgradable'
         abbr -a upgrade 'sudo apt upgrade -y'
         abbr -a fupdate 'flatpak update'
@@ -62,7 +64,8 @@ if status is-interactive
         alias ssh="kitten ssh"
     end
 
-    # Docker
+    # Abbreviations and Aliases
+    ## Docker
     abbr -a d docker
     abbr -a dc 'docker compose'
     abbr -a dcb 'docker compose build'
@@ -73,7 +76,7 @@ if status is-interactive
     abbr -a d_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a d_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
-    # Git abbr's
+    ## Git
     abbr -a ga 'git add'
     abbr -a gaa 'git add -A'
 
@@ -85,7 +88,7 @@ if status is-interactive
     abbr -a gch 'git checkout'
     abbr -a gchm 'git checkout main'
     abbr -a gch- 'git checkout -'
-    abbr -a gchpoetry 'git checkout master -- poetry.lock'
+    # abbr -a gchpoetry 'git checkout master -- poetry.lock'
 
     abbr -a gcl 'git clean -fdx'
 
@@ -95,7 +98,7 @@ if status is-interactive
     abbr -a gd 'git diff'
     abbr -a gds 'git diff --staged'
 
-    # git diffs without lock files
+    ### Git diffs without lock files
     set _git_ignore_list "':!/*.lock' ':!/*package-lock.json' ':!/*pnpm-lock.yaml' ':!/*go.sum'"
     abbr -a gdnl git diff -- $_git_ignore_list
     abbr -a gdsnl git diff --staged -- $_git_ignore_list
@@ -117,7 +120,7 @@ if status is-interactive
 
     abbr -a gwc 'git whatchanged -p --abbrev-commit --pretty=medium'
 
-    # Github CLI shortcuts
+    ## Github CLI
     if type -q gh
         abbr -a gprv 'gh pr view -w'
         abbr -a grv 'gh repo view -w'
@@ -126,12 +129,14 @@ if status is-interactive
         abbr -e grv
     end
 
-    # Custom Abbreviations, Aliases, and other shell setup
+    ## Customs
+    type -q bat; and alias cat=bat
+
     type -q bpytop; and abbr -a btop bpytop
 
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
-    abbr -a cargo-up 'cargo install-update -a'
+    type -q cargo; and abbr -a cargo-up 'cargo install-update -a'
     abbr -a dev 'cd $HOME/dev/'
 
     if type -q eza
@@ -163,24 +168,18 @@ if status is-interactive
         alias cd z
     end
 
-    type -q starship; and starship init fish | source
-
-    ## ! Do not use asdf and mise together or you're gonna have a bad time 🙅
-    ## un/comment the line you want to use below.
-
-    ## asdf ~ dev env
-    # test -d $HOME/.asdf; and source $HOME/.asdf/asdf.fish
-
-    ## mise ~ dev env
+    # Apps and Mise dev setup
+    ## Mise-en-place (aka mise) ~ dev env
     type -q mise; and mise activate fish | source
-    # ! end warning
 
-    # pnpm (needs to come after dev env setup)
+    ## pnpm (needs to come after dev env setup)
     type -q pnpm; and abbr -a pnpx 'pnpm dlx '
-    # pnpm
     set -gx PNPM_HOME /Users/fitzy/Library/pnpm
     if not string match -q -- $PNPM_HOME $PATH
         set -gx PATH "$PNPM_HOME" $PATH
     end
-    # pnpm end
+
+    ## starship shell prompt
+    type -q starship; and starship init fish | source
+
 end # is-interactive

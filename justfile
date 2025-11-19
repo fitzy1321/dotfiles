@@ -3,7 +3,7 @@ root_dir := justfile_directory()
 @_default:
 	just --list --unsorted
 
-brewfile:
+brewdump:
 	brew bundle dump -f --file {{root_dir}}/Brewfile
 
 brewinstall:

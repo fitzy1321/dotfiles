@@ -173,10 +173,6 @@ if status is-interactive
 
     ## pnpm (needs to come after dev env setup)
     type -q pnpm; and abbr -a pnpx 'pnpm dlx '
-    set -gx PNPM_HOME /Users/fitzy/Library/pnpm
-    if not string match -q -- $PNPM_HOME $PATH
-        set -gx PATH "$PNPM_HOME" $PATH
-    end
 
     ## starship shell prompt
     type -q starship; and starship init fish | source

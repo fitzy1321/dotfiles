@@ -167,12 +167,14 @@ if status is-interactive
         alias cd z
     end
 
-    # Apps and Mise dev setup
-    ## Mise-en-place (aka mise) ~ dev env
-    type -q mise; and mise activate fish | source
+    # TODO: Mise is acting weird, not sure if I messed up or mise has a bug ...
+    # TODO: fix dev env later
+    # # Apps and Mise dev setup
+    # ## Mise-en-place (aka mise) ~ dev env
+    # type -q mise; and mise activate fish | source
 
-    ## pnpm (needs to come after dev env setup)
-    type -q pnpm; and abbr -a pnpx 'pnpm dlx '
+    # ## pnpm (needs to come after dev env setup)
+    # type -q pnpm; and abbr -a pnpx 'pnpm dlx '
 
     ## starship shell prompt
     type -q starship; and starship init fish | source

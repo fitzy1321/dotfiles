@@ -108,6 +108,7 @@ if status is-interactive
     abbr -a ggd 'git log --graph --oneline --decorate'
 
     abbr -a gl 'git pull'
+    abbr -a glog 'git log --all --decorate --oneline --graph'
     abbr -a glv 'git pull && git diff ORIG_HEAD..'
 
     abbr -a gp 'git push'

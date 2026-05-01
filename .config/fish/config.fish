@@ -115,6 +115,8 @@ if status is-interactive
     abbr -a gpu 'git push -u origin HEAD'
     abbr -a gpum 'git push -u origin main'
 
+    abbr -a gitroots 'git log --max-parents=0'
+
     abbr -a gs 'git status -s'
     abbr -a gst 'git status'
     abbr -a gsl 'git status --long'

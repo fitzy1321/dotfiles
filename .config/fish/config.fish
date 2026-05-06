@@ -20,48 +20,48 @@ if ! set -q DENO_INSTALL and test -d $HOME/.deno
 end
 
 ## Golang setup
+## ? not sure if this should be managed by mise ?
 if test -d $HOME/go
     set -gx GOPATH $HOME/go
     fish_add_path $GOPATH/bin
 end
 
-# MacOS custom settings
-set -q _OS; or set -l _OS (uname -s)
-if test $_OS = Darwin
-    alias updatedb="sudo /usr/libexec/locate.updatedb"
-    # homebrew setup
-    if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
-        fish_add_path /opt/homebrew/bin
-    end
-end
+# XDG variables
+set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
+
+# Custom variables
+# set -q EDITOR; or set -gx EDITOR (which nvim)
+set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
+set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
+
+# Path Setup
+test -d /usr/local/bin; and fish_add_path /usr/local/bin
+test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
+test -d $HOME/bin; and fish_add_path $HOME/bin
 
 if status is-interactive
-    # XDG variables
-    set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
-    set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
+    # Kitty custom settings
+    if test $TERM = xterm-kitty
+        alias ssh="kitten ssh"
+    end
 
-    # Custom variables
-    # set -q EDITOR; or set -gx EDITOR (which nvim)
-    set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
-    set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
-
-    # Path Setup
-    test -d /usr/local/bin; and fish_add_path /usr/local/bin
-    test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
-    test -d $HOME/bin; and fish_add_path $HOME/bin
+    # MacOS custom settings
+    set -q _OS; or set -l _OS (uname -s)
+    if test $_OS = Darwin
+        alias updatedb="sudo /usr/libexec/locate.updatedb"
+        # homebrew setup
+        if test -e /opt/homebrew/bin; or test -d /opt/homebrew/bin
+            fish_add_path /opt/homebrew/bin
+        end
+    end
 
     # Linux custom settings
     if test $_OS = Linux
-        # I use pop!_os
         abbr -a update 'sudo apt update && apt list --upgradable'
         abbr -a upgrade 'sudo apt upgrade -y'
         abbr -a fupdate 'flatpak update'
         abbr -a flatpak_unused 'flatpak uninstall --unused'
-    end
-
-    # Kitty custom settings
-    if test $TERM = xterm-kitty
-        alias ssh="kitten ssh"
     end
 
     # Abbreviations and Aliases
@@ -174,10 +174,10 @@ if status is-interactive
     # TODO: fix dev env later
     # # Apps and Mise dev setup
     # ## Mise-en-place (aka mise) ~ dev env
-    # type -q mise; and mise activate fish | source
+    type -q mise; and mise activate fish | source
 
     # ## pnpm (needs to come after dev env setup)
-    # type -q pnpm; and abbr -a pnpx 'pnpm dlx '
+    type -q pnpm; and set -gx PNPM_HOME /Users/fitzy/Library/pnpm; and fish_add_path $PNPM_HOME
 
     ## starship shell prompt
     type -q starship; and starship init fish | source

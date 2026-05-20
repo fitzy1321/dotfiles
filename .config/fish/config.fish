@@ -29,6 +29,7 @@ end
 # XDG variables
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
+set -q XDG_PROJECTS_DIR; or set -gx XDG_PROJECTS_DIR $HOME/Projects
 
 # Custom variables
 # set -q EDITOR; or set -gx EDITOR (which nvim)
@@ -140,7 +141,6 @@ if status is-interactive
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
     type -q cargo; and abbr -a cargo-up 'cargo install-update -a'
-    abbr -a dev 'cd $HOME/dev/'
 
     if type -q eza
         abbr -a ls 'eza --icons --group-directories-first'

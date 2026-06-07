@@ -170,16 +170,16 @@ if status is-interactive
         alias cd z
     end
 
+    ## starship shell prompt
+    starship init fish | source
+
     # TODO: Mise is acting weird, not sure if I messed up or mise has a bug ...
     # TODO: fix dev env later
     # # Apps and Mise dev setup
     # ## Mise-en-place (aka mise) ~ dev env
-    type -q mise; and mise activate fish | source
+    mise activate fish | source
 
     # ## pnpm (needs to come after dev env setup)
     type -q pnpm; and set -gx PNPM_HOME /Users/fitzy/Library/pnpm; and fish_add_path $PNPM_HOME
-
-    ## starship shell prompt
-    type -q starship; and starship init fish | source
 
 end # is-interactive

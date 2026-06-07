@@ -25,7 +25,7 @@ You must switch branch for your respective OS.
 
 Clone this repo and run these commands to create my dev workflow. My recommendation is clone this repo into `$HOME/.dotfiles` like this
 
-```git clone <this repo> .dotfiles```
+```git clone <this repo> $HOME/.dotfiles```
 
 ```shell
 #linux
@@ -42,7 +42,7 @@ stow .
 xcode-select --install
 
 # clone repo to dotfiles dir
-git clone git@github.com:fitzy1321/dotfiles.git $HOME/.dotfiles
+git clone <this repo> $HOME/.dotfiles
 
 # Move into dotfiles dir
 cd $HOME/.dotfiles

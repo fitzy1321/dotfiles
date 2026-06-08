@@ -140,7 +140,7 @@ if status is-interactive
 
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
-    type -q cargo; and abbr -a cargo-up 'cargo install-update -a'
+    type -q zed; and abbr -a zodf 'zed $DOTFILES'; or abbr -e zodf
 
     if type -q eza
         abbr -a ls 'eza --icons --group-directories-first'

@@ -2,8 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Set autocd on
-shopt -s autocd
+# idk
+# shopt -s autocd
+
+# for macos
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # If not running interactively, don't do anything
 case $- in

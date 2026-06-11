@@ -1,5 +1,4 @@
 tap "homebrew/bundle"
-tap "jesseduffield/lazydocker"
 tap "supabase/tap"
 brew "sqlite"
 brew "tree"
@@ -20,6 +19,7 @@ brew "just"
 brew "kubernetes-cli"
 brew "utf8proc", args: ["HEAD"]
 brew "neovim"
+brew "notcurses"
 brew "nushell"
 brew "pipx"
 brew "pre-commit"

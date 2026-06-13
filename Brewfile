@@ -23,4 +23,3 @@ brew "supabase/tap/supabase", trusted: true
 cask "bruno"
 cask "db-browser-for-sqlite"
 cask "kitty"
-npm "corepack"

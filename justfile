@@ -5,12 +5,14 @@ root_dir := justfile_directory()
 
 brewdump:
     brew bundle dump \
-        --no-vscode \
-        --no-go \
         --no-cargo \
-        --no-uv \
-        --no-flatpak \
         --no-describe \
+        --no-flatpak \
+        --no-go \
+        --no-mas \
+        --no-npm \
+        --no-uv \
+        --no-vscode \
         --force \
         --file {{ root_dir }}/Brewfile
 

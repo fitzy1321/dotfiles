@@ -7,42 +7,46 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-    "agent": {
-        "sidebar_side": "right",
-        "dock": "right",
-        "favorite_models": [],
-        "model_parameters": [],
+  "agent": {
+    "sidebar_side": "right",
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "buffer_font_size": 12,
+  "ui_font_size": 14,
+  "collaboration_panel": {
+    "button": false,
+    "dock": "left",
+  },
+  "cli_default_open_behavior": "new_window",
+  "disable_ai": true,
+  "git": {
+    "inline_blame": {
+      "enabled": false,
     },
-    "collaboration_panel": {
-        "button": false,
-        "dock": "left",
-    },
-    "cli_default_open_behavior": "new_window",
-    "buffer_font_size": 12,
-    "ui_font_size": 14,
-    "git_panel": {
-        "button": true,
-        "dock": "left",
-    },
-    "icon_theme": {
-        "mode": "dark",
-        "light": "Zed (Default)",
-        "dark": "Monospace Icon Theme - Dark",
-    },
-    "outline_panel": {
-        "button": true,
-        "dock": "left",
-    },
-    "project_panel": {
-        "dock": "left",
-    },
-    "theme": {
-        "mode": "dark",
-        "light": "One Light",
-        "dark": "Snazzy Theme - blurred",
-    },
-    "terminal": {
-        "font_family": "Hack Nerd Font Mono",
-        "detect_venv": "off",
-    },
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Monospace Icon Theme - Dark",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "project_panel": {
+    "dock": "left",
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Snazzy Theme - blurred",
+  },
+  "terminal": {
+    "font_family": "Hack Nerd Font Mono",
+    "detect_venv": "off",
+  },
 }

@@ -54,9 +54,6 @@ symbol = " "
 symbol = " "
 format = 'with [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
-[rlang]
-symbol = "ﳒ "
-
 [ruby]
 symbol = " "
 

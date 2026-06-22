@@ -13,6 +13,7 @@
     "favorite_models": [],
     "model_parameters": [],
   },
+  "buffer_font_family": "Hack Nerd Font",
   "buffer_font_size": 12,
   "ui_font_size": 14,
   "collaboration_panel": {

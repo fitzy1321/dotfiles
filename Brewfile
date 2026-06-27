@@ -18,6 +18,7 @@ brew "nushell"
 brew "pipx"
 brew "starship"
 brew "stow"
+brew "usage"
 brew "zoxide"
 brew "supabase/tap/supabase", trusted: true
 cask "bruno"

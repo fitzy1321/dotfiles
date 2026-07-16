@@ -16,6 +16,11 @@ if status is-interactive
     set -q XDG_DATA_HOME; or set -gx XDG_DATA_HOME $HOME/.local/share
 
     # XDG User Variables
+    set -gx XDG_DESKTOP_DIR $HOME/Desktop
+    set -gx XDG_DOCUMENTS_DIR $HOME/Documents
+    set -gx XDG_DOWNLOAD_DIR $HOME/Downloads
+    set -gx XDG_MUSIC_DIR $HOME/Music
+    set -gx XDG_PICTURES_DIR $HOME/Pictures
     set -gx XDG_PROJECTS_DIR $HOME/Projects
 
     # Custom variables

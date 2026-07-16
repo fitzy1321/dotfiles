@@ -5,7 +5,7 @@
 --ignore=^\.venv
 --ignore=^.vscode
 --ignore=^.zed
---ignore=^_archive
+--ignore=^archive
 --ignore=^assets
 --ignore=.gitignore
 --ignore=.stowrc

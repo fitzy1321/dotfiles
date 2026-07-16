@@ -4,13 +4,13 @@
 --ignore=^\.ruff_cache
 --ignore=^\.venv
 --ignore=^.vscode
+--ignore=^.zed
 --ignore=^archive
 --ignore=^assets
 --ignore=.gitignore
 --ignore=.stowrc
 --ignore=apt.list
 --ignore=Brewfile
---ignore=install.sh
 --ignore=justfile
 --ignore=LICENSE
 --ignore=README.md

@@ -21,19 +21,20 @@ end
 
 ## Golang setup
 ## ? not sure if this should be managed by mise ?
-if test -d $HOME/go
-    set -gx GOPATH $HOME/go
-    fish_add_path $GOPATH/bin
-end
+# if test -d $HOME/go
+#     set -gx GOPATH $HOME/go
+#     fish_add_path $GOPATH/bin
+# end
 
 # XDG variables
-set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
+set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+set -q XDG_DATA_HOME; or set -gx XDG_DATA_HOME $HOME/.local/share
 set -q XDG_PROJECTS_DIR; or set -gx XDG_PROJECTS_DIR $HOME/Projects
 
 # Custom variables
 # set -q EDITOR; or set -gx EDITOR (which nvim)
-set -q FISH_PATH; or set -gx FISH_PATH $XDG_CONFIG_HOME/fish
+set -q FISH_DIR; or set -gx FISH_DIR $XDG_CONFIG_HOME/fish
 set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
 
 # Path Setup
@@ -45,6 +46,8 @@ if status is-interactive
     # Kitty custom settings
     if test $TERM = xterm-kitty
         alias ssh="kitten ssh"
+    else if test $TERM = xterm-ghostty
+        alias ssh="ghostty +ssh --"
     end
 
     # MacOS custom settings
@@ -81,7 +84,6 @@ if status is-interactive
     abbr -a ga 'git add'
     abbr -a gaa 'git add -A'
 
-    abbr -a gb 'git branch -l'
     abbr -a gbr 'git branch -r'
     abbr -a gbv 'git branch -vl'
 
@@ -140,7 +142,7 @@ if status is-interactive
 
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
-    type -q zed; and abbr -a zodf 'zed $DOTFILES'; or abbr -e zodf
+    type -q zed; and abbr -a zdf 'zed $DOTFILES'; or abbr -e zodf
 
     if type -q eza
         abbr -a ls 'eza --icons --group-directories-first'
@@ -159,7 +161,7 @@ if status is-interactive
 
     type -q lazydocker; and abbr -a lzd lazydocker
 
-    abbr -a refish 'source $FISH_PATH/config.fish'
+    abbr -a refish 'source $FISH_DIR/config.fish'
 
     type -q supabase; and abbr -a supa supabase
 

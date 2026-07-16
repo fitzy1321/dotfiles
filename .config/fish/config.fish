@@ -9,40 +9,24 @@ set -Ux LESSHISTFILE /dev/null
 ## disable node repl history
 set -Ux NODE_REPL_HISTORY ""
 
-# Langs and tools setup (not installed via mise)
-## Rust / Cargo
-test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
-
-## Deno setup
-if ! set -q DENO_INSTALL and test -d $HOME/.deno
-    set -gx DENO_INSTALL $HOME/.deno
-    fish_add_path $DENO_INSTALL/bin
-end
-
-## Golang setup
-## ? not sure if this should be managed by mise ?
-# if test -d $HOME/go
-#     set -gx GOPATH $HOME/go
-#     fish_add_path $GOPATH/bin
-# end
-
-# XDG variables
-set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
-set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
-set -q XDG_DATA_HOME; or set -gx XDG_DATA_HOME $HOME/.local/share
-set -q XDG_PROJECTS_DIR; or set -gx XDG_PROJECTS_DIR $HOME/Projects
-
-# Custom variables
-# set -q EDITOR; or set -gx EDITOR (which nvim)
-set -q FISH_DIR; or set -gx FISH_DIR $XDG_CONFIG_HOME/fish
-set -q DOTFILES; or set -gx DOTFILES $HOME/.dotfiles
-
-# Path Setup
-test -d /usr/local/bin; and fish_add_path /usr/local/bin
-test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
-test -d $HOME/bin; and fish_add_path $HOME/bin
-
 if status is-interactive
+    # XDG variables
+    set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
+    set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+    set -q XDG_DATA_HOME; or set -gx XDG_DATA_HOME $HOME/.local/share
+
+    # XDG User Variables
+    set -gx XDG_PROJECTS_DIR $HOME/Projects
+
+    # Custom variables
+    # set -q EDITOR; or set -gx EDITOR (which nvim)
+    set -gx FISH_HOME_DIR $XDG_CONFIG_HOME/fish
+    set -gx DOTFILES $HOME/.dotfiles
+
+    # Path Setup
+    test -d /usr/local/bin; and fish_add_path /usr/local/bin
+    test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
+    test -d $HOME/bin; and fish_add_path $HOME/bin
     # Kitty custom settings
     if test $TERM = xterm-kitty
         alias ssh="kitten ssh"
@@ -161,11 +145,29 @@ if status is-interactive
 
     type -q lazydocker; and abbr -a lzd lazydocker
 
-    abbr -a refish 'source $FISH_DIR/config.fish'
+    abbr -a refish 'source $FISH_HOME_DIR/config.fish'
 
     type -q supabase; and abbr -a supa supabase
 
     alias vim='vim -i NONE' # disable viminfo collection
+
+    # Langs and tools setup (not installed via mise)
+    ## Rust / Cargo
+    test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
+
+    ## Deno setup
+    if ! set -q DENO_INSTALL and test -d $HOME/.deno
+        set -gx DENO_INSTALL $HOME/.deno
+        fish_add_path $DENO_INSTALL/bin
+    end
+
+    ## Golang setup
+    ## ? not sure if this should be managed by mise ?
+    # if test -d $HOME/go
+    #     set -gx GOPATH $HOME/go
+    #     fish_add_path $GOPATH/bin
+    # end
+
 
     if type -q zoxide
         zoxide init fish | source

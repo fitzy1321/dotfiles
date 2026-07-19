@@ -25,5 +25,4 @@ brew "zoxide"
 brew "supabase/tap/supabase", trusted: true
 cask "bruno"
 cask "db-browser-for-sqlite"
-cask "ghostty"
 cask "kitty"

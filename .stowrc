@@ -3,7 +3,6 @@
 --ignore=\.gitkeep
 --ignore=^\.ruff_cache
 --ignore=^\.venv
---ignore=^.vscode
 --ignore=^.zed
 --ignore=^archive
 --ignore=^assets

@@ -2,7 +2,6 @@
 
 import sys
 import uuid
-from typing import Optional
 
 import typer  # pip3 install -U typer
 
@@ -12,7 +11,7 @@ app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
 
 
 @app.command()
-def main(type: Optional[int] = None) -> int:
+def main(type: int | None = None) -> int:
     try:
         func = FUNC_MAP[4] if not type else FUNC_MAP[type]
     except KeyError:

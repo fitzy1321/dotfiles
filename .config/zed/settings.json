@@ -19,7 +19,7 @@
 
   "disable_ai": true,
   "debugger": {
-    "dock": "left"
+    "dock": "left",
   },
 
   "file_scan_exclusions": [
@@ -59,6 +59,11 @@
 
   "project_panel": {
     "dock": "left",
+  },
+  "languages": {
+    "Python": {
+      "format_on_save": "on",
+    },
   },
 
   "terminal": {

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Push it really good. Push to github(origin), codeberg, and gitlab concurrently."""
 
 import asyncio
 

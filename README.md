@@ -2,7 +2,9 @@
 
 My various config files, fonts, icons, and other things I need across systems.
 
-![Terminal Image](/assets/terminal.png "My terminal image")
+// TODO: update this whole mess ...
+
+<!--![Terminal Image](/.assets/terminal.png "My terminal image")
 
 My setup and tools:
 
@@ -134,4 +136,4 @@ You might need to make a symlink to your fish install like this:
 
 ```sh
 ln -s <current_fish_locaation> /usr/local/bin/fish
-```
+```-->

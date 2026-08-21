@@ -2,7 +2,6 @@
 import subprocess
 from enum import StrEnum
 from pathlib import Path
-from typing import Optional
 
 import typer  # pip3 install -U typer[all]
 from typing_extensions import Annotated
@@ -28,7 +27,7 @@ def _run_cmd(cmd: str) -> None:
     subprocess.run(cmd, shell=True)
 
 
-def find_path(current_path: str, search_text: str) -> Optional[Path]:
+def find_path(current_path: str, search_text: str) -> Path | None:
     """Brute force recursive directory search"""
     # Edge case, if script cwd is in .venv
     if search_text in current_path:

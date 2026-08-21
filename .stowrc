@@ -1,11 +1,12 @@
---ignore=.DS_Store
+--ignore=^\.archive
+--ignore=^\.assets
 --ignore=^\.git.*
 --ignore=\.gitkeep
 --ignore=^\.ruff_cache
 --ignore=^\.venv
---ignore=^.zed
---ignore=^archive
---ignore=^assets
+--ignore=^\.vscode
+--ignore=^\.zed
+--ignore=.DS_Store
 --ignore=.gitignore
 --ignore=.stowrc
 --ignore=apt.list

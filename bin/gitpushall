@@ -2,9 +2,10 @@
 """Push it really good. Push to github(origin), codeberg, and gitlab concurrently."""
 
 import asyncio
+from typing import Any
 
 
-async def run_command(cmd):
+async def run_command(cmd: str | bytes) -> dict[str, Any]:  # pyright: ignore[reportExplicitAny]
     proc = await asyncio.create_subprocess_shell(
         cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
@@ -17,7 +18,7 @@ async def run_command(cmd):
     }
 
 
-async def main():
+async def main() -> None:
     commands = [
         "git push origin main",
         "git push codeberg main",

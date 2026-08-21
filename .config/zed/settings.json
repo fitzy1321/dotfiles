@@ -7,9 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "buffer_font_family": "Hack Nerd Font",
-  "buffer_font_size": 12,
-  "ui_font_size": 14,
+  "base_keymap": "Zed",
 
   "collaboration_panel": {
     "button": false,
@@ -22,6 +20,12 @@
     "dock": "left",
   },
 
+  // fonts
+  "buffer_font_family": "Hack Nerd Font",
+  "buffer_font_size": 12,
+  "ui_font_size": 14,
+
+  // list of files not show in sidebar
   "file_scan_exclusions": [
     "**/.git",
     "**/.svn",

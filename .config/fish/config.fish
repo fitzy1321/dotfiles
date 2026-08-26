@@ -189,6 +189,6 @@ if status is-interactive
     mise activate fish | source
 
     # ## pnpm (needs to come after dev env setup)
-    type -q pnpm; and set -gx PNPM_HOME /Users/fitzy/Library/pnpm; and fish_add_path $PNPM_HOME
+    type -q pnpm; and set -gx PNPM_HOME $HOME/Library/pnpm; and fish_add_path $PNPM_HOME
 
 end # is-interactive

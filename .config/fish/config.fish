@@ -1,21 +1,22 @@
 set -g fish_greeting
 set -Ux theme_nerd_fonts yes
 
-# I hate home folder pollution
-## Turn off variour tools from saving files to homedir
-## disable .lesshst
+# I hate home folder pollution.
+# Disable .lesshst .
 set -Ux LESSHISTFILE /dev/null
 
-## disable node repl history
+# Disable node repl history.
 set -Ux NODE_REPL_HISTORY ""
 
+alias vim='vim -i NONE' # disable viminfo collection
+
 if status is-interactive
-    # XDG variables
+    # XDG variables.
     set -q XDG_CACHE_HOME; or set -gx XDG_CACHE_HOME $HOME/.cache
     set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
     set -q XDG_DATA_HOME; or set -gx XDG_DATA_HOME $HOME/.local/share
 
-    # XDG User Variables
+    # XDG User Variables.
     set -gx XDG_DESKTOP_DIR $HOME/Desktop
     set -gx XDG_DOCUMENTS_DIR $HOME/Documents
     set -gx XDG_DOWNLOAD_DIR $HOME/Downloads
@@ -23,23 +24,24 @@ if status is-interactive
     set -gx XDG_PICTURES_DIR $HOME/Pictures
     set -gx XDG_PROJECTS_DIR $HOME/Projects
 
-    # Custom variables
+    # Custom variables.
     # set -q EDITOR; or set -gx EDITOR (which nvim)
-    set -gx FISH_HOME_DIR $XDG_CONFIG_HOME/fish
+    set -gx FISH_CONFIG_DIR $XDG_CONFIG_HOME/fish
     set -gx DOTFILES $HOME/.dotfiles
 
-    # Path Setup
+    # Path Setup.
     test -d /usr/local/bin; and fish_add_path /usr/local/bin
     test -d $HOME/.local/bin; and fish_add_path $HOME/.local/bin
     test -d $HOME/bin; and fish_add_path $HOME/bin
-    # Kitty custom settings
+
+    # Kitty custom settings.
     if test $TERM = xterm-kitty
         alias ssh="kitten ssh"
     else if test $TERM = xterm-ghostty
         alias ssh="ghostty +ssh --"
     end
 
-    # MacOS custom settings
+    # MacOS custom settings.
     set -q _OS; or set -l _OS (uname -s)
     if test $_OS = Darwin
         alias updatedb="sudo /usr/libexec/locate.updatedb"
@@ -49,7 +51,7 @@ if status is-interactive
         end
     end
 
-    # Linux custom settings
+    # Linux custom settings.
     if test $_OS = Linux
         abbr -a update 'sudo apt update && apt list --upgradable'
         abbr -a upgrade 'sudo apt upgrade -y'
@@ -57,8 +59,8 @@ if status is-interactive
         abbr -a flatpak_unused 'flatpak uninstall --unused'
     end
 
-    # Abbreviations and Aliases
-    ## Docker
+    # Abbreviations and Aliases.
+    # Docker
     abbr -a d docker
     abbr -a dc 'docker compose'
     abbr -a dcb 'docker compose build'
@@ -69,7 +71,7 @@ if status is-interactive
     abbr -a d_clean_images "docker rmi (docker images -a --filter=dangling=true -q)"
     abbr -a d_clean_ps "docker rm (docker ps --filter=status=exited --filter=status=created -q)"
 
-    ## Git
+    # Git
     abbr -a ga 'git add'
     abbr -a gaa 'git add -A'
 
@@ -90,7 +92,7 @@ if status is-interactive
     abbr -a gd 'git diff'
     abbr -a gds 'git diff --staged'
 
-    ### Git diffs without lock files
+    # Git diffs without lock files
     set _git_ignore_list "':!/*.lock' ':!/*package-lock.json' ':!/*pnpm-lock.yaml' ':!/*go.sum'"
     abbr -a gdnl git diff -- $_git_ignore_list
     abbr -a gdsnl git diff --staged -- $_git_ignore_list
@@ -115,7 +117,7 @@ if status is-interactive
 
     abbr -a gwc 'git whatchanged -p --abbrev-commit --pretty=medium'
 
-    ## Github CLI
+    # Github CLI
     if type -q gh
         abbr -a gprv 'gh pr view -w'
         abbr -a grv 'gh repo view -w'
@@ -124,15 +126,16 @@ if status is-interactive
         abbr -e grv
     end
 
-    ## Customs
+    # Customs abbreviations.
     type -q bat; and alias cat=bat
-
     type -q bpytop; and abbr -a btop bpytop
 
+    # Open Dotfiles in code editors
     abbr -a cdf 'cd $DOTFILES'
     abbr -a codf 'code $DOTFILES'
     type -q zed; and abbr -a zdf 'zed $DOTFILES'; or abbr -e zodf
 
+    # ls replacements
     if type -q eza
         abbr -a ls 'eza --icons --group-directories-first'
         abbr -a la 'eza -aG --icons --group-directories-first'
@@ -148,47 +151,44 @@ if status is-interactive
         abbr -a ll 'ls -lhAF'
     end
 
-    type -q lazydocker; and abbr -a lzd lazydocker
+    # pretty print path env var
+    abbr -a pppath 'string join \n $PATH'
 
-    abbr -a refish 'source $FISH_HOME_DIR/config.fish'
-
+    # easy re-source fish config
+    abbr -a refish 'source $FISH_CONFIG_DIR/config.fish'
     type -q supabase; and abbr -a supa supabase
 
-    alias vim='vim -i NONE' # disable viminfo collection
-
-    # Langs and tools setup (not installed via mise)
-    ## Rust / Cargo
+    # Langs and tools setup (not installed via mise).
+    # Rust / Cargo
     test -d $HOME/.cargo; and fish_add_path $HOME/.cargo/bin
 
-    ## Deno setup
+    # Deno setup
     if ! set -q DENO_INSTALL and test -d $HOME/.deno
         set -gx DENO_INSTALL $HOME/.deno
         fish_add_path $DENO_INSTALL/bin
     end
 
-    ## Golang setup
-    ## ? not sure if this should be managed by mise ?
+    # Golang setup
+    # ? not sure if this should be managed by mise ?
     # if test -d $HOME/go
     #     set -gx GOPATH $HOME/go
     #     fish_add_path $GOPATH/bin
     # end
-
 
     if type -q zoxide
         zoxide init fish | source
         alias cd z
     end
 
-    ## starship shell prompt
+    # starship shell prompt
     starship init fish | source
 
     # TODO: Mise is acting weird, not sure if I messed up or mise has a bug ...
     # TODO: fix dev env later
-    # # Apps and Mise dev setup
-    # ## Mise-en-place (aka mise) ~ dev env
+    # Apps and Mise dev setup
+    # Mise-en-place (aka mise) ~ dev env
     mise activate fish | source
 
-    # ## pnpm (needs to come after dev env setup)
+    # pnpm (needs to come after dev env setup)
     type -q pnpm; and set -gx PNPM_HOME $HOME/Library/pnpm; and fish_add_path $PNPM_HOME
-
 end # is-interactive

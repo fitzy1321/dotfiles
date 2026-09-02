@@ -3,5 +3,4 @@ function levelup
     mise self-update -y
     uv self update
     pipx upgrade-all
-    cargo install-update --all
 end

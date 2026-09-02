@@ -13,6 +13,7 @@ brew "git"
 brew "git-delta"
 brew "git-lfs"
 brew "just"
+brew "just-lsp"
 brew "kubernetes-cli"
 brew "utf8proc", args: ["HEAD"]
 brew "neovim"
